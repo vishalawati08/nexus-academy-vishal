@@ -125,7 +125,7 @@ if (missionData) {
 
           {/* XP */}
 
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
             <p className="text-gray-400 mb-3">
               Total XP
@@ -139,7 +139,7 @@ if (missionData) {
 
           {/* COMPLETED */}
 
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
             <p className="text-gray-400 mb-3">
               Modules Completed
@@ -153,7 +153,7 @@ if (missionData) {
 
           {/* COMPETENCY */}
 
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
             <p className="text-gray-400 mb-3">
               Competency
@@ -167,7 +167,7 @@ if (missionData) {
 
           {/* RETRIES */}
 
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
             <p className="text-gray-400 mb-3">
               Retry Attempts
@@ -228,7 +228,7 @@ if (missionData) {
 
             {/* MODULE 1 */}
 
-            <div className="bg-[#111] border border-blue-900 rounded-3xl p-8">
+            <div className="bg-[#111] border border-blue-900 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(37,99,235,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(37,99,235,0.35)]">
 
               <p className="text-blue-500 uppercase tracking-[0.2em] text-sm mb-4">
                 Module 1
@@ -342,7 +342,7 @@ if (missionData) {
 
             {/* MODULE 3 */}
 
-            <div className="bg-[#0b0b0b] border border-gray-900 rounded-3xl p-8 opacity-50">
+            <div className="bg-[#0b0b0b] border border-gray-900 rounded-3xl p-8 opacity-50 transition-all duration-300 hover:opacity-70">
 
               <p className="text-blue-500 uppercase tracking-[0.2em] text-sm mb-4">
                 Module 3
@@ -389,7 +389,7 @@ if (missionData) {
 
           <div className="grid md:grid-cols-2 gap-6">
 
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
               <div className="flex items-center justify-between mb-4">
 
@@ -419,7 +419,7 @@ if (missionData) {
 
             </div>
 
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
               <div className="flex items-center justify-between mb-4">
 
@@ -449,7 +449,7 @@ if (missionData) {
 
             </div>
 
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
               <div className="flex items-center justify-between mb-4">
 
@@ -477,7 +477,7 @@ if (missionData) {
 
             </div>
 
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
               <div className="flex items-center justify-between mb-4">
 
@@ -544,7 +544,7 @@ if (missionData) {
 
     {badges.length === 0 && (
 
-      <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+      <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
         <h3 className="text-2xl font-bold mb-3">
           No Badges Yet
@@ -572,7 +572,7 @@ if (missionData) {
 
   <div className="grid md:grid-cols-3 gap-6">
 
-    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
       <p className="text-gray-400 mb-4">
         Engineering Readiness
@@ -590,7 +590,7 @@ if (missionData) {
 
     </div>
 
-    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
       <p className="text-gray-400 mb-4">
         Technical Confidence
@@ -605,7 +605,7 @@ if (missionData) {
 
     </div>
 
-    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
       <p className="text-gray-400 mb-4">
         AI Evaluation
