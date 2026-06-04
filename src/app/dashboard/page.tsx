@@ -570,7 +570,7 @@ if (missionData) {
     Engineering Competency Profile
   </h2>
 
-  <div className="grid md:grid-cols-3 gap-6">
+ <div className="grid md:grid-cols-4 gap-6">
 
     <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
 
@@ -618,7 +618,71 @@ if (missionData) {
     </div>
 
   </div>
+{/* COMPETENCY RING */}
 
+<div className="bg-[#111] border border-gray-800 rounded-3xl p-8 flex flex-col items-center justify-center transition-all duration-300 hover:scale-[1.03] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
+
+  <p className="text-gray-400 mb-6">
+    Competency Score
+  </p>
+
+  <div className="relative w-36 h-36">
+
+    <svg
+      className="w-36 h-36 rotate-[-90deg]"
+      viewBox="0 0 120 120"
+    >
+
+      {/* Background Ring */}
+
+      <circle
+        cx="60"
+        cy="60"
+        r="52"
+        stroke="#1f2937"
+        strokeWidth="10"
+        fill="none"
+      />
+
+      {/* Progress Ring */}
+
+      <circle
+        cx="60"
+        cy="60"
+        r="52"
+        stroke="#3b82f6"
+        strokeWidth="10"
+        fill="none"
+        strokeLinecap="round"
+        strokeDasharray={327}
+        strokeDashoffset={
+          327 -
+          (Math.min(
+            100,
+            Math.floor(engineeringScore / 2.5)
+          ) /
+            100) *
+            327
+        }
+        className="transition-all duration-1000"
+      />
+
+    </svg>
+
+    <div className="absolute inset-0 flex items-center justify-center">
+
+      <span className="text-3xl font-bold text-blue-400">
+        {Math.min(
+          100,
+          Math.floor(engineeringScore / 2.5)
+        )}%
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
 </section>
         {/* AI MENTOR */}
 
