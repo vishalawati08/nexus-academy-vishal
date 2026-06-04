@@ -13,7 +13,10 @@ export default function DashboardPage() {
     useState("In Progress");
 
   const [retryCount, setRetryCount] =
-    useState(0);
+  useState(0);
+
+const [badges, setBadges] =
+  useState<string[]>([]);
 
   const [modulesCompleted, setModulesCompleted] =
     useState(0);
@@ -48,11 +51,29 @@ export default function DashboardPage() {
 
     if (progressData) {
 
-      const parsed = JSON.parse(progressData);
+  const parsed = JSON.parse(progressData);
 
-      setRetryCount(parsed.retryCount || 0);
+  setXp(parsed.xp || 0);
 
-    }
+  setRetryCount(parsed.retryCount || 0);
+
+}
+
+const missionData =
+  localStorage.getItem(
+    "connectorFundamentalsMaster"
+  );
+
+if (missionData) {
+
+  const parsedMission =
+    JSON.parse(missionData);
+
+  setBadges(
+    parsedMission.badges || []
+  );
+
+}
 
     if (completedStatus === "true") {
 
@@ -468,7 +489,58 @@ export default function DashboardPage() {
           </div>
 
         </section>
+         {/* BADGES */}
 
+<section className="mb-14">
+
+  <h2 className="text-4xl font-bold mb-8">
+    Achievement Badges
+  </h2>
+
+  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    {badges.map((badge) => (
+
+      <div
+        key={badge}
+        className="bg-[#111] border border-yellow-700 rounded-3xl p-8 hover:scale-[1.02] transition-all duration-300"
+      >
+
+        <div className="text-5xl mb-6">
+          🏆
+        </div>
+
+        <h3 className="text-2xl font-bold mb-3">
+          {badge}
+        </h3>
+
+        <p className="text-gray-400">
+          Achievement Unlocked
+        </p>
+
+      </div>
+
+    ))}
+
+    {badges.length === 0 && (
+
+      <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+        <h3 className="text-2xl font-bold mb-3">
+          No Badges Yet
+        </h3>
+
+        <p className="text-gray-400">
+          Complete missions to unlock achievements.
+        </p>
+
+      </div>
+
+    )}
+
+  </div>
+
+</section>
         {/* AI MENTOR */}
 
         <section className="bg-[#101010] border border-blue-900 rounded-3xl p-10">
