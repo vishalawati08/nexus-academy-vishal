@@ -57,6 +57,9 @@ const [xpEvents, setXpEvents] =
 const [loading, setLoading] =
   useState(true);
 
+const [badges, setBadges] =
+  useState<string[]>([]);
+
   const progress =
   quizCompleted
     ? 100
