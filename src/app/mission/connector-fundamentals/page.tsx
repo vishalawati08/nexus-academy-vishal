@@ -49,7 +49,10 @@ export default function ConnectorFundamentalsMission() {
     useState(false);
 
   const [showExplanation, setShowExplanation] =
-    useState(false);
+  useState(false);
+
+const [xpEvents, setXpEvents] =
+  useState<string[]>([]);
 
   const progress =
   quizCompleted
@@ -116,12 +119,17 @@ useEffect(() => {
       parsed.quizPassed || false
     );
 
+    setXpEvents(
+      parsed.xpEvents || []
+    );
+
   }
 
 }, []);
+  
   /* =========================================================
-     SAVE DATA
-  ========================================================= */
+   SAVE DATA
+========================================================= */
 
 useEffect(() => {
 
@@ -144,6 +152,8 @@ useEffect(() => {
 
       quizCompleted,
       quizPassed,
+
+      xpEvents,
 
     })
   );
@@ -181,6 +191,8 @@ useEffect(() => {
 
   quizCompleted,
   quizPassed,
+
+  xpEvents,
 ]);
 
   /* =========================================================
@@ -422,16 +434,26 @@ useEffect(() => {
 
   const nextStep = () => {
 
-    setStep((prev) => prev + 1);
+  setStep((prev) => prev + 1);
 
-    if (xp < 250) {
+};
+const awardXP = (
+  event: string,
+  amount: number
+) => {
 
-      setXp((prev) => prev + 20);
+  if (xpEvents.includes(event)) {
+    return;
+  }
 
-    }
+  setXp((prev) => prev + amount);
 
-  };
+  setXpEvents((prev) => [
+    ...prev,
+    event,
+  ]);
 
+};
   const handleExplorePart = (part: string) => {
 
     setSelectedPart(part);
@@ -445,8 +467,7 @@ useEffect(() => {
 
       if (xp < 250) {
 
-        setXp((prev) => prev + 5);
-
+        awardXP(`part_${part}`, 5);
       }
 
     }
@@ -492,7 +513,7 @@ useEffect(() => {
 
     if (passed && xp < 250) {
 
-      setXp((prev) => prev + 40);
+      awardXP("engineering_challenge", 40);
 
     }
 
@@ -898,7 +919,7 @@ if (passed) {
 
                   if (xp < 250) {
 
-                    setXp((prev) => prev + 20);
+                    awardXP("connector_mating", 20);
 
                   }
 
