@@ -325,7 +325,5 @@ return ( <main className="min-h-screen bg-black text-white px-6 py-10">
   </div>
 
 </main>
-```
-
 );
 }
