@@ -29,7 +29,7 @@ useEffect(() => {
           Nexus Academy
         </p>
 
-        <h1 className="text-6xl font-bold mb-6">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6">
           Product Families
         </h1>
 
