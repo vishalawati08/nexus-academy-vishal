@@ -453,9 +453,29 @@ useEffect(() => {
      FUNCTIONS
   ========================================================= */
 
-  const nextStep = () => {
+  const awardXP = (
+  event: string,
+  amount: number
+) => {
+
+  if (xpEvents.includes(event)) {
+    return;
+  }
+
+  setXp((prev) => prev + amount);
+
+  setXpEvents((prev) => [
+    ...prev,
+    event,
+  ]);
+
+};
+
+const nextStep = () => {
 
   setStep((prev) => prev + 1);
+
+  awardXP(`step_${step}`, 20);
 
 };
 const awardBadge = (
