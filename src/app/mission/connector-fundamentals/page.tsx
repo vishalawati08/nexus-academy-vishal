@@ -1328,7 +1328,7 @@ if (passed) {
 
 {/* QUIZ */}
 
-{quizStarted && !quizCompleted && step === 5 && (
+{quizStarted && !quizCompleted && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
 
@@ -1414,7 +1414,7 @@ if (passed) {
 
 {/* QUIZ RESULT */}
 
-{quizCompleted && (
+{quizCompleted && step === 5 && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 text-center">
 
