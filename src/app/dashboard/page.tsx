@@ -9,9 +9,19 @@ export default function DashboardPage() {
 
   const [completed, setCompleted] = useState(false);
 
-  const [competency, setCompetency] = useState("In Progress");
+  const [competency, setCompetency] =
+    useState("In Progress");
 
-  const [retryCount, setRetryCount] = useState(0);
+  const [retryCount, setRetryCount] =
+    useState(0);
+
+  const [modulesCompleted, setModulesCompleted] =
+    useState(0);
+
+  const totalModules = 3;
+
+  const overallProgress =
+    (modulesCompleted / totalModules) * 100;
 
   useEffect(() => {
 
@@ -27,11 +37,18 @@ export default function DashboardPage() {
       "connectorFundamentalsCompetency"
     );
 
+    const storedXP =
+      localStorage.getItem("nexusTotalXP");
+
+    if (storedXP) {
+
+      setXp(Number(storedXP));
+
+    }
+
     if (progressData) {
 
       const parsed = JSON.parse(progressData);
-
-      setXp(parsed.xp || 0);
 
       setRetryCount(parsed.retryCount || 0);
 
@@ -40,6 +57,8 @@ export default function DashboardPage() {
     if (completedStatus === "true") {
 
       setCompleted(true);
+
+      setModulesCompleted(1);
 
     }
 
@@ -50,8 +69,6 @@ export default function DashboardPage() {
     }
 
   }, []);
-
-  const overallProgress = completed ? 100 : 45;
 
   return (
 
@@ -104,7 +121,7 @@ export default function DashboardPage() {
             </p>
 
             <h2 className="text-5xl font-bold text-green-400">
-              {completed ? "1" : "0"}
+              {modulesCompleted}
             </h2>
 
           </div>
@@ -150,7 +167,7 @@ export default function DashboardPage() {
             </h2>
 
             <p className="text-blue-400 font-semibold">
-              {overallProgress}% Complete
+              {Math.round(overallProgress)}% Complete
             </p>
 
           </div>
