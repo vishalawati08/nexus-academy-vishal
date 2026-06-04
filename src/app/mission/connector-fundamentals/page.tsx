@@ -486,28 +486,32 @@ export default function ConnectorFundamentalsMission() {
 
   } else {
 
-    setQuizCompleted(true);
-
     const passed = finalScore >= 4;
 
-    setQuizPassed(passed);
+setQuizPassed(passed);
 
-    if (passed) {
+if (passed) {
 
-      localStorage.setItem(
-        "connectorFundamentalsCompleted",
-        "true"
-      );
+  setQuizCompleted(true);
 
-      localStorage.setItem(
-        "connectorFundamentalsCompetency",
-        "Strong"
-      );
+  setStep(6);
 
-    }
+  localStorage.setItem(
+    "connectorFundamentalsCompleted",
+    "true"
+  );
 
-  }
+  localStorage.setItem(
+    "connectorFundamentalsCompetency",
+    "Strong"
+  );
 
+} else {
+
+  setQuizCompleted(true);
+
+}
+}
 };
 
   const retryQuiz = () => {
