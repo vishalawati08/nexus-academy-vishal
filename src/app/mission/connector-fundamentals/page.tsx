@@ -1491,6 +1491,28 @@ export default function ConnectorFundamentalsMission() {
         </div>
 
       </div>
+    <div className="flex gap-6 justify-center flex-wrap mt-12">
+
+  <button
+    onClick={() => {
+      window.location.href = "/dashboard";
+    }}
+    className="bg-gray-800 hover:bg-gray-700 px-8 py-4 rounded-2xl font-semibold"
+  >
+    Return to Dashboard
+  </button>
+
+  <button
+    onClick={() => {
+      window.location.href =
+        "/mission/advanced-connector-systems";
+    }}
+    className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+  >
+    Proceed to Next Module →
+  </button>
+
+</div>
 
     ) : (
 
