@@ -1,457 +1,517 @@
 "use client";
-import Navbar from "@/components/Navbar";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
 
+  const [xp, setXp] = useState(0);
+
+  const [completed, setCompleted] = useState(false);
+
+  const [competency, setCompetency] = useState("In Progress");
+
+  const [retryCount, setRetryCount] = useState(0);
+
+  useEffect(() => {
+
+    const progressData = localStorage.getItem(
+      "connectorFundamentalsProgress"
+    );
+
+    const completedStatus = localStorage.getItem(
+      "connectorFundamentalsCompleted"
+    );
+
+    const competencyStatus = localStorage.getItem(
+      "connectorFundamentalsCompetency"
+    );
+
+    if (progressData) {
+
+      const parsed = JSON.parse(progressData);
+
+      setXp(parsed.xp || 0);
+
+      setRetryCount(parsed.retryCount || 0);
+
+    }
+
+    if (completedStatus === "true") {
+
+      setCompleted(true);
+
+    }
+
+    if (competencyStatus) {
+
+      setCompetency(competencyStatus);
+
+    }
+
+  }, []);
+
+  const overallProgress = completed ? 100 : 45;
+
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white">
 
-    <Navbar />  
+    <main className="min-h-screen bg-black text-white px-6 py-10">
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-8 py-12">
+      <div className="max-w-7xl mx-auto">
 
-        {/* Hero */}
-        <div className="mb-14">
+        {/* HEADER */}
 
-          <p className="text-blue-500 font-semibold mb-5 tracking-wide uppercase">
-            Product Specialist Learning Ecosystem
+        <div className="mb-12">
+
+          <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+            Nexus Academy
           </p>
 
-          <h1 className="text-6xl font-bold leading-tight mb-6">
-
-            Welcome back,
-            <br />
-            Vishal
-
+          <h1 className="text-6xl font-bold mb-4">
+            Product Specialist Dashboard
           </h1>
 
-          <p className="text-zinc-400 text-xl max-w-4xl leading-9">
-
-            Accelerate Product Specialist onboarding through guided learning,
-            competency tracking, technical simulations, and AI-assisted mentoring.
-
+          <p className="text-gray-400 text-xl">
+            AI-Guided Engineering Learning Platform
           </p>
 
         </div>
 
-        {/* Analytics Cards */}
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-6 mb-10">
+        {/* TOP STATS */}
 
-          {/* Card */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 hover:border-blue-500/40 transition">
+        <div className="grid md:grid-cols-4 gap-6 mb-12">
 
-            <p className="text-zinc-400 mb-4">
-              Readiness Score
+          {/* XP */}
+
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+            <p className="text-gray-400 mb-3">
+              Total XP
             </p>
 
-            <h2 className="text-6xl font-bold">
-              78%
+            <h2 className="text-5xl font-bold text-blue-500">
+              {xp}
             </h2>
-
-            <p className="text-green-400 mt-4 text-sm">
-              +12% this week
-            </p>
 
           </div>
 
-          {/* Card */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 hover:border-blue-500/40 transition">
+          {/* COMPLETED */}
 
-            <p className="text-zinc-400 mb-4">
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+            <p className="text-gray-400 mb-3">
               Modules Completed
             </p>
 
-            <h2 className="text-6xl font-bold">
-              3
+            <h2 className="text-5xl font-bold text-green-400">
+              {completed ? "1" : "0"}
             </h2>
-
-            <p className="text-zinc-500 mt-4 text-sm">
-              Foundation track active
-            </p>
 
           </div>
 
-          {/* Card */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 hover:border-blue-500/40 transition">
+          {/* COMPETENCY */}
 
-            <p className="text-zinc-400 mb-4">
-              Simulation Score
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+            <p className="text-gray-400 mb-3">
+              Competency
             </p>
 
-            <h2 className="text-6xl font-bold">
-              83%
+            <h2 className="text-3xl font-bold text-green-400">
+              {competency}
             </h2>
-
-            <p className="text-zinc-500 mt-4 text-sm">
-              Customer challenge completed
-            </p>
 
           </div>
 
-          {/* Card */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 hover:border-blue-500/40 transition">
+          {/* RETRIES */}
 
-            <p className="text-zinc-400 mb-4">
-              Certification Status
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+            <p className="text-gray-400 mb-3">
+              Retry Attempts
             </p>
 
-            <h2 className="text-3xl font-bold leading-tight">
-              In Progress
+            <h2 className="text-5xl font-bold text-yellow-400">
+              {retryCount}
             </h2>
-
-            <p className="text-zinc-500 mt-4 text-sm">
-              Product Families unlocked
-            </p>
 
           </div>
 
         </div>
 
-        {/* Main Grid */}
-        <div className="grid lg:grid-cols-3 gap-6">
+        {/* LEARNING PATH */}
 
-          {/* LEFT SIDE */}
-          <div className="lg:col-span-2 space-y-6">
+        <section className="mb-14">
 
-            {/* Learning Journey */}
-            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+          <div className="flex items-center justify-between mb-4">
 
-              <div className="flex items-center justify-between mb-10">
+            <h2 className="text-4xl font-bold">
+              Learning Journey
+            </h2>
 
-                <div>
+            <p className="text-blue-400 font-semibold">
+              {overallProgress}% Complete
+            </p>
 
-                  <h2 className="text-4xl font-bold">
-                    Learning Journey
-                  </h2>
+          </div>
 
-                  <p className="text-zinc-500 mt-2">
-                    Structured Product Specialist progression path
-                  </p>
+          <div className="w-full bg-gray-800 rounded-full h-4 overflow-hidden mb-10">
 
-                </div>
+            <div
+              className="bg-blue-600 h-full transition-all duration-700"
+              style={{ width: `${overallProgress}%` }}
+            />
 
-                <div className="bg-blue-600/20 text-blue-400 px-4 py-2 rounded-full text-sm">
-                  Active Track
-                </div>
+          </div>
 
-              </div>
+          {/* MODULES */}
 
-              <div className="space-y-8">
+          <div className="grid md:grid-cols-3 gap-8">
 
-                {/* Step */}
-                <div className="flex gap-6">
+            {/* MODULE 1 */}
 
-                  <div className="flex flex-col items-center">
+            <div className="bg-[#111] border border-blue-900 rounded-3xl p-8">
 
-                    <div className="w-5 h-5 rounded-full bg-green-500 mt-2" />
+              <p className="text-blue-500 uppercase tracking-[0.2em] text-sm mb-4">
+                Module 1
+              </p>
 
-                    <div className="w-[2px] h-24 bg-zinc-800 mt-3" />
+              <h3 className="text-3xl font-bold mb-4">
+                Connector Fundamentals
+              </h3>
 
-                  </div>
-
-                  <div className="flex-1">
-
-                    <h3 className="text-2xl font-semibold">
-                      Connector Fundamentals
-                    </h3>
-
-                    <p className="text-zinc-400 mt-2 leading-8">
-                      Completed with full assessment score and mentor validation.
-                      Core understanding of connector architecture, reliability,
-                      and application fundamentals established.
-                    </p>
-
-                  </div>
-
-                </div>
-
-                {/* Step */}
-                <div className="flex gap-6">
-
-                  <div className="flex flex-col items-center">
-
-                    <div className="w-5 h-5 rounded-full bg-blue-500 animate-pulse mt-2" />
-
-                    <div className="w-[2px] h-24 bg-zinc-800 mt-3" />
-
-                  </div>
-
-                  <div className="flex-1">
-
-                    <h3 className="text-2xl font-semibold">
-                      Product Families
-                    </h3>
-
-                    <p className="text-zinc-400 mt-2 leading-8">
-                      Currently active learning module covering portfolio
-                      understanding, segmentation, and application alignment.
-                    </p>
-
-                  </div>
-
-                </div>
-
-                {/* Step */}
-                <div className="flex gap-6 opacity-50">
-
-                  <div className="flex flex-col items-center">
-
-                    <div className="w-5 h-5 rounded-full bg-zinc-700 mt-2" />
-
-                    <div className="w-[2px] h-24 bg-zinc-800 mt-3" />
-
-                  </div>
-
-                  <div className="flex-1">
-
-                    <h3 className="text-2xl font-semibold">
-                      Connector Selection
-                    </h3>
-
-                    <p className="text-zinc-500 mt-2 leading-8">
-                      Advanced engineering decision-making, current rating,
-                      sealing strategy, packaging constraints, and reliability
-                      evaluation.
-                    </p>
-
-                  </div>
-
-                </div>
-
-                {/* Step */}
-                <div className="flex gap-6 opacity-50">
-
-                  <div className="flex flex-col items-center">
-
-                    <div className="w-5 h-5 rounded-full bg-zinc-700 mt-2" />
-
-                  </div>
-
-                  <div className="flex-1">
-
-                    <h3 className="text-2xl font-semibold">
-                      Customer Simulation Challenges
-                    </h3>
-
-                    <p className="text-zinc-500 mt-2 leading-8">
-                      Real-world Product Specialist competency evaluation
-                      through customer application scenarios and technical
-                      recommendation workflows.
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            {/* XP / Achievement */}
-            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+              <p className="text-gray-400 leading-8 mb-8">
+                Learn connector anatomy, mating systems,
+                engineering fundamentals,
+                and application prioritization.
+              </p>
 
               <div className="flex items-center justify-between mb-8">
 
-                <div>
+                <span
+                  className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                    completed
+                      ? "bg-green-600"
+                      : "bg-yellow-600"
+                  }`}
+                >
 
-                  <h2 className="text-3xl font-bold">
-                    Performance Snapshot
-                  </h2>
+                  {completed
+                    ? "Completed"
+                    : "In Progress"}
 
-                  <p className="text-zinc-500 mt-2">
-                    AI-generated readiness and engagement metrics
-                  </p>
+                </span>
 
-                </div>
-
-                <div className="text-right">
-
-                  <p className="text-zinc-500 text-sm">
-                    Current Level
-                  </p>
-
-                  <h2 className="text-3xl font-bold">
-                    Level 3
-                  </h2>
-
-                </div>
+                <span className="text-gray-400">
+                  XP: {xp}
+                </span>
 
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <Link
+                href="/mission/connector-fundamentals"
+                className="block text-center bg-blue-600 hover:bg-blue-500 transition px-6 py-4 rounded-2xl font-semibold"
+              >
+                {completed
+                  ? "Review Module"
+                  : "Continue Learning"}
+              </Link>
 
-                <div className="bg-black border border-zinc-800 rounded-2xl p-6">
+            </div>
 
-                  <p className="text-zinc-500 mb-2">
-                    XP Earned
-                  </p>
+            {/* MODULE 2 */}
 
-                  <h2 className="text-5xl font-bold">
-                    1,240
-                  </h2>
+            <div className={`rounded-3xl p-8 border ${
+              completed
+                ? "bg-[#111] border-gray-800"
+                : "bg-[#0b0b0b] border-gray-900 opacity-50"
+            }`}>
 
-                </div>
+              <p className="text-blue-500 uppercase tracking-[0.2em] text-sm mb-4">
+                Module 2
+              </p>
 
-                <div className="bg-black border border-zinc-800 rounded-2xl p-6">
+              <h3 className="text-3xl font-bold mb-4">
+                Product Families
+              </h3>
 
-                  <p className="text-zinc-500 mb-2">
-                    Learning Streak
-                  </p>
+              <p className="text-gray-400 leading-8 mb-8">
+                Learn Molex connector portfolios,
+                applications,
+                customer mapping,
+                and product differentiation.
+              </p>
 
-                  <h2 className="text-5xl font-bold">
-                    12
-                  </h2>
+              <div className="mb-8">
 
-                </div>
+                <span
+                  className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                    completed
+                      ? "bg-blue-600"
+                      : "bg-gray-700"
+                  }`}
+                >
 
-                <div className="bg-black border border-zinc-800 rounded-2xl p-6">
+                  {completed
+                    ? "Unlocked"
+                    : "Locked"}
 
-                  <p className="text-zinc-500 mb-2">
-                    Top Ranking
-                  </p>
-
-                  <h2 className="text-5xl font-bold">
-                    #4
-                  </h2>
-
-                </div>
+                </span>
 
               </div>
+
+              <button
+                disabled={!completed}
+                className={`w-full px-6 py-4 rounded-2xl font-semibold ${
+                  completed
+                    ? "bg-blue-600 hover:bg-blue-500"
+                    : "bg-gray-800 text-gray-500 cursor-not-allowed"
+                }`}
+              >
+
+                {completed
+                  ? "Start Module"
+                  : "Complete Previous Module"}
+
+              </button>
+
+            </div>
+
+            {/* MODULE 3 */}
+
+            <div className="bg-[#0b0b0b] border border-gray-900 rounded-3xl p-8 opacity-50">
+
+              <p className="text-blue-500 uppercase tracking-[0.2em] text-sm mb-4">
+                Module 3
+              </p>
+
+              <h3 className="text-3xl font-bold mb-4">
+                Connector Selection
+              </h3>
+
+              <p className="text-gray-400 leading-8 mb-8">
+                Simulate customer interactions,
+                application analysis,
+                and connector recommendation workflows.
+              </p>
+
+              <div className="mb-8">
+
+                <span className="px-4 py-2 rounded-full text-sm font-semibold bg-gray-700">
+                  Locked
+                </span>
+
+              </div>
+
+              <button
+                disabled
+                className="w-full px-6 py-4 rounded-2xl font-semibold bg-gray-800 text-gray-500 cursor-not-allowed"
+              >
+                Locked
+              </button>
 
             </div>
 
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="space-y-6">
+        </section>
 
-            {/* Quick Access */}
-            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+        {/* COMPETENCY MATRIX */}
 
-              <h2 className="text-3xl font-bold mb-8">
-                Quick Access
-              </h2>
+        <section className="mb-14">
 
-              <div className="space-y-5">
+          <h2 className="text-4xl font-bold mb-8">
+            Competency Matrix
+          </h2>
 
-                <Link
-                  href="/training"
-                  className="block bg-blue-600 hover:bg-blue-500 transition rounded-2xl p-6"
-                >
+          <div className="grid md:grid-cols-2 gap-6">
 
-                  <h3 className="text-2xl font-semibold mb-3">
-                    Continue Training
-                  </h3>
+            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
 
-                  <p className="text-blue-100 leading-7">
-                    Resume guided Product Specialist onboarding journey
-                  </p>
+              <div className="flex items-center justify-between mb-4">
 
-                </Link>
+                <h3 className="text-2xl font-bold">
+                  Connector Fundamentals
+                </h3>
 
-                <Link
-                  href="/simulation"
-                  className="block bg-zinc-800 hover:bg-zinc-700 transition rounded-2xl p-6"
-                >
+                <span className={`px-4 py-2 rounded-full text-sm ${
+                  completed
+                    ? "bg-green-600"
+                    : "bg-yellow-600"
+                }`}>
 
-                  <h3 className="text-2xl font-semibold mb-3">
-                    Customer Challenge
-                  </h3>
+                  {completed
+                    ? "Complete"
+                    : "In Progress"}
 
-                  <p className="text-zinc-300 leading-7">
-                    Practice real-world engineering recommendation scenarios
-                  </p>
-
-                </Link>
-
-                <div className="bg-zinc-800 rounded-2xl p-6">
-
-                  <h3 className="text-2xl font-semibold mb-3">
-                    Knowledge Base
-                  </h3>
-
-                  <p className="text-zinc-300 leading-7">
-                    Connector documentation, application references,
-                    and portfolio intelligence
-                  </p>
-
-                </div>
+                </span>
 
               </div>
+
+              <p className="text-gray-400 leading-8">
+                Understanding of connector systems,
+                mating behavior,
+                and electrical continuity.
+              </p>
 
             </div>
 
-            {/* AI Mentor Status */}
-            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
 
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-4">
 
-                <div>
+                <h3 className="text-2xl font-bold">
+                  Connector Anatomy
+                </h3>
 
-                  <h2 className="text-3xl font-bold">
-                    Mentor Status
-                  </h2>
+                <span className={`px-4 py-2 rounded-full text-sm ${
+                  exploredStatus(exploredLevel(completed))
+                }`}>
 
-                  <p className="text-zinc-500 mt-2">
-                    AI learning orchestration engine
-                  </p>
+                  {completed
+                    ? "Strong"
+                    : "Intermediate"}
 
-                </div>
+                </span>
 
-                <div className="w-4 h-4 rounded-full bg-green-500 animate-pulse" />
+              </div>
+
+              <p className="text-gray-400 leading-8">
+                Understanding of seals,
+                locking systems,
+                terminals,
+                housing,
+                and connector reliability.
+              </p>
+
+            </div>
+
+            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+              <div className="flex items-center justify-between mb-4">
+
+                <h3 className="text-2xl font-bold">
+                  Engineering Evaluation
+                </h3>
+
+                <span className={`px-4 py-2 rounded-full text-sm ${
+                  challengeStatus(challengeLevel(completed))
+                }`}>
+
+                  {completed
+                    ? "Passed"
+                    : "Pending"}
+
+                </span>
 
               </div>
 
-              <div className="space-y-5">
+              <p className="text-gray-400 leading-8">
+                Ability to prioritize connector features
+                based on customer requirements
+                and harsh environment applications.
+              </p>
 
-                <div className="bg-black border border-zinc-800 rounded-2xl p-5">
+            </div>
 
-                  <p className="text-zinc-500 text-sm mb-2">
-                    Active Learning Mode
-                  </p>
+            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
 
-                  <h3 className="text-xl font-semibold">
-                    Guided Technical Coaching
-                  </h3>
+              <div className="flex items-center justify-between mb-4">
 
-                </div>
+                <h3 className="text-2xl font-bold">
+                  Product Specialist Readiness
+                </h3>
 
-                <div className="bg-black border border-zinc-800 rounded-2xl p-5">
+                <span className={`px-4 py-2 rounded-full text-sm ${
+                  completed
+                    ? "bg-green-600"
+                    : "bg-gray-700"
+                }`}>
 
-                  <p className="text-zinc-500 text-sm mb-2">
-                    Competency Evaluation
-                  </p>
+                  {completed
+                    ? "Ready"
+                    : "Developing"}
 
-                  <h3 className="text-xl font-semibold">
-                    Real-Time Assessment Enabled
-                  </h3>
-
-                </div>
-
-                <div className="bg-black border border-zinc-800 rounded-2xl p-5">
-
-                  <p className="text-zinc-500 text-sm mb-2">
-                    Learning Recommendation
-                  </p>
-
-                  <h3 className="text-xl font-semibold">
-                    Focus on Connector Selection
-                  </h3>
-
-                </div>
+                </span>
 
               </div>
+
+              <p className="text-gray-400 leading-8">
+                Demonstrates foundational competency
+                for customer-facing engineering discussions.
+              </p>
 
             </div>
 
           </div>
 
-        </div>
+        </section>
+
+        {/* AI MENTOR */}
+
+        <section className="bg-[#101010] border border-blue-900 rounded-3xl p-10">
+
+          <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+            AI Mentor Summary
+          </p>
+
+          <h2 className="text-4xl font-bold mb-6">
+            Learning Evaluation
+          </h2>
+
+          <p className="text-gray-300 text-xl leading-9">
+
+            {completed
+              ? "You successfully completed the Connector Fundamentals mission and demonstrated strong competency in connector engineering fundamentals, anatomy understanding, and customer application prioritization."
+              : "Continue progressing through the onboarding journey to strengthen your understanding of connector systems, engineering fundamentals, and application-driven product selection."
+            }
+
+          </p>
+
+        </section>
 
       </div>
 
     </main>
   );
+}
+
+/* =========================
+   STATUS HELPERS
+========================= */
+
+function exploredLevel(completed: boolean) {
+
+  return completed
+    ? "strong"
+    : "intermediate";
+
+}
+
+function exploredStatus(level: string) {
+
+  if (level === "strong") {
+    return "bg-green-600";
+  }
+
+  return "bg-yellow-600";
+
+}
+
+function challengeLevel(completed: boolean) {
+
+  return completed
+    ? "passed"
+    : "pending";
+
+}
+
+function challengeStatus(level: string) {
+
+  if (level === "passed") {
+    return "bg-green-600";
+  }
+
+  return "bg-gray-700";
+
 }
