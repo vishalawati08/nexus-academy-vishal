@@ -65,7 +65,7 @@ const [badges, setBadges] =
     ? 100
     : step >= 9
       ? 100
-      : ((step - 1) / 8) * 100;
+      : (Math.min((step - 1) / 8, 1)) * 100;
 
   useEffect(() => {
 
@@ -178,10 +178,19 @@ useEffect(() => {
     })
   );
 
+  const existingXP =
+  Number(
+    localStorage.getItem("nexusTotalXP")
+  ) || 0;
+
+if (xp > existingXP) {
+
   localStorage.setItem(
     "nexusTotalXP",
     String(xp)
   );
+
+}
 
   localStorage.setItem(
     "connectorFundamentalsProgress",
@@ -216,6 +225,21 @@ useEffect(() => {
   badges,
 ]);
 
+  /* =========================================================
+   GLOBAL UI STYLES
+========================================================= */
+
+const primaryButton =
+  "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] px-8 py-4 rounded-2xl font-semibold";
+
+const successButton =
+  "bg-green-600 hover:bg-green-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(34,197,94,0.45)] px-8 py-4 rounded-2xl font-semibold";
+
+const dangerButton =
+  "bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] px-8 py-4 rounded-2xl font-semibold";
+
+const cardStyle =
+  "${cardStyle}";
   /* =========================================================
      ANATOMY DATA
   ========================================================= */
