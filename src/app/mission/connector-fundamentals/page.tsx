@@ -683,7 +683,7 @@ if (passed) {
           Nexus Academy
         </p>
 
-        <h1 className="text-6xl font-bold mb-4">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Connector Fundamentals
         </h1>
 
@@ -745,7 +745,7 @@ if (passed) {
               What We Sell at Molex
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
               <div className="bg-[#181818] rounded-2xl p-8">
 
@@ -910,7 +910,7 @@ if (passed) {
 
             </div>
 
-            <div className="flex gap-6">
+            <div className="flex flex-col md:flex-row gap-6">
 
               <button
                 onClick={() => {
@@ -976,7 +976,7 @@ if (passed) {
       environmental protection, and manufacturability.
     </p>
 
-    <div className="grid md:grid-cols-2 gap-6 mb-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
       {Object.keys(anatomyData).map((part) => (
 
@@ -1204,7 +1204,7 @@ if (passed) {
       Select Critical Engineering Features
     </h3>
 
-    <div className="grid md:grid-cols-2 gap-6 mb-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
       {[
         "Seal",
@@ -1333,7 +1333,7 @@ if (passed) {
 
         )}
 
-        <div className="flex gap-6 mt-10 flex-wrap">
+        <div className="flex flex-col md:flex-row gap-6 mt-10 flex-wrap">
 
           {!challengePassed && (
 
@@ -1519,7 +1519,7 @@ if (passed) {
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 text-center">
 
-    <h2 className="text-6xl font-bold mb-8">
+    <h2 className="text-4xl md:text-6xl font-bold mb-8">
 
       {quizPassed
         ? "Certification Achieved"
@@ -1548,7 +1548,7 @@ if (passed) {
         Competencies Achieved
       </h3>
 
-      <div className="grid md:grid-cols-2 gap-6 text-left">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
 
         <div className="bg-[#222] rounded-2xl p-5">
           Connector Fundamentals
@@ -1604,7 +1604,7 @@ if (passed) {
 
       </div>
 
-      <div className="flex gap-6 justify-center flex-wrap mt-12">
+      <div className="flex flex-col md:flex-row gap-6 justify-center flex-wrap mt-12">
 
         <button
           onClick={() => {
@@ -1640,7 +1640,7 @@ if (passed) {
           assessment to strengthen your engineering understanding.
         </p>
 
-        <div className="flex gap-6 justify-center flex-wrap">
+        <div className="flex flex-col md:flex-row gap-6 justify-center flex-wrap">
 
           <button
             onClick={retryQuiz}
@@ -1686,7 +1686,7 @@ if (passed) {
       field validation, and product selection.
     </p>
 
-    <div className="grid md:grid-cols-2 gap-6 mb-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
       <div className="bg-[#181818] rounded-2xl p-8 border border-red-900">
 
@@ -1836,7 +1836,7 @@ if (passed) {
       customers, manufacturing, and commercial teams.
     </p>
 
-    <div className="grid md:grid-cols-2 gap-6 mb-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
       <div className="bg-[#181818] rounded-2xl p-8">
         <h3 className="text-2xl font-bold mb-3">
@@ -1901,7 +1901,7 @@ if (passed) {
       Final Mission Summary
     </p>
 
-    <h2 className="text-6xl font-bold mb-8">
+    <h2 className="text-4xl md:text-6xl font-bold mb-8">
       Connector Fundamentals Complete
     </h2>
 
@@ -1917,7 +1917,7 @@ if (passed) {
         Skills Developed
       </h3>
 
-      <div className="grid md:grid-cols-2 gap-6 text-left">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
 
         <div className="bg-[#222] rounded-2xl p-5">
           Connector Anatomy
@@ -1947,7 +1947,7 @@ if (passed) {
 
     </div>
 
-    <div className="flex gap-6 justify-center flex-wrap mt-12">
+    <div className="flex flex-col md:flex-row gap-6 justify-center flex-wrap mt-12">
 
       <button
         onClick={() => {
