@@ -1038,7 +1038,226 @@ export default function ConnectorFundamentalsMission() {
 
 )}
 
+{/* STEP 4 */}
 
+{step === 4 && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+
+    <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+      Step 4
+    </p>
+
+    <h2 className="text-5xl font-bold mb-10">
+      Engineering Challenge
+    </h2>
+
+    <p className="text-gray-400 text-xl leading-8 mb-10">
+      A customer is designing a high-voltage EV battery connector system.
+      Select the most critical connector engineering features required
+      for reliable performance in harsh automotive environments.
+    </p>
+
+    {/* SCENARIO */}
+
+    <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10">
+
+      <h3 className="text-3xl font-bold mb-6">
+        EV Battery Connector Requirements
+      </h3>
+
+      <div className="space-y-4 text-gray-300 leading-8">
+
+        <p>• High vibration resistance</p>
+
+        <p>• IP67 environmental sealing</p>
+
+        <p>• Reliable mating retention</p>
+
+        <p>• Long-term electrical continuity</p>
+
+        <p>• Protection against incorrect mating</p>
+
+      </div>
+
+    </div>
+
+    {/* FEATURE SELECTION */}
+
+    <h3 className="text-3xl font-bold mb-8">
+      Select Critical Engineering Features
+    </h3>
+
+    <div className="grid md:grid-cols-2 gap-6 mb-10">
+
+      {[
+        "Seal",
+        "Locking Feature",
+        "Housing",
+        "Polarization",
+        "Terminal",
+        "Guide Post",
+      ].map((feature) => (
+
+        <button
+          key={feature}
+          onClick={() => toggleFeature(feature)}
+          className={`text-left rounded-2xl p-8 border transition-all duration-300 ${
+            selectedFeatures.includes(feature)
+              ? "bg-blue-600 border-blue-400 scale-[1.02]"
+              : "bg-[#181818] border-gray-800 hover:border-blue-500"
+          }`}
+        >
+
+          <h3 className="text-2xl font-bold">
+            {feature}
+          </h3>
+
+        </button>
+
+      ))}
+
+    </div>
+
+    {/* SUBMIT */}
+
+    {!challengeSubmitted && (
+
+      <button
+        onClick={submitChallenge}
+        disabled={selectedFeatures.length === 0}
+        className={`px-8 py-4 rounded-2xl font-semibold ${
+          selectedFeatures.length > 0
+            ? "bg-blue-600 hover:bg-blue-500"
+            : "bg-gray-800 text-gray-500"
+        }`}
+      >
+        Submit Engineering Decision
+      </button>
+
+    )}
+
+    {/* RESULT */}
+
+    {challengeSubmitted && (
+
+      <div
+        className={`rounded-3xl p-10 mt-10 border ${
+          challengePassed
+            ? "bg-[#0f1c14] border-green-700"
+            : "bg-[#1a1010] border-red-700"
+        }`}
+      >
+
+        <h3
+          className={`text-4xl font-bold mb-6 ${
+            challengePassed
+              ? "text-green-400"
+              : "text-red-400"
+          }`}
+        >
+
+          {challengePassed
+            ? "Engineering Decision Approved"
+            : "Re-evaluate Requirements"}
+
+        </h3>
+
+        {challengePassed ? (
+
+          <div className="space-y-4 text-gray-300 leading-8">
+
+            <p>
+              • Seal ensures environmental protection
+            </p>
+
+            <p>
+              • Locking feature improves vibration resistance
+            </p>
+
+            <p>
+              • Housing provides insulation and structural integrity
+            </p>
+
+            <p>
+              • Polarization prevents incorrect mating
+            </p>
+
+            <p>
+              • Terminal integrity ensures electrical continuity
+            </p>
+
+          </div>
+
+        ) : (
+
+          <div className="space-y-4 text-gray-300 leading-8">
+
+            <p>
+              Your selection missed critical EV connector requirements.
+            </p>
+
+            <p>
+              Focus on:
+            </p>
+
+            <p>
+              • Environmental sealing
+            </p>
+
+            <p>
+              • Mechanical retention
+            </p>
+
+            <p>
+              • Connector protection
+            </p>
+
+          </div>
+
+        )}
+
+        <div className="flex gap-6 mt-10 flex-wrap">
+
+          {!challengePassed && (
+
+            <button
+              onClick={() => {
+
+                setSelectedFeatures([]);
+
+                setChallengeSubmitted(false);
+
+              }}
+              className="bg-red-600 hover:bg-red-500 px-8 py-4 rounded-2xl"
+            >
+              Retry Challenge
+            </button>
+
+          )}
+
+          {challengePassed && (
+
+            <button
+              onClick={nextStep}
+              className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+            >
+              Continue to Certification →
+            </button>
+
+          )}
+
+        </div>
+
+      </div>
+
+    )}
+
+  </section>
+
+)}
+
+        
       </div>
 
     </main>
