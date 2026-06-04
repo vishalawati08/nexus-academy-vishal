@@ -1983,9 +1983,11 @@ if (loading) {
       Final Mission Summary
     </p>
 
-    <h2 className="text-4xl md:text-4xl md:text-6xl font-bold mb-8">
-      Connector Fundamentals Complete
-    </h2>
+    <h2 className="text-6xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 animate-pulse">
+
+  Connector Fundamentals Complete
+
+</h2>
 
     <p className="text-gray-300 text-xl leading-8 w-full max-w-4xl mx-auto mb-12">
       You completed all learning activities,
@@ -2028,9 +2030,15 @@ if (loading) {
 
 <div className="bg-[#111827] border border-yellow-700 rounded-3xl p-10 max-w-5xl mx-auto mb-10">
 
-  <h3 className="text-4xl font-bold text-yellow-400 mb-8">
-    Achievements Earned
-  </h3>
+  <h3 className="text-4xl font-bold text-yellow-400 mb-8 flex items-center justify-center gap-4">
+
+  <span className="text-5xl animate-bounce">
+    🏆
+  </span>
+
+  Achievements Earned
+
+</h3>
 
   <div className="grid md:grid-cols-2 gap-6">
 
@@ -2038,7 +2046,7 @@ if (loading) {
 
       <div
         key={badge}
-        className="bg-[#181818] border border-yellow-600 rounded-2xl p-6 hover:scale-[1.03] transition-all duration-300"
+        className="bg-[#181818] border border-yellow-600 rounded-2xl p-6 hover:scale-[1.05] transition-all duration-500 hover:shadow-[0_0_35px_rgba(250,204,21,0.45)] animate-pulse"
       >
 
         <div className="text-5xl mb-4">
