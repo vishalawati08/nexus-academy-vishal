@@ -459,7 +459,7 @@ export default function ConnectorFundamentalsMission() {
 
   };
 
-  cconst nextQuestion = () => {
+  const nextQuestion = () => {
 
   const current =
     quizQuestions[currentQuestion];
