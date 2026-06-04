@@ -4,40 +4,66 @@ import { useEffect, useState } from "react";
 
 export default function ConnectorFundamentalsMission() {
 
+  /* =========================================================
+     STATES
+  ========================================================= */
+
   const [step, setStep] = useState(1);
 
   const [xp, setXp] = useState(0);
 
-  const [selectedPart, setSelectedPart] = useState("");
+  const [connectorMated, setConnectorMated] =
+    useState(false);
 
-  const [exploredParts, setExploredParts] = useState<string[]>([]);
+  const [selectedPart, setSelectedPart] =
+    useState("");
 
-  const [quizStarted, setQuizStarted] = useState(false);
+  const [exploredParts, setExploredParts] =
+    useState<string[]>([]);
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedFeatures, setSelectedFeatures] =
+    useState<string[]>([]);
 
-  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [challengeSubmitted, setChallengeSubmitted] =
+    useState(false);
 
-  const [quizScore, setQuizScore] = useState(0);
+  const [challengePassed, setChallengePassed] =
+    useState(false);
 
-  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [quizStarted, setQuizStarted] =
+    useState(false);
 
-  const [quizPassed, setQuizPassed] = useState(false);
+  const [currentQuestion, setCurrentQuestion] =
+    useState(0);
 
-  const [showExplanation, setShowExplanation] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] =
+    useState("");
 
-  const progress = quizCompleted
-    ? 100
-    : (step / 4) * 100;
+  const [quizScore, setQuizScore] =
+    useState(0);
 
-  /* =========================================
+  const [quizCompleted, setQuizCompleted] =
+    useState(false);
+
+  const [quizPassed, setQuizPassed] =
+    useState(false);
+
+  const [showExplanation, setShowExplanation] =
+    useState(false);
+
+  const progress =
+    quizCompleted
+      ? 100
+      : (step / 5) * 100;
+
+  /* =========================================================
      LOAD SAVED DATA
-  ========================================= */
+  ========================================================= */
 
   useEffect(() => {
 
     const savedData = localStorage.getItem(
-      "connectorFundamentalsProgressV6"
+      "connectorFundamentalsMaster"
     );
 
     if (savedData) {
@@ -48,28 +74,39 @@ export default function ConnectorFundamentalsMission() {
 
       setXp(parsed.xp || 0);
 
-      setExploredParts(parsed.exploredParts || []);
+      setConnectorMated(
+        parsed.connectorMated || false
+      );
 
-      setQuizCompleted(parsed.quizCompleted || false);
+      setExploredParts(
+        parsed.exploredParts || []
+      );
 
-      setQuizPassed(parsed.quizPassed || false);
+      setQuizCompleted(
+        parsed.quizCompleted || false
+      );
+
+      setQuizPassed(
+        parsed.quizPassed || false
+      );
 
     }
 
   }, []);
 
-  /* =========================================
+  /* =========================================================
      SAVE DATA
-  ========================================= */
+  ========================================================= */
 
   useEffect(() => {
 
     localStorage.setItem(
-      "connectorFundamentalsProgressV6",
+      "connectorFundamentalsMaster",
       JSON.stringify({
 
         step,
         xp,
+        connectorMated,
         exploredParts,
         quizCompleted,
         quizPassed,
@@ -80,14 +117,15 @@ export default function ConnectorFundamentalsMission() {
   }, [
     step,
     xp,
+    connectorMated,
     exploredParts,
     quizCompleted,
     quizPassed,
   ]);
 
-  /* =========================================
+  /* =========================================================
      ANATOMY DATA
-  ========================================= */
+  ========================================================= */
 
   const anatomyData = {
 
@@ -103,10 +141,10 @@ export default function ConnectorFundamentalsMission() {
         "Plug housing, receptacle housing, sealed housing, and unsealed housing.",
 
       advantages:
-        "Improves durability, connector stability, and electrical safety.",
+        "Improves durability, electrical safety, and connector stability.",
 
       applications:
-        "Used in EV battery systems, automotive harnesses, and industrial systems.",
+        "Used in EV battery systems, automotive harnesses, and industrial machinery.",
 
       failures:
         "Cracking due to vibration, thermal deformation, and poor terminal retention.",
@@ -116,7 +154,7 @@ export default function ConnectorFundamentalsMission() {
     Terminal: {
 
       what:
-        "The terminal creates the conductive path for signal and power transfer.",
+        "The terminal creates the conductive electrical path for signal and power transfer.",
 
       functions:
         "Transfers electrical current while minimizing resistance and heat generation.",
@@ -128,7 +166,7 @@ export default function ConnectorFundamentalsMission() {
         "Ensures reliable electrical continuity and efficient current transfer.",
 
       applications:
-        "Used in EV charging, PCB systems, servers, and industrial automation.",
+        "Used in EV charging systems, PCB applications, and industrial automation.",
 
       failures:
         "Overheating, oxidation, poor crimping, and fretting corrosion.",
@@ -138,22 +176,22 @@ export default function ConnectorFundamentalsMission() {
     Seal: {
 
       what:
-        "Seals protect connectors from moisture, dust, and contaminants.",
+        "Seals protect connectors from moisture, dust, and harsh environmental contaminants.",
 
       functions:
-        "Provides environmental sealing and improves reliability in harsh conditions.",
+        "Provides environmental sealing and improves long-term reliability.",
 
       types:
         "Wire seals, interface seals, and perimeter seals.",
 
       advantages:
-        "Prevents corrosion and electrical failure.",
+        "Prevents corrosion and electrical failure in harsh environments.",
 
       applications:
-        "Used in EV systems, automotive connectors, and industrial machinery.",
+        "Used in EV systems, automotive electronics, and industrial systems.",
 
       failures:
-        "Seal degradation may lead to water ingress and corrosion.",
+        "Seal degradation may lead to water ingress and connector corrosion.",
 
     },
 
@@ -182,7 +220,7 @@ export default function ConnectorFundamentalsMission() {
     Polarization: {
 
       what:
-        "Polarization prevents incorrect mating orientation.",
+        "Polarization prevents incorrect connector mating orientation.",
 
       functions:
         "Ensures connectors mate only in the correct orientation.",
@@ -194,7 +232,7 @@ export default function ConnectorFundamentalsMission() {
         "Prevents assembly errors and equipment damage.",
 
       applications:
-        "Used in PCB systems and automotive electronics.",
+        "Used in PCB systems, automotive electronics, and industrial systems.",
 
       failures:
         "Incorrect mating may damage electronics.",
@@ -203,9 +241,9 @@ export default function ConnectorFundamentalsMission() {
 
   };
 
-  /* =========================================
-     QUIZ DATA
-  ========================================= */
+  /* =========================================================
+     QUIZ QUESTIONS
+  ========================================================= */
 
   const quizQuestions = [
 
@@ -223,7 +261,7 @@ export default function ConnectorFundamentalsMission() {
       correct: "Wire-to-Board",
 
       explanation:
-        "Wire-to-board connectors interface discrete wires with PCBs.",
+        "Wire-to-board connectors are specifically designed to interface wires with PCBs.",
     },
 
     {
@@ -241,7 +279,7 @@ export default function ConnectorFundamentalsMission() {
         "Mechanical protection and insulation",
 
       explanation:
-        "Housing provides insulation, terminal support, and protection.",
+        "Housing provides structural protection, insulation, and terminal alignment.",
     },
 
     {
@@ -259,7 +297,7 @@ export default function ConnectorFundamentalsMission() {
         "Prevent moisture ingress",
 
       explanation:
-        "Seals protect connectors from harsh environmental exposure.",
+        "Seals protect connectors from moisture and harsh environmental exposure.",
     },
 
     {
@@ -277,7 +315,7 @@ export default function ConnectorFundamentalsMission() {
         "Electrical continuity is established",
 
       explanation:
-        "Proper mating establishes a conductive electrical pathway.",
+        "Proper mating establishes a reliable conductive electrical path.",
     },
 
     {
@@ -295,7 +333,7 @@ export default function ConnectorFundamentalsMission() {
         "Improve vibration resistance",
 
       explanation:
-        "Locking systems prevent disconnects caused by vibration.",
+        "Locking systems prevent disconnects caused by vibration and shock.",
     },
 
     {
@@ -313,20 +351,20 @@ export default function ConnectorFundamentalsMission() {
         "Incorrect connector mating",
 
       explanation:
-        "Polarization ensures correct connector orientation.",
+        "Polarization ensures connectors mate only in the correct orientation.",
     },
 
   ];
 
-  /* =========================================
+  /* =========================================================
      FUNCTIONS
-  ========================================= */
+  ========================================================= */
 
   const nextStep = () => {
 
     setStep((prev) => prev + 1);
 
-    if (xp < 200) {
+    if (xp < 250) {
 
       setXp((prev) => prev + 20);
 
@@ -340,9 +378,12 @@ export default function ConnectorFundamentalsMission() {
 
     if (!exploredParts.includes(part)) {
 
-      setExploredParts([...exploredParts, part]);
+      setExploredParts([
+        ...exploredParts,
+        part,
+      ]);
 
-      if (xp < 200) {
+      if (xp < 250) {
 
         setXp((prev) => prev + 5);
 
@@ -352,9 +393,48 @@ export default function ConnectorFundamentalsMission() {
 
   };
 
-  const startQuiz = () => {
+  const toggleFeature = (feature: string) => {
 
-    setQuizStarted(true);
+    if (selectedFeatures.includes(feature)) {
+
+      setSelectedFeatures(
+        selectedFeatures.filter(
+          (f) => f !== feature
+        )
+      );
+
+    } else {
+
+      setSelectedFeatures([
+        ...selectedFeatures,
+        feature,
+      ]);
+
+    }
+
+  };
+
+  const submitChallenge = () => {
+
+    const required = [
+      "Seal",
+      "Locking Feature",
+      "Housing",
+    ];
+
+    const passed = required.every((item) =>
+      selectedFeatures.includes(item)
+    );
+
+    setChallengeSubmitted(true);
+
+    setChallengePassed(passed);
+
+    if (passed && xp < 250) {
+
+      setXp((prev) => prev + 40);
+
+    }
 
   };
 
@@ -365,7 +445,9 @@ export default function ConnectorFundamentalsMission() {
 
     let updatedScore = quizScore;
 
-    if (selectedAnswer === current.correct) {
+    if (
+      selectedAnswer === current.correct
+    ) {
 
       updatedScore += 1;
 
@@ -394,7 +476,8 @@ export default function ConnectorFundamentalsMission() {
 
       setQuizCompleted(true);
 
-      const passed = quizScore >= 4;
+      const passed =
+        quizScore >= 4;
 
       setQuizPassed(passed);
 
@@ -435,24 +518,22 @@ export default function ConnectorFundamentalsMission() {
   const retakeCourse = () => {
 
     localStorage.removeItem(
-      "connectorFundamentalsProgressV6"
-    );
-
-    localStorage.removeItem(
-      "connectorFundamentalsCompleted"
-    );
-
-    localStorage.removeItem(
-      "connectorFundamentalsCompetency"
+      "connectorFundamentalsMaster"
     );
 
     setStep(1);
 
-    setXp(0);
+    setConnectorMated(false);
 
     setSelectedPart("");
 
     setExploredParts([]);
+
+    setSelectedFeatures([]);
+
+    setChallengeSubmitted(false);
+
+    setChallengePassed(false);
 
     setQuizStarted(false);
 
@@ -470,11 +551,21 @@ export default function ConnectorFundamentalsMission() {
 
   };
 
+  /* =========================================================
+     UI
+  ========================================================= */
+
   return (
 
     <main className="min-h-screen bg-black text-white px-6 py-10">
 
       <div className="max-w-7xl mx-auto">
+
+        {/* HEADER */}
+
+        <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+          Nexus Academy
+        </p>
 
         <h1 className="text-6xl font-bold mb-4">
           Connector Fundamentals
@@ -503,10 +594,10 @@ export default function ConnectorFundamentalsMission() {
 
           </div>
 
-          <div className="w-full bg-gray-800 rounded-full h-3">
+          <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
 
             <div
-              className="bg-blue-600 h-3 rounded-full transition-all"
+              className="bg-blue-600 h-full transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
 
@@ -532,13 +623,13 @@ export default function ConnectorFundamentalsMission() {
 
         {step === 1 && (
 
-          <section className="bg-[#111] rounded-3xl p-10">
+          <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
 
             <h2 className="text-5xl font-bold mb-8">
               What We Sell at Molex
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 mb-10">
 
               <div className="bg-[#181818] rounded-2xl p-8">
 
@@ -567,11 +658,37 @@ export default function ConnectorFundamentalsMission() {
 
               </div>
 
+              <div className="bg-[#181818] rounded-2xl p-8">
+
+                <h3 className="text-3xl font-bold mb-4">
+                  Board-to-Board
+                </h3>
+
+                <p className="text-gray-400 leading-8">
+                  Enables high-speed communication between PCBs
+                  in compact electronic systems and servers.
+                </p>
+
+              </div>
+
+              <div className="bg-[#181818] rounded-2xl p-8">
+
+                <h3 className="text-3xl font-bold mb-4">
+                  Automotive Connectors
+                </h3>
+
+                <p className="text-gray-400 leading-8">
+                  Engineered for EVs and harsh environments with
+                  environmental sealing and vibration resistance.
+                </p>
+
+              </div>
+
             </div>
 
             <button
               onClick={nextStep}
-              className="mt-10 bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+              className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
             >
               Continue →
             </button>
@@ -584,317 +701,140 @@ export default function ConnectorFundamentalsMission() {
 
         {step === 2 && (
 
-          <section className="bg-[#111] rounded-3xl p-10">
+          <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
 
             <h2 className="text-5xl font-bold mb-8">
-              Connector Anatomy
+              Connector Mating Simulation
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-10">
+            <p className="text-gray-400 text-lg mb-10">
+              Observe how electrical continuity is established
+              when connectors are properly mated.
+            </p>
 
-              {Object.keys(anatomyData).map((part) => (
+            <div className="relative h-72 flex items-center justify-center overflow-hidden mb-10">
 
-                <div
-                  key={part}
-                  onClick={() => handleExplorePart(part)}
-                  className={`cursor-pointer rounded-2xl p-8 border transition ${
-                    selectedPart === part
-                      ? "bg-blue-600 border-blue-400"
-                      : "bg-[#181818] border-gray-800"
-                  }`}
-                >
+              <div
+                className={`absolute h-3 rounded-full transition-all duration-700 ${
+                  connectorMated
+                    ? "w-[320px] bg-green-400 shadow-[0_0_30px_#4ade80]"
+                    : "w-24 bg-red-500"
+                }`}
+              />
 
-                  <h3 className="text-3xl font-bold">
-                    {part}
-                  </h3>
+              <div
+                className={`absolute left-24 transition-all duration-700 ${
+                  connectorMated
+                    ? "translate-x-24"
+                    : ""
+                }`}
+              >
 
-                </div>
+                <div className="relative w-52 h-32 bg-blue-600 rounded-3xl border-4 border-blue-400">
 
-              ))}
+                  <div className="absolute right-[-18px] top-8 flex gap-2">
 
-            </div>
+                    <div className="w-4 h-5 bg-yellow-300 rounded-sm" />
+                    <div className="w-4 h-5 bg-yellow-300 rounded-sm" />
+                    <div className="w-4 h-5 bg-yellow-300 rounded-sm" />
+                    <div className="w-4 h-5 bg-yellow-300 rounded-sm" />
 
-            {selectedPart && (
-
-              <div className="bg-[#181818] rounded-3xl p-10">
-
-                <h2 className="text-5xl font-bold mb-8">
-                  {selectedPart}
-                </h2>
-
-                <div className="space-y-6 text-gray-300 leading-8">
-
-                  <div>
-                    <h3 className="text-blue-400 font-bold mb-2">
-                      What is it?
-                    </h3>
-                    <p>
-                      {anatomyData[selectedPart as keyof typeof anatomyData].what}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-blue-400 font-bold mb-2">
-                      Functions
-                    </h3>
-                    <p>
-                      {anatomyData[selectedPart as keyof typeof anatomyData].functions}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-blue-400 font-bold mb-2">
-                      Types
-                    </h3>
-                    <p>
-                      {anatomyData[selectedPart as keyof typeof anatomyData].types}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-blue-400 font-bold mb-2">
-                      Advantages
-                    </h3>
-                    <p>
-                      {anatomyData[selectedPart as keyof typeof anatomyData].advantages}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-blue-400 font-bold mb-2">
-                      Applications
-                    </h3>
-                    <p>
-                      {anatomyData[selectedPart as keyof typeof anatomyData].applications}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-red-400 font-bold mb-2">
-                      Failure Risks
-                    </h3>
-                    <p>
-                      {anatomyData[selectedPart as keyof typeof anatomyData].failures}
-                    </p>
                   </div>
 
                 </div>
 
               </div>
 
-            )}
+              <div
+                className={`absolute right-24 transition-all duration-700 ${
+                  connectorMated
+                    ? "-translate-x-24"
+                    : ""
+                }`}
+              >
 
-            <button
-              onClick={nextStep}
-              disabled={exploredParts.length < 3}
-              className={`mt-10 px-8 py-4 rounded-2xl ${
-                exploredParts.length >= 3
-                  ? "bg-blue-600 hover:bg-blue-500"
-                  : "bg-gray-800 text-gray-500"
-              }`}
-            >
-              Continue →
-            </button>
+                <div className="relative w-52 h-32 bg-gray-700 rounded-3xl border-4 border-gray-500">
 
-          </section>
+                  <div className="absolute left-[-12px] top-8 flex gap-2">
 
-        )}
+                    <div className="w-3 h-6 bg-gray-300 rounded-sm" />
+                    <div className="w-3 h-6 bg-gray-300 rounded-sm" />
+                    <div className="w-3 h-6 bg-gray-300 rounded-sm" />
+                    <div className="w-3 h-6 bg-gray-300 rounded-sm" />
 
-        {/* STEP 3 */}
+                  </div>
 
-        {step === 3 && !quizStarted && (
+                </div>
 
-          <section className="bg-[#111] rounded-3xl p-10">
-
-            <h2 className="text-5xl font-bold mb-6">
-              Final Certification Quiz
-            </h2>
-
-            <p className="text-gray-400 text-xl leading-8 mb-10">
-              Complete the mandatory assessment covering the entire
-              Connector Fundamentals module.
-              Pass Requirement: 4 / 6
-            </p>
-
-            <button
-              onClick={startQuiz}
-              className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
-            >
-              Start Quiz →
-            </button>
-
-          </section>
-
-        )}
-
-        {/* QUIZ */}
-
-        {quizStarted && !quizCompleted && (
-
-          <section className="bg-[#111] rounded-3xl p-10">
-
-            <p className="text-blue-400 mb-4">
-              Question {currentQuestion + 1} / 6
-            </p>
-
-            <h2 className="text-4xl font-bold mb-10">
-              {quizQuestions[currentQuestion].question}
-            </h2>
-
-            <div className="space-y-4 mb-10">
-
-              {quizQuestions[currentQuestion].options.map((option) => (
-
-                <button
-                  key={option}
-                  onClick={() => setSelectedAnswer(option)}
-                  className={`w-full text-left p-6 rounded-2xl border transition ${
-                    selectedAnswer === option
-                      ? "bg-blue-600 border-blue-400"
-                      : "bg-[#181818] border-gray-800"
-                  }`}
-                >
-
-                  {option}
-
-                </button>
-
-              ))}
+              </div>
 
             </div>
 
-            {!showExplanation ? (
+            <div className="mb-10 bg-[#181818] rounded-2xl p-8">
+
+              <h3 className="text-3xl font-bold mb-4">
+                Engineering Insight
+              </h3>
+
+              <ul className="space-y-4 text-gray-300">
+
+                <li>
+                  • Electrical continuity established
+                </li>
+
+                <li>
+                  • Contact resistance minimized
+                </li>
+
+                <li>
+                  • Mechanical retention secured
+                </li>
+
+              </ul>
+
+            </div>
+
+            <div className="flex gap-6">
 
               <button
-                onClick={handleQuizAnswer}
-                disabled={!selectedAnswer}
+                onClick={() => {
+
+                  setConnectorMated(true);
+
+                  if (xp < 250) {
+
+                    setXp((prev) => prev + 20);
+
+                  }
+
+                }}
+                disabled={connectorMated}
                 className={`px-8 py-4 rounded-2xl ${
-                  selectedAnswer
+                  connectorMated
+                    ? "bg-green-600"
+                    : "bg-blue-600 hover:bg-blue-500"
+                }`}
+              >
+
+                {connectorMated
+                  ? "Connector Mated ✓"
+                  : "Mate Connector"}
+
+              </button>
+
+              <button
+                onClick={nextStep}
+                disabled={!connectorMated}
+                className={`px-8 py-4 rounded-2xl ${
+                  connectorMated
                     ? "bg-blue-600 hover:bg-blue-500"
                     : "bg-gray-800 text-gray-500"
                 }`}
               >
-                Submit Answer
+                Continue →
               </button>
 
-            ) : (
-
-              <div>
-
-                <div className="bg-[#181818] rounded-2xl p-8 mb-8">
-
-                  <h3 className="text-2xl font-bold text-blue-400 mb-4">
-                    Explanation
-                  </h3>
-
-                  <p className="text-gray-300 leading-8">
-                    {quizQuestions[currentQuestion].explanation}
-                  </p>
-
-                </div>
-
-                <button
-                  onClick={nextQuestion}
-                  className="bg-green-600 hover:bg-green-500 px-8 py-4 rounded-2xl"
-                >
-                  Next Question →
-                </button>
-
-              </div>
-
-            )}
-
-          </section>
-
-        )}
-
-        {/* QUIZ RESULT */}
-
-        {quizCompleted && (
-
-          <section className="bg-[#111] rounded-3xl p-10 text-center">
-
-            <h2 className="text-6xl font-bold mb-6">
-
-              {quizPassed
-                ? "Certification Achieved"
-                : "Quiz Not Passed"}
-
-            </h2>
-
-            <p className="text-3xl text-blue-400 mb-8">
-              Score: {quizScore} / 6
-            </p>
-
-            {quizPassed ? (
-
-              <div>
-
-                <p className="text-gray-300 text-xl leading-8 mb-10">
-                  You successfully completed the Connector Fundamentals
-                  learning mission and demonstrated foundational
-                  connector engineering competency.
-                </p>
-
-                <div className="bg-[#181818] rounded-3xl p-8 max-w-2xl mx-auto">
-
-                  <h3 className="text-3xl font-bold text-green-400 mb-6">
-                    Competencies Achieved
-                  </h3>
-
-                  <div className="space-y-4 text-left">
-
-                    <div className="bg-[#222] p-4 rounded-xl">
-                      Connector Fundamentals
-                    </div>
-
-                    <div className="bg-[#222] p-4 rounded-xl">
-                      Connector Anatomy
-                    </div>
-
-                    <div className="bg-[#222] p-4 rounded-xl">
-                      Environmental Protection Concepts
-                    </div>
-
-                    <div className="bg-[#222] p-4 rounded-xl">
-                      Connector Reliability Understanding
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            ) : (
-
-              <div>
-
-                <p className="text-gray-300 text-xl leading-8 mb-10">
-                  Review the module content and retry the certification quiz.
-                </p>
-
-                <div className="flex gap-6 justify-center flex-wrap">
-
-                  <button
-                    onClick={retryQuiz}
-                    className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
-                  >
-                    Retry Quiz
-                  </button>
-
-                  <button
-                    onClick={retakeCourse}
-                    className="bg-red-600 hover:bg-red-500 px-8 py-4 rounded-2xl"
-                  >
-                    Retake Course
-                  </button>
-
-                </div>
-
-              </div>
-
-            )}
+            </div>
 
           </section>
 
