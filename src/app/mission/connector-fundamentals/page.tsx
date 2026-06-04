@@ -54,6 +54,9 @@ export default function ConnectorFundamentalsMission() {
 const [xpEvents, setXpEvents] =
   useState<string[]>([]);
 
+const [loading, setLoading] =
+  useState(true);
+
   const progress =
   quizCompleted
     ? 100
@@ -61,6 +64,17 @@ const [xpEvents, setXpEvents] =
       ? 100
       : ((step - 1) / 8) * 100;
 
+  useEffect(() => {
+
+  const timer = setTimeout(() => {
+
+    setLoading(false);
+
+  }, 700);
+
+  return () => clearTimeout(timer);
+
+}, []);
  /* =========================================================
    LOAD SAVED DATA
 ========================================================= */
@@ -670,7 +684,39 @@ if (passed) {
   /* =========================================================
      UI
   ========================================================= */
+if (loading) {
 
+  return (
+
+    <main className="min-h-screen bg-black flex items-center justify-center text-white px-6">
+
+      <div className="text-center">
+
+        <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-6">
+          Nexus Academy
+        </p>
+
+        <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          Loading Mission
+        </h1>
+
+        <div className="w-72 h-3 bg-[#222] rounded-full overflow-hidden mx-auto mb-6">
+
+          <div className="h-full bg-blue-600 animate-pulse w-2/3" />
+
+        </div>
+
+        <p className="text-gray-400">
+          Initializing Engineering Learning Environment...
+        </p>
+
+      </div>
+
+    </main>
+
+  );
+
+}
   return (
 
     <main className="min-h-screen bg-black text-white px-6 py-10">
