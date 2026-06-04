@@ -52,80 +52,136 @@ export default function ConnectorFundamentalsMission() {
     useState(false);
 
   const progress =
-    quizCompleted
+  quizCompleted
+    ? 100
+    : step >= 9
       ? 100
-      : (step / 9) * 100;
+      : ((step - 1) / 8) * 100;
 
-  /* =========================================================
-     LOAD SAVED DATA
-  ========================================================= */
+ /* =========================================================
+   LOAD SAVED DATA
+========================================================= */
 
-  useEffect(() => {
+useEffect(() => {
 
-    const savedData = localStorage.getItem(
-      "connectorFundamentalsMaster"
+  const savedData = localStorage.getItem(
+    "connectorFundamentalsMaster"
+  );
+
+  if (savedData) {
+
+    const parsed = JSON.parse(savedData);
+
+    setStep(parsed.step || 1);
+
+    setXp(parsed.xp || 0);
+
+    setConnectorMated(
+      parsed.connectorMated || false
     );
 
-    if (savedData) {
+    setExploredParts(
+      parsed.exploredParts || []
+    );
 
-      const parsed = JSON.parse(savedData);
+    setSelectedFeatures(
+      parsed.selectedFeatures || []
+    );
 
-      setStep(parsed.step || 1);
+    setChallengeSubmitted(
+      parsed.challengeSubmitted || false
+    );
 
-      setXp(parsed.xp || 0);
+    setChallengePassed(
+      parsed.challengePassed || false
+    );
 
-      setConnectorMated(
-        parsed.connectorMated || false
-      );
+    setQuizStarted(
+      parsed.quizStarted || false
+    );
 
-      setExploredParts(
-        parsed.exploredParts || []
-      );
+    setCurrentQuestion(
+      parsed.currentQuestion || 0
+    );
 
-      setQuizCompleted(
-        parsed.quizCompleted || false
-      );
+    setQuizScore(
+      parsed.quizScore || 0
+    );
 
-      setQuizPassed(
-        parsed.quizPassed || false
-      );
+    setQuizCompleted(
+      parsed.quizCompleted || false
+    );
 
-    }
+    setQuizPassed(
+      parsed.quizPassed || false
+    );
 
-  }, []);
+  }
 
+}, []);
   /* =========================================================
      SAVE DATA
   ========================================================= */
 
-  useEffect(() => {
+useEffect(() => {
 
-    localStorage.setItem(
-      "connectorFundamentalsMaster",
-      JSON.stringify({
+  localStorage.setItem(
+    "connectorFundamentalsMaster",
+    JSON.stringify({
 
-        step,
-        xp,
-        connectorMated,
-        exploredParts,
-        quizCompleted,
-        quizPassed,
+      step,
+      xp,
+      connectorMated,
+      exploredParts,
 
-      })
-    );
-     localStorage.setItem(
-      "nexusTotalXP",
-       String(xp)
-     );
-    
-  }, [
-    step,
-    xp,
-    connectorMated,
-    exploredParts,
-    quizCompleted,
-    quizPassed,
-  ]);
+      selectedFeatures,
+      challengeSubmitted,
+      challengePassed,
+
+      quizStarted,
+      currentQuestion,
+      quizScore,
+
+      quizCompleted,
+      quizPassed,
+
+    })
+  );
+
+  localStorage.setItem(
+    "nexusTotalXP",
+    String(xp)
+  );
+
+  localStorage.setItem(
+    "connectorFundamentalsProgress",
+    JSON.stringify({
+      xp,
+      retryCount: JSON.parse(
+        localStorage.getItem(
+          "connectorFundamentalsProgress"
+        ) || "{}"
+      ).retryCount || 0,
+    })
+  );
+
+}, [
+  step,
+  xp,
+  connectorMated,
+  exploredParts,
+
+  selectedFeatures,
+  challengeSubmitted,
+  challengePassed,
+
+  quizStarted,
+  currentQuestion,
+  quizScore,
+
+  quizCompleted,
+  quizPassed,
+]);
 
   /* =========================================================
      ANATOMY DATA
