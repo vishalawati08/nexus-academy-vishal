@@ -24,12 +24,20 @@ export default function ConnectorFundamentalsMission() {
 
   const [quizPassed, setQuizPassed] = useState(false);
 
-  const progress = (step / 4) * 100;
+  const [showExplanation, setShowExplanation] = useState(false);
+
+  const progress = quizCompleted
+    ? 100
+    : (step / 4) * 100;
+
+  /* =========================================
+     LOAD SAVED DATA
+  ========================================= */
 
   useEffect(() => {
 
     const savedData = localStorage.getItem(
-      "connectorFundamentalsProgress"
+      "connectorFundamentalsProgressV6"
     );
 
     if (savedData) {
@@ -50,16 +58,22 @@ export default function ConnectorFundamentalsMission() {
 
   }, []);
 
+  /* =========================================
+     SAVE DATA
+  ========================================= */
+
   useEffect(() => {
 
     localStorage.setItem(
-      "connectorFundamentalsProgress",
+      "connectorFundamentalsProgressV6",
       JSON.stringify({
+
         step,
         xp,
         exploredParts,
         quizCompleted,
         quizPassed,
+
       })
     );
 
@@ -70,6 +84,10 @@ export default function ConnectorFundamentalsMission() {
     quizCompleted,
     quizPassed,
   ]);
+
+  /* =========================================
+     ANATOMY DATA
+  ========================================= */
 
   const anatomyData = {
 
@@ -185,6 +203,10 @@ export default function ConnectorFundamentalsMission() {
 
   };
 
+  /* =========================================
+     QUIZ DATA
+  ========================================= */
+
   const quizQuestions = [
 
     {
@@ -296,6 +318,10 @@ export default function ConnectorFundamentalsMission() {
 
   ];
 
+  /* =========================================
+     FUNCTIONS
+  ========================================= */
+
   const nextStep = () => {
 
     setStep((prev) => prev + 1);
@@ -326,9 +352,16 @@ export default function ConnectorFundamentalsMission() {
 
   };
 
+  const startQuiz = () => {
+
+    setQuizStarted(true);
+
+  };
+
   const handleQuizAnswer = () => {
 
-    const current = quizQuestions[currentQuestion];
+    const current =
+      quizQuestions[currentQuestion];
 
     let updatedScore = quizScore;
 
@@ -340,17 +373,28 @@ export default function ConnectorFundamentalsMission() {
 
     }
 
-    if (currentQuestion + 1 < quizQuestions.length) {
+    setShowExplanation(true);
+
+  };
+
+  const nextQuestion = () => {
+
+    setShowExplanation(false);
+
+    setSelectedAnswer("");
+
+    if (
+      currentQuestion + 1 <
+      quizQuestions.length
+    ) {
 
       setCurrentQuestion((prev) => prev + 1);
-
-      setSelectedAnswer("");
 
     } else {
 
       setQuizCompleted(true);
 
-      const passed = updatedScore >= 4;
+      const passed = quizScore >= 4;
 
       setQuizPassed(passed);
 
@@ -384,12 +428,14 @@ export default function ConnectorFundamentalsMission() {
 
     setQuizPassed(false);
 
+    setShowExplanation(false);
+
   };
 
   const retakeCourse = () => {
 
     localStorage.removeItem(
-      "connectorFundamentalsProgress"
+      "connectorFundamentalsProgressV6"
     );
 
     localStorage.removeItem(
@@ -420,6 +466,8 @@ export default function ConnectorFundamentalsMission() {
 
     setQuizPassed(false);
 
+    setShowExplanation(false);
+
   };
 
   return (
@@ -432,9 +480,16 @@ export default function ConnectorFundamentalsMission() {
           Connector Fundamentals
         </h1>
 
-        <p className="text-gray-400 text-xl mb-10">
+        <p className="text-gray-400 text-xl mb-6">
           Guided Product Specialist Learning Mission
         </p>
+
+        <button
+          onClick={retakeCourse}
+          className="mb-10 bg-red-600 hover:bg-red-500 px-6 py-3 rounded-2xl font-semibold"
+        >
+          Retake Course
+        </button>
 
         {/* PROGRESS */}
 
@@ -570,75 +625,57 @@ export default function ConnectorFundamentalsMission() {
                 <div className="space-y-6 text-gray-300 leading-8">
 
                   <div>
-
                     <h3 className="text-blue-400 font-bold mb-2">
                       What is it?
                     </h3>
-
                     <p>
                       {anatomyData[selectedPart as keyof typeof anatomyData].what}
                     </p>
-
                   </div>
 
                   <div>
-
                     <h3 className="text-blue-400 font-bold mb-2">
                       Functions
                     </h3>
-
                     <p>
                       {anatomyData[selectedPart as keyof typeof anatomyData].functions}
                     </p>
-
                   </div>
 
                   <div>
-
                     <h3 className="text-blue-400 font-bold mb-2">
                       Types
                     </h3>
-
                     <p>
                       {anatomyData[selectedPart as keyof typeof anatomyData].types}
                     </p>
-
                   </div>
 
                   <div>
-
                     <h3 className="text-blue-400 font-bold mb-2">
                       Advantages
                     </h3>
-
                     <p>
                       {anatomyData[selectedPart as keyof typeof anatomyData].advantages}
                     </p>
-
                   </div>
 
                   <div>
-
                     <h3 className="text-blue-400 font-bold mb-2">
                       Applications
                     </h3>
-
                     <p>
                       {anatomyData[selectedPart as keyof typeof anatomyData].applications}
                     </p>
-
                   </div>
 
                   <div>
-
                     <h3 className="text-red-400 font-bold mb-2">
                       Failure Risks
                     </h3>
-
                     <p>
                       {anatomyData[selectedPart as keyof typeof anatomyData].failures}
                     </p>
-
                   </div>
 
                 </div>
@@ -658,6 +695,206 @@ export default function ConnectorFundamentalsMission() {
             >
               Continue →
             </button>
+
+          </section>
+
+        )}
+
+        {/* STEP 3 */}
+
+        {step === 3 && !quizStarted && (
+
+          <section className="bg-[#111] rounded-3xl p-10">
+
+            <h2 className="text-5xl font-bold mb-6">
+              Final Certification Quiz
+            </h2>
+
+            <p className="text-gray-400 text-xl leading-8 mb-10">
+              Complete the mandatory assessment covering the entire
+              Connector Fundamentals module.
+              Pass Requirement: 4 / 6
+            </p>
+
+            <button
+              onClick={startQuiz}
+              className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+            >
+              Start Quiz →
+            </button>
+
+          </section>
+
+        )}
+
+        {/* QUIZ */}
+
+        {quizStarted && !quizCompleted && (
+
+          <section className="bg-[#111] rounded-3xl p-10">
+
+            <p className="text-blue-400 mb-4">
+              Question {currentQuestion + 1} / 6
+            </p>
+
+            <h2 className="text-4xl font-bold mb-10">
+              {quizQuestions[currentQuestion].question}
+            </h2>
+
+            <div className="space-y-4 mb-10">
+
+              {quizQuestions[currentQuestion].options.map((option) => (
+
+                <button
+                  key={option}
+                  onClick={() => setSelectedAnswer(option)}
+                  className={`w-full text-left p-6 rounded-2xl border transition ${
+                    selectedAnswer === option
+                      ? "bg-blue-600 border-blue-400"
+                      : "bg-[#181818] border-gray-800"
+                  }`}
+                >
+
+                  {option}
+
+                </button>
+
+              ))}
+
+            </div>
+
+            {!showExplanation ? (
+
+              <button
+                onClick={handleQuizAnswer}
+                disabled={!selectedAnswer}
+                className={`px-8 py-4 rounded-2xl ${
+                  selectedAnswer
+                    ? "bg-blue-600 hover:bg-blue-500"
+                    : "bg-gray-800 text-gray-500"
+                }`}
+              >
+                Submit Answer
+              </button>
+
+            ) : (
+
+              <div>
+
+                <div className="bg-[#181818] rounded-2xl p-8 mb-8">
+
+                  <h3 className="text-2xl font-bold text-blue-400 mb-4">
+                    Explanation
+                  </h3>
+
+                  <p className="text-gray-300 leading-8">
+                    {quizQuestions[currentQuestion].explanation}
+                  </p>
+
+                </div>
+
+                <button
+                  onClick={nextQuestion}
+                  className="bg-green-600 hover:bg-green-500 px-8 py-4 rounded-2xl"
+                >
+                  Next Question →
+                </button>
+
+              </div>
+
+            )}
+
+          </section>
+
+        )}
+
+        {/* QUIZ RESULT */}
+
+        {quizCompleted && (
+
+          <section className="bg-[#111] rounded-3xl p-10 text-center">
+
+            <h2 className="text-6xl font-bold mb-6">
+
+              {quizPassed
+                ? "Certification Achieved"
+                : "Quiz Not Passed"}
+
+            </h2>
+
+            <p className="text-3xl text-blue-400 mb-8">
+              Score: {quizScore} / 6
+            </p>
+
+            {quizPassed ? (
+
+              <div>
+
+                <p className="text-gray-300 text-xl leading-8 mb-10">
+                  You successfully completed the Connector Fundamentals
+                  learning mission and demonstrated foundational
+                  connector engineering competency.
+                </p>
+
+                <div className="bg-[#181818] rounded-3xl p-8 max-w-2xl mx-auto">
+
+                  <h3 className="text-3xl font-bold text-green-400 mb-6">
+                    Competencies Achieved
+                  </h3>
+
+                  <div className="space-y-4 text-left">
+
+                    <div className="bg-[#222] p-4 rounded-xl">
+                      Connector Fundamentals
+                    </div>
+
+                    <div className="bg-[#222] p-4 rounded-xl">
+                      Connector Anatomy
+                    </div>
+
+                    <div className="bg-[#222] p-4 rounded-xl">
+                      Environmental Protection Concepts
+                    </div>
+
+                    <div className="bg-[#222] p-4 rounded-xl">
+                      Connector Reliability Understanding
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            ) : (
+
+              <div>
+
+                <p className="text-gray-300 text-xl leading-8 mb-10">
+                  Review the module content and retry the certification quiz.
+                </p>
+
+                <div className="flex gap-6 justify-center flex-wrap">
+
+                  <button
+                    onClick={retryQuiz}
+                    className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+                  >
+                    Retry Quiz
+                  </button>
+
+                  <button
+                    onClick={retakeCourse}
+                    className="bg-red-600 hover:bg-red-500 px-8 py-4 rounded-2xl"
+                  >
+                    Retake Course
+                  </button>
+
+                </div>
+
+              </div>
+
+            )}
 
           </section>
 
