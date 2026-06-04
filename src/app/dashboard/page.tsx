@@ -97,7 +97,7 @@ if (missionData) {
 
   return (
 
-    <main className="min-h-screen bg-black text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-to-b from-black via-[#050816] to-black text-white px-6 py-10">
 
       <div className="max-w-7xl mx-auto">
 
@@ -268,7 +268,7 @@ if (missionData) {
 
               <Link
                 href="/mission/connector-fundamentals"
-                className="block text-center bg-blue-600 hover:bg-blue-500 transition px-6 py-4 rounded-2xl font-semibold"
+                className="block text-center bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition px-6 py-4 rounded-2xl font-semibold"
               >
                 {completed
                   ? "Review Module"
@@ -322,7 +322,7 @@ if (missionData) {
 
   <Link
     href="/mission/product-families"
-    className="block w-full text-center bg-blue-600 hover:bg-blue-500 px-6 py-4 rounded-2xl font-semibold transition"
+    className="block w-full text-center bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] px-6 py-4 rounded-2xl font-semibold transition"
   >
     Start Module
   </Link>
