@@ -10,6 +10,9 @@ export default function ConnectorFundamentalsMission() {
   const [selectedPart, setSelectedPart] = useState("");
   const [exploredParts, setExploredParts] = useState<string[]>([]);
 
+  const [connectorMated, setConnectorMated] = useState(false);
+  const [connectorXpAwarded, setConnectorXpAwarded] = useState(false);
+
   const nextStep = () => {
     setStep(step + 1);
     setXp((prev) => prev + 20);
@@ -86,6 +89,7 @@ export default function ConnectorFundamentalsMission() {
   };
 
   return (
+
     <main className="min-h-screen bg-black text-white px-6 py-10">
 
       <div className="max-w-6xl mx-auto">
@@ -326,21 +330,56 @@ export default function ConnectorFundamentalsMission() {
 
                 <div>
 
-                  <p className="text-red-400 mb-2">
-                    Electrical Path Open
+                  <p
+                    className={`mb-2 font-semibold ${
+                      connectorMated
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {connectorMated
+                      ? "Electrical Path Active"
+                      : "Electrical Path Open"}
                   </p>
 
-                  <h3 className="text-4xl font-bold">
-                    DISCONNECTED
+                  <h3
+                    className={`text-4xl font-bold ${
+                      connectorMated
+                        ? "text-green-400"
+                        : "text-white"
+                    }`}
+                  >
+                    {connectorMated
+                      ? "CONNECTED"
+                      : "DISCONNECTED"}
                   </h3>
 
                 </div>
 
                 <button
-                  onClick={() => setXp((prev) => prev + 15)}
-                  className="bg-blue-600 hover:bg-blue-500 transition px-6 py-3 rounded-xl"
+                  onClick={() => {
+
+                    setConnectorMated(true);
+
+                    if (!connectorXpAwarded) {
+                      setXp((prev) => prev + 15);
+                      setConnectorXpAwarded(true);
+                    }
+                  }}
+                  disabled={connectorMated}
+                  className={`px-6 py-3 rounded-xl transition
+
+                  ${
+                    connectorMated
+                      ? "bg-green-600 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-500"
+                  }`}
                 >
-                  Mate Connector
+
+                  {connectorMated
+                    ? "Connector Mated ✓"
+                    : "Mate Connector"}
+
                 </button>
 
               </div>
@@ -354,17 +393,32 @@ export default function ConnectorFundamentalsMission() {
               </p>
 
               <p className="text-gray-300 leading-8">
-                “Connectors simplify maintenance, modularity, replacement,
-                and scalability across electronic architectures.”
+
+                {connectorMated
+                  ? "Excellent. The connector has successfully established an electrical pathway, enabling reliable signal and power transmission."
+                  : "Connectors simplify maintenance, modularity, replacement, and scalability across electronic architectures."
+                }
+
               </p>
 
             </div>
 
             <button
               onClick={nextStep}
-              className="bg-blue-600 hover:bg-blue-500 transition px-8 py-4 rounded-2xl font-semibold text-lg"
+              disabled={!connectorMated}
+              className={`px-8 py-4 rounded-2xl font-semibold text-lg transition
+
+              ${
+                connectorMated
+                  ? "bg-blue-600 hover:bg-blue-500"
+                  : "bg-gray-800 text-gray-500 cursor-not-allowed"
+              }`}
             >
-              Continue →
+
+              {connectorMated
+                ? "Continue →"
+                : "Mate Connector to Continue"}
+
             </button>
 
           </section>
