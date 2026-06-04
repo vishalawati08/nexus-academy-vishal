@@ -102,10 +102,6 @@ export default function ConnectorFundamentalsMission() {
 
     localStorage.setItem(
       "connectorFundamentalsMaster",
-      localStorage.setItem(
-  "nexusTotalXP",
-  String(xp)
-);
       JSON.stringify({
 
         step,
@@ -117,7 +113,11 @@ export default function ConnectorFundamentalsMission() {
 
       })
     );
-
+     localStorage.setItem(
+      "nexusTotalXP",
+       String(xp)
+     );
+    
   }, [
     step,
     xp,
