@@ -845,3 +845,200 @@ export default function ConnectorFundamentalsMission() {
     </main>
   );
 }
+{/* STEP 3 */}
+
+{step === 3 && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+
+    <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+      Step 3
+    </p>
+
+    <h2 className="text-5xl font-bold mb-10">
+      Connector Anatomy Explorer
+    </h2>
+
+    <p className="text-gray-400 text-xl leading-8 mb-10">
+      Explore critical connector components and understand their
+      engineering significance in reliability, electrical performance,
+      environmental protection, and manufacturability.
+    </p>
+
+    <div className="grid md:grid-cols-2 gap-6 mb-10">
+
+      {Object.keys(anatomyData).map((part) => (
+
+        <button
+          key={part}
+          onClick={() => handleExplorePart(part)}
+          className={`text-left rounded-2xl p-8 border transition-all duration-300 ${
+            selectedPart === part
+              ? "bg-blue-600 border-blue-400 scale-[1.02]"
+              : "bg-[#181818] border-gray-800 hover:border-blue-500"
+          }`}
+        >
+
+          <h3 className="text-3xl font-bold mb-4">
+            {part}
+          </h3>
+
+          <p className="text-gray-300">
+            Click to explore engineering details.
+          </p>
+
+        </button>
+
+      ))}
+
+    </div>
+
+    {selectedPart && (
+
+      <div className="bg-[#181818] border border-blue-900 rounded-3xl p-10 mb-10">
+
+        <h2 className="text-5xl font-bold mb-10">
+          {selectedPart}
+        </h2>
+
+        <div className="space-y-8 text-gray-300 leading-8">
+
+          <div>
+
+            <h3 className="text-blue-400 font-bold text-2xl mb-3">
+              What is it?
+            </h3>
+
+            <p>
+              {
+                anatomyData[
+                  selectedPart as keyof typeof anatomyData
+                ].what
+              }
+            </p>
+
+          </div>
+
+          <div>
+
+            <h3 className="text-blue-400 font-bold text-2xl mb-3">
+              Engineering Function
+            </h3>
+
+            <p>
+              {
+                anatomyData[
+                  selectedPart as keyof typeof anatomyData
+                ].functions
+              }
+            </p>
+
+          </div>
+
+          <div>
+
+            <h3 className="text-blue-400 font-bold text-2xl mb-3">
+              Common Types
+            </h3>
+
+            <p>
+              {
+                anatomyData[
+                  selectedPart as keyof typeof anatomyData
+                ].types
+              }
+            </p>
+
+          </div>
+
+          <div>
+
+            <h3 className="text-blue-400 font-bold text-2xl mb-3">
+              Advantages
+            </h3>
+
+            <p>
+              {
+                anatomyData[
+                  selectedPart as keyof typeof anatomyData
+                ].advantages
+              }
+            </p>
+
+          </div>
+
+          <div>
+
+            <h3 className="text-blue-400 font-bold text-2xl mb-3">
+              Applications
+            </h3>
+
+            <p>
+              {
+                anatomyData[
+                  selectedPart as keyof typeof anatomyData
+                ].applications
+              }
+            </p>
+
+          </div>
+
+          <div>
+
+            <h3 className="text-red-400 font-bold text-2xl mb-3">
+              Failure Risks
+            </h3>
+
+            <p>
+              {
+                anatomyData[
+                  selectedPart as keyof typeof anatomyData
+                ].failures
+              }
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    )}
+
+    <div className="bg-[#151515] border border-blue-900 rounded-3xl p-8 mb-10">
+
+      <h3 className="text-2xl font-bold text-blue-400 mb-4">
+        AI Mentor Insight
+      </h3>
+
+      <p className="text-gray-300 leading-8">
+        Connector reliability is not determined by one component alone.
+        Housing design, terminal integrity, sealing performance,
+        locking retention, and polarization all work together
+        to ensure electrical continuity, environmental resistance,
+        and long-term durability in real-world systems.
+      </p>
+
+    </div>
+
+    <button
+      onClick={nextStep}
+      disabled={exploredParts.length < 3}
+      className={`px-8 py-4 rounded-2xl font-semibold transition ${
+        exploredParts.length >= 3
+          ? "bg-blue-600 hover:bg-blue-500"
+          : "bg-gray-800 text-gray-500"
+      }`}
+    >
+
+      {exploredParts.length >= 3
+        ? "Continue →"
+        : `Explore ${
+            3 - exploredParts.length
+          } More Components`}
+
+    </button>
+
+  </section>
+
+)}
