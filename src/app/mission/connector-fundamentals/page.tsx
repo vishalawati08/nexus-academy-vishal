@@ -683,7 +683,7 @@ if (passed) {
           Nexus Academy
         </p>
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+        <h1 className="text-4xl md:text-4xl md:text-6xl font-bold mb-4">
           Connector Fundamentals
         </h1>
 
@@ -729,7 +729,7 @@ if (passed) {
             XP Earned
           </p>
 
-          <h2 className="text-5xl font-bold text-blue-500">
+          <h2 className="text-3xl md:text-4xl md:text-4xl md:text-5xl font-bold text-blue-500">
             {xp}
           </h2>
 
@@ -739,9 +739,9 @@ if (passed) {
 
         {step === 1 && (
 
-          <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+          <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
-            <h2 className="text-5xl font-bold mb-8">
+            <h2 className="text-3xl md:text-5xl font-bold mb-8">
               What We Sell at Molex
             </h2>
 
@@ -817,9 +817,9 @@ if (passed) {
 
         {step === 2 && (
 
-          <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+          <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
-            <h2 className="text-5xl font-bold mb-8">
+            <h2 className="text-3xl md:text-5xl font-bold mb-8">
               Connector Mating Simulation
             </h2>
 
@@ -960,13 +960,13 @@ if (passed) {
 
 {step === 3 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 3
     </p>
 
-    <h2 className="text-5xl font-bold mb-10">
+    <h2 className="text-3xl md:text-5xl font-bold mb-10">
       Connector Anatomy Explorer
     </h2>
 
@@ -1006,9 +1006,9 @@ if (passed) {
 
     {selectedPart && (
 
-      <div className="bg-[#181818] border border-blue-900 rounded-3xl p-10 mb-10">
+      <div className="bg-[#181818] border border-blue-900 rounded-3xl p-6 md:p-6 md:p-10 mb-10">
 
-        <h2 className="text-5xl font-bold mb-10">
+        <h2 className="text-3xl md:text-5xl font-bold mb-10">
           {selectedPart}
         </h2>
 
@@ -1158,13 +1158,13 @@ if (passed) {
 
 {step === 4 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 4
     </p>
 
-    <h2 className="text-5xl font-bold mb-10">
+    <h2 className="text-3xl md:text-5xl font-bold mb-10">
       Engineering Challenge
     </h2>
 
@@ -1258,7 +1258,7 @@ if (passed) {
     {challengeSubmitted && (
 
       <div
-        className={`rounded-3xl p-10 mt-10 border ${
+        className={`rounded-3xl p-6 md:p-6 md:p-10 mt-10 border ${
           challengePassed
             ? "bg-[#0f1c14] border-green-700"
             : "bg-[#1a1010] border-red-700"
@@ -1376,13 +1376,13 @@ if (passed) {
 
 {step === 5 && !quizStarted && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 5
     </p>
 
-    <h2 className="text-5xl font-bold mb-8">
+    <h2 className="text-3xl md:text-5xl font-bold mb-8">
       Final Certification Quiz
     </h2>
 
@@ -1431,13 +1431,13 @@ if (passed) {
 
 {quizStarted && !quizCompleted && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Question {currentQuestion + 1} / 6
     </p>
 
-    <h2 className="text-4xl font-bold mb-10 leading-tight">
+    <h2 className="text-2xl md:text-2xl md:text-2xl md:text-4xl font-bold mb-10 leading-tight">
       {quizQuestions[currentQuestion].question}
     </h2>
 
@@ -1517,9 +1517,9 @@ if (passed) {
 
 {quizCompleted && step === 5 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 text-center">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 text-center">
 
-    <h2 className="text-4xl md:text-6xl font-bold mb-8">
+    <h2 className="text-4xl md:text-4xl md:text-6xl font-bold mb-8">
 
       {quizPassed
         ? "Certification Achieved"
@@ -1535,14 +1535,14 @@ if (passed) {
 
   <div>
 
-    <p className="text-gray-300 text-xl leading-8 max-w-4xl mx-auto mb-12">
+    <p className="text-gray-300 text-xl leading-8 w-full max-w-4xl mx-auto mb-12">
       You successfully completed the Connector Fundamentals
       learning mission and demonstrated foundational
       connector engineering competency for customer-facing
       technical product specialist engagement.
     </p>
 
-    <div className="bg-[#181818] border border-green-700 rounded-3xl p-10 max-w-4xl mx-auto mb-10">
+    <div className="bg-[#181818] border border-green-700 rounded-3xl p-6 md:p-6 md:p-10 w-full max-w-4xl mx-auto mb-10">
 
       <h3 className="text-4xl font-bold text-green-400 mb-8">
         Competencies Achieved
@@ -1670,13 +1670,13 @@ if (passed) {
 
 {step === 6 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 6
     </p>
 
-    <h2 className="text-5xl font-bold mb-8">
+    <h2 className="text-3xl md:text-5xl font-bold mb-8">
       Connector Failure Analysis
     </h2>
 
@@ -1757,13 +1757,13 @@ if (passed) {
 
 {step === 7 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 7
     </p>
 
-    <h2 className="text-5xl font-bold mb-8">
+    <h2 className="text-3xl md:text-5xl font-bold mb-8">
       Connector Selection Strategy
     </h2>
 
@@ -1821,13 +1821,13 @@ if (passed) {
 
 {step === 8 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 8
     </p>
 
-    <h2 className="text-5xl font-bold mb-8">
+    <h2 className="text-3xl md:text-5xl font-bold mb-8">
       Product Specialist Readiness
     </h2>
 
@@ -1895,23 +1895,23 @@ if (passed) {
 
 {step === 9 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 text-center">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 text-center">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Final Mission Summary
     </p>
 
-    <h2 className="text-4xl md:text-6xl font-bold mb-8">
+    <h2 className="text-4xl md:text-4xl md:text-6xl font-bold mb-8">
       Connector Fundamentals Complete
     </h2>
 
-    <p className="text-gray-300 text-xl leading-8 max-w-4xl mx-auto mb-12">
+    <p className="text-gray-300 text-xl leading-8 w-full max-w-4xl mx-auto mb-12">
       You completed all learning activities,
       engineering simulations, troubleshooting concepts,
       and competency validation exercises.
     </p>
 
-    <div className="bg-[#181818] border border-green-700 rounded-3xl p-10 max-w-5xl mx-auto mb-10">
+    <div className="bg-[#181818] border border-green-700 rounded-3xl p-6 md:p-6 md:p-10 max-w-5xl mx-auto mb-10">
 
       <h3 className="text-4xl font-bold text-green-400 mb-8">
         Skills Developed
