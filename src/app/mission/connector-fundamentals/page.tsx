@@ -716,7 +716,7 @@ if (loading) {
 
   return (
 
-    <main className="min-h-screen bg-black flex items-center justify-center text-white px-6">
+    <main className="min-h-screen bg-gradient-to-b from-black via-[#050816] to-black flex items-center justify-center text-white px-6">
 
       <div className="text-center">
 
@@ -747,7 +747,7 @@ if (loading) {
 }
   return (
 
-    <main className="min-h-screen bg-black text-white px-6 py-10">
+    <main className="min-h-screen bg-gradient-to-b from-black via-[#050816] to-black text-white px-6 py-10">
 
       <div className="max-w-7xl mx-auto">
 
@@ -767,7 +767,7 @@ if (loading) {
 
         <button
           onClick={retakeCourse}
-          className="mb-10 bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-6 py-3 rounded-2xl font-semibold"
+          className="mb-10 bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-6 py-3 rounded-2xl font-semibold"
         >
           Retake Course
         </button>
@@ -878,7 +878,7 @@ if (loading) {
 
             <button
               onClick={nextStep}
-              className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
+              className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
             >
               Continue →
             </button>
@@ -1002,7 +1002,7 @@ if (loading) {
                 className={`px-8 py-4 rounded-2xl ${
                   connectorMated
                     ? "bg-green-600"
-                    : "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
+                    : "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03]"
                 }`}
               >
 
@@ -1017,7 +1017,7 @@ if (loading) {
                 disabled={!connectorMated}
                 className={`px-8 py-4 rounded-2xl ${
                   connectorMated
-                    ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
+                    ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03]"
                     : "bg-gray-800 text-gray-500"
                 }`}
               >
@@ -1211,7 +1211,7 @@ if (loading) {
       disabled={exploredParts.length < 3}
       className={`px-8 py-4 rounded-2xl font-semibold transition ${
         exploredParts.length >= 3
-          ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
+          ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03]"
           : "bg-gray-800 text-gray-500"
       }`}
     >
@@ -1318,7 +1318,7 @@ if (loading) {
         disabled={selectedFeatures.length === 0}
         className={`px-8 py-4 rounded-2xl font-semibold ${
           selectedFeatures.length > 0
-            ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
+            ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03]"
             : "bg-gray-800 text-gray-500"
         }`}
       >
@@ -1419,7 +1419,7 @@ if (loading) {
                 setChallengeSubmitted(false);
 
               }}
-              className="bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
+              className="bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
             >
               Retry Challenge
             </button>
@@ -1430,7 +1430,7 @@ if (loading) {
 
             <button
               onClick={nextStep}
-              className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
+              className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
             >
               Continue to Certification →
             </button>
@@ -1492,7 +1492,7 @@ if (loading) {
 
     <button
       onClick={() => setQuizStarted(true)}
-      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
+      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
     >
       Start Certification →
     </button>
@@ -1546,7 +1546,7 @@ if (loading) {
         disabled={!selectedAnswer}
         className={`px-8 py-4 rounded-2xl font-semibold ${
           selectedAnswer
-            ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
+            ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03]"
             : "bg-gray-800 text-gray-500"
         }`}
       >
@@ -1574,7 +1574,7 @@ if (loading) {
 
         <button
           onClick={nextQuestion}
-          className="bg-green-600 hover:bg-green-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
+          className="bg-green-600 hover:bg-green-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(34,197,94,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(34,197,94,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
         >
           Next Question →
         </button>
@@ -1694,7 +1694,7 @@ if (loading) {
             window.location.href =
               "/mission/advanced-connector-systems";
           }}
-          className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
+          className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
         >
           Proceed to Next Module →
         </button>
@@ -1718,14 +1718,14 @@ if (loading) {
 
           <button
             onClick={retryQuiz}
-            className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
+            className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
           >
             Retry Quiz
           </button>
 
           <button
             onClick={retakeCourse}
-            className="bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
+            className="bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
           >
             Retake Course
           </button>
@@ -1826,7 +1826,7 @@ if (loading) {
   nextStep();
 
 }}
-      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
+      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
     >
       Continue →
     </button>
@@ -1890,7 +1890,7 @@ if (loading) {
 
     <button
       onClick={nextStep}
-      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
+      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
     >
       Continue →
     </button>
@@ -1964,7 +1964,7 @@ if (loading) {
 
     <button
       onClick={nextStep}
-      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
+      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
     >
       Continue →
     </button>
@@ -2085,7 +2085,7 @@ if (loading) {
           window.location.href =
             "/mission/advanced-connector-systems";
         }}
-        className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
+        className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
       >
         Proceed to Module 2 →
       </button>
