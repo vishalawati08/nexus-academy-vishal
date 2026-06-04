@@ -54,7 +54,7 @@ export default function ConnectorFundamentalsMission() {
   const progress =
     quizCompleted
       ? 100
-      : (step / 5) * 100;
+      : (step / 9) * 100;
 
   /* =========================================================
      LOAD SAVED DATA
@@ -1560,6 +1560,314 @@ export default function ConnectorFundamentalsMission() {
   </section>
 
 )}
+
+       {/* STEP 6 */}
+
+{step === 6 && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+
+    <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+      Step 6
+    </p>
+
+    <h2 className="text-5xl font-bold mb-8">
+      Connector Failure Analysis
+    </h2>
+
+    <p className="text-gray-400 text-xl leading-8 mb-10">
+      Product specialists must understand common connector
+      failure modes to support customers during troubleshooting,
+      field validation, and product selection.
+    </p>
+
+    <div className="grid md:grid-cols-2 gap-6 mb-10">
+
+      <div className="bg-[#181818] rounded-2xl p-8 border border-red-900">
+
+        <h3 className="text-3xl font-bold text-red-400 mb-4">
+          Fretting Corrosion
+        </h3>
+
+        <p className="text-gray-300 leading-8">
+          Caused by micro-motion between contacts during vibration.
+          Results in increased contact resistance and intermittent signals.
+        </p>
+
+      </div>
+
+      <div className="bg-[#181818] rounded-2xl p-8 border border-orange-900">
+
+        <h3 className="text-3xl font-bold text-orange-400 mb-4">
+          Thermal Failure
+        </h3>
+
+        <p className="text-gray-300 leading-8">
+          Excessive current causes overheating,
+          terminal deformation, and housing damage.
+        </p>
+
+      </div>
+
+      <div className="bg-[#181818] rounded-2xl p-8 border border-blue-900">
+
+        <h3 className="text-3xl font-bold text-blue-400 mb-4">
+          Moisture Ingress
+        </h3>
+
+        <p className="text-gray-300 leading-8">
+          Seal degradation allows water entry,
+          causing corrosion and electrical instability.
+        </p>
+
+      </div>
+
+      <div className="bg-[#181818] rounded-2xl p-8 border border-green-900">
+
+        <h3 className="text-3xl font-bold text-green-400 mb-4">
+          Poor Retention
+        </h3>
+
+        <p className="text-gray-300 leading-8">
+          Weak locking systems may allow
+          connector disengagement during vibration.
+        </p>
+
+      </div>
+
+    </div>
+
+    <button
+      onClick={nextStep}
+      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+    >
+      Continue →
+    </button>
+
+  </section>
+
+)}
+
+{/* STEP 7 */}
+
+{step === 7 && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+
+    <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+      Step 7
+    </p>
+
+    <h2 className="text-5xl font-bold mb-8">
+      Connector Selection Strategy
+    </h2>
+
+    <p className="text-gray-400 text-xl leading-8 mb-10">
+      Selecting the correct connector requires balancing
+      electrical, mechanical, environmental, and manufacturing factors.
+    </p>
+
+    <div className="space-y-6 mb-10">
+
+      <div className="bg-[#181818] rounded-2xl p-8">
+        <h3 className="text-2xl font-bold mb-3">
+          Electrical Requirements
+        </h3>
+        <p className="text-gray-300 leading-8">
+          Voltage rating, current carrying capability,
+          signal integrity, and impedance requirements.
+        </p>
+      </div>
+
+      <div className="bg-[#181818] rounded-2xl p-8">
+        <h3 className="text-2xl font-bold mb-3">
+          Mechanical Constraints
+        </h3>
+        <p className="text-gray-300 leading-8">
+          Mating cycles, vibration performance,
+          packaging space, and retention force.
+        </p>
+      </div>
+
+      <div className="bg-[#181818] rounded-2xl p-8">
+        <h3 className="text-2xl font-bold mb-3">
+          Environmental Conditions
+        </h3>
+        <p className="text-gray-300 leading-8">
+          Temperature range, moisture exposure,
+          dust ingress, and chemical resistance.
+        </p>
+      </div>
+
+    </div>
+
+    <button
+      onClick={nextStep}
+      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+    >
+      Continue →
+    </button>
+
+  </section>
+
+)}
+
+{/* STEP 8 */}
+
+{step === 8 && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+
+    <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+      Step 8
+    </p>
+
+    <h2 className="text-5xl font-bold mb-8">
+      Product Specialist Readiness
+    </h2>
+
+    <p className="text-gray-400 text-xl leading-8 mb-10">
+      Product specialists bridge the gap between engineering,
+      customers, manufacturing, and commercial teams.
+    </p>
+
+    <div className="grid md:grid-cols-2 gap-6 mb-10">
+
+      <div className="bg-[#181818] rounded-2xl p-8">
+        <h3 className="text-2xl font-bold mb-3">
+          Technical Understanding
+        </h3>
+        <p className="text-gray-300 leading-8">
+          Understand connector architecture,
+          applications, and engineering trade-offs.
+        </p>
+      </div>
+
+      <div className="bg-[#181818] rounded-2xl p-8">
+        <h3 className="text-2xl font-bold mb-3">
+          Customer Support
+        </h3>
+        <p className="text-gray-300 leading-8">
+          Translate customer requirements
+          into engineering-compatible solutions.
+        </p>
+      </div>
+
+      <div className="bg-[#181818] rounded-2xl p-8">
+        <h3 className="text-2xl font-bold mb-3">
+          Cross-functional Collaboration
+        </h3>
+        <p className="text-gray-300 leading-8">
+          Work with engineering, quality,
+          manufacturing, and sales teams.
+        </p>
+      </div>
+
+      <div className="bg-[#181818] rounded-2xl p-8">
+        <h3 className="text-2xl font-bold mb-3">
+          Application Analysis
+        </h3>
+        <p className="text-gray-300 leading-8">
+          Recommend connectors based on
+          real-world operating conditions.
+        </p>
+      </div>
+
+    </div>
+
+    <button
+      onClick={nextStep}
+      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+    >
+      Continue →
+    </button>
+
+  </section>
+
+)}
+
+{/* STEP 9 */}
+
+{step === 9 && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 text-center">
+
+    <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+      Final Mission Summary
+    </p>
+
+    <h2 className="text-6xl font-bold mb-8">
+      Connector Fundamentals Complete
+    </h2>
+
+    <p className="text-gray-300 text-xl leading-8 max-w-4xl mx-auto mb-12">
+      You completed all learning activities,
+      engineering simulations, troubleshooting concepts,
+      and competency validation exercises.
+    </p>
+
+    <div className="bg-[#181818] border border-green-700 rounded-3xl p-10 max-w-5xl mx-auto mb-10">
+
+      <h3 className="text-4xl font-bold text-green-400 mb-8">
+        Skills Developed
+      </h3>
+
+      <div className="grid md:grid-cols-2 gap-6 text-left">
+
+        <div className="bg-[#222] rounded-2xl p-5">
+          Connector Anatomy
+        </div>
+
+        <div className="bg-[#222] rounded-2xl p-5">
+          Mating Systems
+        </div>
+
+        <div className="bg-[#222] rounded-2xl p-5">
+          Failure Analysis
+        </div>
+
+        <div className="bg-[#222] rounded-2xl p-5">
+          Connector Reliability
+        </div>
+
+        <div className="bg-[#222] rounded-2xl p-5">
+          Product Specialist Readiness
+        </div>
+
+        <div className="bg-[#222] rounded-2xl p-5">
+          Engineering Decision Making
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="flex gap-6 justify-center flex-wrap mt-12">
+
+      <button
+        onClick={() => {
+          window.location.href = "/dashboard";
+        }}
+        className="bg-gray-800 hover:bg-gray-700 px-8 py-4 rounded-2xl font-semibold"
+      >
+        Return to Dashboard
+      </button>
+
+      <button
+        onClick={() => {
+          window.location.href =
+            "/mission/advanced-connector-systems";
+        }}
+        className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+      >
+        Proceed to Module 2 →
+      </button>
+
+    </div>
+
+  </section>
+
+)} 
         
       </div>
 
