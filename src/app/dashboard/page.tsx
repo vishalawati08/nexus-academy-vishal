@@ -17,7 +17,9 @@ export default function DashboardPage() {
 
 const [badges, setBadges] =
   useState<string[]>([]);
-
+const [engineeringScore, setEngineeringScore] =
+  useState(0);
+  
   const [modulesCompleted, setModulesCompleted] =
     useState(0);
 
@@ -72,7 +74,9 @@ if (missionData) {
   setBadges(
     parsedMission.badges || []
   );
-
+  setEngineeringScore(
+  parsedMission.xp || 0
+);
 }
 
     if (completedStatus === "true") {
@@ -541,6 +545,65 @@ if (missionData) {
   </div>
 
 </section>
+
+        {/* ENGINEERING PROFILE */}
+
+<section className="mb-14">
+
+  <h2 className="text-4xl font-bold mb-8">
+    Engineering Competency Profile
+  </h2>
+
+  <div className="grid md:grid-cols-3 gap-6">
+
+    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+      <p className="text-gray-400 mb-4">
+        Engineering Readiness
+      </p>
+
+      <div
+        className={`inline-block px-5 py-3 rounded-full text-lg font-semibold ${
+          readinessLevel(engineeringScore).color
+        }`}
+      >
+
+        {readinessLevel(engineeringScore).label}
+
+      </div>
+
+    </div>
+
+    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+      <p className="text-gray-400 mb-4">
+        Technical Confidence
+      </p>
+
+      <h3 className="text-5xl font-bold text-blue-400">
+        {Math.min(
+          100,
+          Math.floor(engineeringScore / 2.5)
+        )}%
+      </h3>
+
+    </div>
+
+    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8">
+
+      <p className="text-gray-400 mb-4">
+        AI Evaluation
+      </p>
+
+      <h3 className="text-2xl font-bold text-green-400">
+        Customer Ready
+      </h3>
+
+    </div>
+
+  </div>
+
+</section>
         {/* AI MENTOR */}
 
         <section className="bg-[#101010] border border-blue-900 rounded-3xl p-10">
@@ -607,5 +670,27 @@ function challengeStatus(level: string) {
   }
 
   return "bg-gray-700";
+
+}
+function readinessLevel(score: number) {
+
+  if (score >= 220) {
+    return {
+      label: "Advanced",
+      color: "bg-green-600",
+    };
+  }
+
+  if (score >= 140) {
+    return {
+      label: "Intermediate",
+      color: "bg-blue-600",
+    };
+  }
+
+  return {
+    label: "Beginner",
+    color: "bg-yellow-600",
+  };
 
 }
