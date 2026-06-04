@@ -693,7 +693,7 @@ if (passed) {
 
         <button
           onClick={retakeCourse}
-          className="mb-10 bg-red-600 hover:bg-red-500 px-6 py-3 rounded-2xl font-semibold"
+          className="mb-10 bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-6 py-3 rounded-2xl font-semibold"
         >
           Retake Course
         </button>
@@ -739,7 +739,7 @@ if (passed) {
 
         {step === 1 && (
 
-          <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+          <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
             <h2 className="text-5xl font-bold mb-8">
               What We Sell at Molex
@@ -747,7 +747,7 @@ if (passed) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
-              <div className="bg-[#181818] rounded-2xl p-8">
+              <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
 
                 <h3 className="text-3xl font-bold mb-4">
                   Wire-to-Wire
@@ -761,7 +761,7 @@ if (passed) {
 
               </div>
 
-              <div className="bg-[#181818] rounded-2xl p-8">
+              <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
 
                 <h3 className="text-3xl font-bold mb-4">
                   Wire-to-Board
@@ -774,7 +774,7 @@ if (passed) {
 
               </div>
 
-              <div className="bg-[#181818] rounded-2xl p-8">
+              <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
 
                 <h3 className="text-3xl font-bold mb-4">
                   Board-to-Board
@@ -787,7 +787,7 @@ if (passed) {
 
               </div>
 
-              <div className="bg-[#181818] rounded-2xl p-8">
+              <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
 
                 <h3 className="text-3xl font-bold mb-4">
                   Automotive Connectors
@@ -804,7 +804,7 @@ if (passed) {
 
             <button
               onClick={nextStep}
-              className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+              className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
             >
               Continue →
             </button>
@@ -817,7 +817,7 @@ if (passed) {
 
         {step === 2 && (
 
-          <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+          <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
             <h2 className="text-5xl font-bold mb-8">
               Connector Mating Simulation
@@ -928,7 +928,7 @@ if (passed) {
                 className={`px-8 py-4 rounded-2xl ${
                   connectorMated
                     ? "bg-green-600"
-                    : "bg-blue-600 hover:bg-blue-500"
+                    : "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
                 }`}
               >
 
@@ -943,7 +943,7 @@ if (passed) {
                 disabled={!connectorMated}
                 className={`px-8 py-4 rounded-2xl ${
                   connectorMated
-                    ? "bg-blue-600 hover:bg-blue-500"
+                    ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
                     : "bg-gray-800 text-gray-500"
                 }`}
               >
@@ -960,7 +960,7 @@ if (passed) {
 
 {step === 3 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 3
@@ -983,7 +983,7 @@ if (passed) {
         <button
           key={part}
           onClick={() => handleExplorePart(part)}
-          className={`text-left rounded-2xl p-8 border transition-all duration-300 ${
+          className={`text-left rounded-2xl p-8 border transition-all duration-300 hover:scale-[1.02] ${
             selectedPart === part
               ? "bg-blue-600 border-blue-400 scale-[1.02]"
               : "bg-[#181818] border-gray-800 hover:border-blue-500"
@@ -1137,7 +1137,7 @@ if (passed) {
       disabled={exploredParts.length < 3}
       className={`px-8 py-4 rounded-2xl font-semibold transition ${
         exploredParts.length >= 3
-          ? "bg-blue-600 hover:bg-blue-500"
+          ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
           : "bg-gray-800 text-gray-500"
       }`}
     >
@@ -1158,7 +1158,7 @@ if (passed) {
 
 {step === 4 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 4
@@ -1176,7 +1176,7 @@ if (passed) {
 
     {/* SCENARIO */}
 
-    <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10">
+    <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10 transition-all duration-300 hover:border-blue-500">
 
       <h3 className="text-3xl font-bold mb-6">
         EV Battery Connector Requirements
@@ -1218,7 +1218,7 @@ if (passed) {
         <button
           key={feature}
           onClick={() => toggleFeature(feature)}
-          className={`text-left rounded-2xl p-8 border transition-all duration-300 ${
+          className={`text-left rounded-2xl p-8 border transition-all duration-300 hover:scale-[1.02] ${
             selectedFeatures.includes(feature)
               ? "bg-blue-600 border-blue-400 scale-[1.02]"
               : "bg-[#181818] border-gray-800 hover:border-blue-500"
@@ -1244,7 +1244,7 @@ if (passed) {
         disabled={selectedFeatures.length === 0}
         className={`px-8 py-4 rounded-2xl font-semibold ${
           selectedFeatures.length > 0
-            ? "bg-blue-600 hover:bg-blue-500"
+            ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
             : "bg-gray-800 text-gray-500"
         }`}
       >
@@ -1345,7 +1345,7 @@ if (passed) {
                 setChallengeSubmitted(false);
 
               }}
-              className="bg-red-600 hover:bg-red-500 px-8 py-4 rounded-2xl"
+              className="bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
             >
               Retry Challenge
             </button>
@@ -1356,7 +1356,7 @@ if (passed) {
 
             <button
               onClick={nextStep}
-              className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+              className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
             >
               Continue to Certification →
             </button>
@@ -1376,7 +1376,7 @@ if (passed) {
 
 {step === 5 && !quizStarted && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 5
@@ -1392,7 +1392,7 @@ if (passed) {
       Pass Requirement: 4 / 6
     </p>
 
-    <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10">
+    <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10 transition-all duration-300 hover:border-blue-500">
 
       <h3 className="text-3xl font-bold mb-6">
         Assessment Coverage
@@ -1418,7 +1418,7 @@ if (passed) {
 
     <button
       onClick={() => setQuizStarted(true)}
-      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
     >
       Start Certification →
     </button>
@@ -1431,7 +1431,7 @@ if (passed) {
 
 {quizStarted && !quizCompleted && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Question {currentQuestion + 1} / 6
@@ -1448,7 +1448,7 @@ if (passed) {
         <button
           key={option}
           onClick={() => setSelectedAnswer(option)}
-          className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 ${
+          className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 hover:scale-[1.01] ${
             selectedAnswer === option
               ? "bg-blue-600 border-blue-400"
               : "bg-[#181818] border-gray-800 hover:border-blue-500"
@@ -1472,7 +1472,7 @@ if (passed) {
         disabled={!selectedAnswer}
         className={`px-8 py-4 rounded-2xl font-semibold ${
           selectedAnswer
-            ? "bg-blue-600 hover:bg-blue-500"
+            ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03]"
             : "bg-gray-800 text-gray-500"
         }`}
       >
@@ -1483,7 +1483,7 @@ if (passed) {
 
       <div>
 
-        <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10">
+        <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10 transition-all duration-300 hover:border-blue-500">
 
           <h3 className="text-2xl font-bold text-blue-400 mb-4">
             Engineering Explanation
@@ -1500,7 +1500,7 @@ if (passed) {
 
         <button
           onClick={nextQuestion}
-          className="bg-green-600 hover:bg-green-500 px-8 py-4 rounded-2xl font-semibold"
+          className="bg-green-600 hover:bg-green-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
         >
           Next Question →
         </button>
@@ -1620,7 +1620,7 @@ if (passed) {
             window.location.href =
               "/mission/advanced-connector-systems";
           }}
-          className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+          className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
         >
           Proceed to Next Module →
         </button>
@@ -1644,14 +1644,14 @@ if (passed) {
 
           <button
             onClick={retryQuiz}
-            className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+            className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
           >
             Retry Quiz
           </button>
 
           <button
             onClick={retakeCourse}
-            className="bg-red-600 hover:bg-red-500 px-8 py-4 rounded-2xl font-semibold"
+            className="bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
           >
             Retake Course
           </button>
@@ -1670,7 +1670,7 @@ if (passed) {
 
 {step === 6 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 6
@@ -1744,7 +1744,7 @@ if (passed) {
 
     <button
       onClick={nextStep}
-      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
     >
       Continue →
     </button>
@@ -1757,7 +1757,7 @@ if (passed) {
 
 {step === 7 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 7
@@ -1774,7 +1774,7 @@ if (passed) {
 
     <div className="space-y-6 mb-10">
 
-      <div className="bg-[#181818] rounded-2xl p-8">
+      <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
         <h3 className="text-2xl font-bold mb-3">
           Electrical Requirements
         </h3>
@@ -1784,7 +1784,7 @@ if (passed) {
         </p>
       </div>
 
-      <div className="bg-[#181818] rounded-2xl p-8">
+      <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
         <h3 className="text-2xl font-bold mb-3">
           Mechanical Constraints
         </h3>
@@ -1794,7 +1794,7 @@ if (passed) {
         </p>
       </div>
 
-      <div className="bg-[#181818] rounded-2xl p-8">
+      <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
         <h3 className="text-2xl font-bold mb-3">
           Environmental Conditions
         </h3>
@@ -1808,7 +1808,7 @@ if (passed) {
 
     <button
       onClick={nextStep}
-      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
     >
       Continue →
     </button>
@@ -1821,7 +1821,7 @@ if (passed) {
 
 {step === 8 && (
 
-  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 transition-all duration-500">
 
     <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
       Step 8
@@ -1838,7 +1838,7 @@ if (passed) {
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
-      <div className="bg-[#181818] rounded-2xl p-8">
+      <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
         <h3 className="text-2xl font-bold mb-3">
           Technical Understanding
         </h3>
@@ -1848,7 +1848,7 @@ if (passed) {
         </p>
       </div>
 
-      <div className="bg-[#181818] rounded-2xl p-8">
+      <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
         <h3 className="text-2xl font-bold mb-3">
           Customer Support
         </h3>
@@ -1858,7 +1858,7 @@ if (passed) {
         </p>
       </div>
 
-      <div className="bg-[#181818] rounded-2xl p-8">
+      <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
         <h3 className="text-2xl font-bold mb-3">
           Cross-functional Collaboration
         </h3>
@@ -1868,7 +1868,7 @@ if (passed) {
         </p>
       </div>
 
-      <div className="bg-[#181818] rounded-2xl p-8">
+      <div className="bg-[#181818] rounded-2xl p-8 transition-all duration-300 hover:scale-[1.02]">
         <h3 className="text-2xl font-bold mb-3">
           Application Analysis
         </h3>
@@ -1882,7 +1882,7 @@ if (passed) {
 
     <button
       onClick={nextStep}
-      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
+      className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
     >
       Continue →
     </button>
@@ -1963,7 +1963,7 @@ if (passed) {
           window.location.href =
             "/mission/advanced-connector-systems";
         }}
-        className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+        className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl font-semibold"
       >
         Proceed to Module 2 →
       </button>
