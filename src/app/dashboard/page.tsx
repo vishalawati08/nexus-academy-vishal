@@ -277,20 +277,25 @@ export default function DashboardPage() {
 
               </div>
 
-              <button
-                disabled={!completed}
-                className={`w-full px-6 py-4 rounded-2xl font-semibold ${
-                  completed
-                    ? "bg-blue-600 hover:bg-blue-500"
-                    : "bg-gray-800 text-gray-500 cursor-not-allowed"
-                }`}
-              >
+              {completed ? (
 
-                {completed
-                  ? "Start Module"
-                  : "Complete Previous Module"}
+  <Link
+    href="/mission/product-families"
+    className="block w-full text-center bg-blue-600 hover:bg-blue-500 px-6 py-4 rounded-2xl font-semibold transition"
+  >
+    Start Module
+  </Link>
 
-              </button>
+) : (
+
+  <button
+    disabled
+    className="w-full px-6 py-4 rounded-2xl font-semibold bg-gray-800 text-gray-500 cursor-not-allowed"
+  >
+    Complete Previous Module
+  </button>
+
+)}
 
             </div>
 
