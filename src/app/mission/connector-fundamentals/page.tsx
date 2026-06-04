@@ -2023,6 +2023,43 @@ if (loading) {
 
         <div className="bg-[#222] rounded-2xl p-5">
           Engineering Decision Making
+
+          {/* BADGE SHOWCASE */}
+
+<div className="bg-[#111827] border border-yellow-700 rounded-3xl p-10 max-w-5xl mx-auto mb-10">
+
+  <h3 className="text-4xl font-bold text-yellow-400 mb-8">
+    Achievements Earned
+  </h3>
+
+  <div className="grid md:grid-cols-2 gap-6">
+
+    {badges.map((badge) => (
+
+      <div
+        key={badge}
+        className="bg-[#181818] border border-yellow-600 rounded-2xl p-6 hover:scale-[1.03] transition-all duration-300"
+      >
+
+        <div className="text-5xl mb-4">
+          🏆
+        </div>
+
+        <h4 className="text-2xl font-bold mb-2">
+          {badge}
+        </h4>
+
+        <p className="text-gray-400">
+          Successfully unlocked during training.
+        </p>
+
+      </div>
+
+    ))}
+
+  </div>
+
+</div>
         </div>
 
       </div>
