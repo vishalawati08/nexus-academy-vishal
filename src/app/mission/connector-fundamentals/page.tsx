@@ -1417,104 +1417,105 @@ export default function ConnectorFundamentalsMission() {
 
     {quizPassed ? (
 
-      <div>
+  <div>
 
-        <p className="text-gray-300 text-xl leading-8 max-w-4xl mx-auto mb-12">
-          You successfully completed the Connector Fundamentals
-          learning mission and demonstrated foundational
-          connector engineering competency for customer-facing
-          technical product specialist engagement.
-        </p>
+    <p className="text-gray-300 text-xl leading-8 max-w-4xl mx-auto mb-12">
+      You successfully completed the Connector Fundamentals
+      learning mission and demonstrated foundational
+      connector engineering competency for customer-facing
+      technical product specialist engagement.
+    </p>
 
-        <div className="bg-[#181818] border border-green-700 rounded-3xl p-10 max-w-4xl mx-auto mb-10">
+    <div className="bg-[#181818] border border-green-700 rounded-3xl p-10 max-w-4xl mx-auto mb-10">
 
-          <h3 className="text-4xl font-bold text-green-400 mb-8">
-            Competencies Achieved
-          </h3>
+      <h3 className="text-4xl font-bold text-green-400 mb-8">
+        Competencies Achieved
+      </h3>
 
-          <div className="grid md:grid-cols-2 gap-6 text-left">
+      <div className="grid md:grid-cols-2 gap-6 text-left">
 
-            <div className="bg-[#222] rounded-2xl p-5">
-              Connector Fundamentals
-            </div>
-
-            <div className="bg-[#222] rounded-2xl p-5">
-              Connector Anatomy
-            </div>
-
-            <div className="bg-[#222] rounded-2xl p-5">
-              Environmental Protection
-            </div>
-
-            <div className="bg-[#222] rounded-2xl p-5">
-              Connector Reliability
-            </div>
-
-            <div className="bg-[#222] rounded-2xl p-5">
-              Product Specialist Readiness
-            </div>
-
-            <div className="bg-[#222] rounded-2xl p-5">
-              Engineering Decision Making
-            </div>
-
-          </div>
-
+        <div className="bg-[#222] rounded-2xl p-5">
+          Connector Fundamentals
         </div>
 
-        <div className="bg-[#151515] border border-blue-900 rounded-3xl p-8 max-w-3xl mx-auto">
+        <div className="bg-[#222] rounded-2xl p-5">
+          Connector Anatomy
+        </div>
 
-          <h3 className="text-3xl font-bold text-blue-400 mb-6">
-            Mission Summary
-          </h3>
+        <div className="bg-[#222] rounded-2xl p-5">
+          Environmental Protection
+        </div>
 
-          <div className="space-y-4 text-gray-300 leading-8">
+        <div className="bg-[#222] rounded-2xl p-5">
+          Connector Reliability
+        </div>
 
-            <p>
-              • Total XP Earned: {xp}
-            </p>
+        <div className="bg-[#222] rounded-2xl p-5">
+          Product Specialist Readiness
+        </div>
 
-            <p>
-              • Certification Status: Passed
-            </p>
-
-            <p>
-              • Competency Level: Strong
-            </p>
-
-            <p>
-              • Next Module: Advanced Connector Systems
-            </p>
-
-          </div>
-
+        <div className="bg-[#222] rounded-2xl p-5">
+          Engineering Decision Making
         </div>
 
       </div>
-    <div className="flex gap-6 justify-center flex-wrap mt-12">
 
-  <button
-    onClick={() => {
-      window.location.href = "/dashboard";
-    }}
-    className="bg-gray-800 hover:bg-gray-700 px-8 py-4 rounded-2xl font-semibold"
-  >
-    Return to Dashboard
-  </button>
+    </div>
 
-  <button
-    onClick={() => {
-      window.location.href =
-        "/mission/advanced-connector-systems";
-    }}
-    className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
-  >
-    Proceed to Next Module →
-  </button>
+    <div className="bg-[#151515] border border-blue-900 rounded-3xl p-8 max-w-3xl mx-auto">
 
-</div>
+      <h3 className="text-3xl font-bold text-blue-400 mb-6">
+        Mission Summary
+      </h3>
 
-    ) : (
+      <div className="space-y-4 text-gray-300 leading-8">
+
+        <p>
+          • Total XP Earned: {xp}
+        </p>
+
+        <p>
+          • Certification Status: Passed
+        </p>
+
+        <p>
+          • Competency Level: Strong
+        </p>
+
+        <p>
+          • Next Module: Advanced Connector Systems
+        </p>
+
+      </div>
+
+      <div className="flex gap-6 justify-center flex-wrap mt-12">
+
+        <button
+          onClick={() => {
+            window.location.href = "/dashboard";
+          }}
+          className="bg-gray-800 hover:bg-gray-700 px-8 py-4 rounded-2xl font-semibold"
+        >
+          Return to Dashboard
+        </button>
+
+        <button
+          onClick={() => {
+            window.location.href =
+              "/mission/advanced-connector-systems";
+          }}
+          className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+        >
+          Proceed to Next Module →
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+) : (
 
       <div>
 
