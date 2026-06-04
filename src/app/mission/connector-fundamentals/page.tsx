@@ -324,14 +324,18 @@ export default function ConnectorFundamentalsMission() {
               enabling reliable signal and power transmission.
             </p>
 
-            <div className="bg-[#151515] rounded-2xl p-8 mb-8 border border-gray-800">
+            {/* CONNECTOR SIMULATION */}
 
-              <div className="flex items-center justify-between flex-wrap gap-6">
+            <div className="bg-[#151515] rounded-2xl p-8 mb-8 border border-gray-800 overflow-hidden">
+
+              <div className="flex flex-col gap-10">
+
+                {/* STATUS */}
 
                 <div>
 
                   <p
-                    className={`mb-2 font-semibold ${
+                    className={`mb-2 font-semibold transition-all duration-500 ${
                       connectorMated
                         ? "text-green-400"
                         : "text-red-400"
@@ -343,7 +347,7 @@ export default function ConnectorFundamentalsMission() {
                   </p>
 
                   <h3
-                    className={`text-4xl font-bold ${
+                    className={`text-4xl font-bold transition-all duration-500 ${
                       connectorMated
                         ? "text-green-400"
                         : "text-white"
@@ -356,35 +360,127 @@ export default function ConnectorFundamentalsMission() {
 
                 </div>
 
-                <button
-                  onClick={() => {
+                {/* CONNECTOR VISUAL */}
 
-                    setConnectorMated(true);
+                <div className="relative h-52 flex items-center justify-center overflow-hidden">
 
-                    if (!connectorXpAwarded) {
-                      setXp((prev) => prev + 15);
-                      setConnectorXpAwarded(true);
-                    }
-                  }}
-                  disabled={connectorMated}
-                  className={`px-6 py-3 rounded-xl transition
+                  {/* SIGNAL LINE */}
 
-                  ${
-                    connectorMated
-                      ? "bg-green-600 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-500"
-                  }`}
-                >
+                  <div
+                    className={`absolute h-2 rounded-full transition-all duration-700
 
-                  {connectorMated
-                    ? "Connector Mated ✓"
-                    : "Mate Connector"}
+                    ${
+                      connectorMated
+                        ? "w-72 bg-green-400 shadow-[0_0_25px_#4ade80]"
+                        : "w-24 bg-red-500"
+                    }`}
+                  />
 
-                </button>
+                  {/* SIGNAL PULSE */}
+
+                  {connectorMated && (
+
+                    <div className="absolute flex items-center justify-center">
+
+                      <div className="w-12 h-3 bg-cyan-300 rounded-full animate-ping absolute" />
+
+                      <div className="w-8 h-2 bg-blue-400 rounded-full absolute" />
+
+                    </div>
+
+                  )}
+
+                  {/* LEFT CONNECTOR */}
+
+                  <div
+                    className={`absolute left-10 transition-all duration-700 ease-in-out
+
+                    ${
+                      connectorMated
+                        ? "translate-x-28"
+                        : ""
+                    }`}
+                  >
+
+                    <div className="w-40 h-24 bg-blue-600 rounded-2xl border-4 border-blue-400 flex items-center justify-end px-3 shadow-[0_0_25px_rgba(37,99,235,0.5)]">
+
+                      <div className="flex gap-2">
+
+                        <div className="w-3 h-10 bg-gray-200 rounded-full" />
+                        <div className="w-3 h-10 bg-gray-200 rounded-full" />
+                        <div className="w-3 h-10 bg-gray-200 rounded-full" />
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  {/* RIGHT CONNECTOR */}
+
+                  <div
+                    className={`absolute right-10 transition-all duration-700 ease-in-out
+
+                    ${
+                      connectorMated
+                        ? "-translate-x-28"
+                        : ""
+                    }`}
+                  >
+
+                    <div className="w-40 h-24 bg-gray-700 rounded-2xl border-4 border-gray-500 flex items-center justify-start px-3 shadow-[0_0_25px_rgba(255,255,255,0.08)]">
+
+                      <div className="flex gap-2">
+
+                        <div className="w-3 h-10 bg-gray-200 rounded-full" />
+                        <div className="w-3 h-10 bg-gray-200 rounded-full" />
+                        <div className="w-3 h-10 bg-gray-200 rounded-full" />
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                {/* BUTTON */}
+
+                <div className="flex justify-end">
+
+                  <button
+                    onClick={() => {
+
+                      setConnectorMated(true);
+
+                      if (!connectorXpAwarded) {
+                        setXp((prev) => prev + 15);
+                        setConnectorXpAwarded(true);
+                      }
+                    }}
+                    disabled={connectorMated}
+                    className={`px-6 py-3 rounded-xl transition font-semibold
+
+                    ${
+                      connectorMated
+                        ? "bg-green-600 cursor-not-allowed"
+                        : "bg-blue-600 hover:bg-blue-500"
+                    }`}
+                  >
+
+                    {connectorMated
+                      ? "Connector Mated ✓"
+                      : "Mate Connector"}
+
+                  </button>
+
+                </div>
 
               </div>
 
             </div>
+
+            {/* AI MENTOR */}
 
             <div className="bg-[#151515] rounded-2xl p-6 mb-8 border border-blue-900">
 
@@ -402,6 +498,8 @@ export default function ConnectorFundamentalsMission() {
               </p>
 
             </div>
+
+            {/* CONTINUE */}
 
             <button
               onClick={nextStep}
