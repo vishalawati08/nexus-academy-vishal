@@ -121,7 +121,7 @@ if (missionData) {
 
         {/* TOP STATS */}
 
-        <div className="grid md:grid-cols-4 gap-6 mb-12">
+        <div className="grid md:grid-cols-5 gap-6 mb-12">
 
           {/* XP */}
 
@@ -180,7 +180,23 @@ if (missionData) {
           </div>
 
         </div>
+        {/* LEVEL */}
 
+<div className="bg-[#111] border border-yellow-700 rounded-3xl p-8">
+
+  <p className="text-gray-400 mb-3">
+    Current Level
+  </p>
+
+  <h2 className="text-5xl font-bold text-yellow-400 mb-3">
+    Lv.{calculateLevel(xp).level}
+  </h2>
+
+  <p className="text-yellow-300">
+    {calculateLevel(xp).title}
+  </p>
+
+</div>
         {/* LEARNING PATH */}
 
         <section className="mb-14">
@@ -691,6 +707,43 @@ function readinessLevel(score: number) {
   return {
     label: "Beginner",
     color: "bg-yellow-600",
+  };
+
+}
+
+function calculateLevel(xp: number) {
+
+  if (xp >= 400) {
+    return {
+      level: 5,
+      title: "Connector Expert",
+    };
+  }
+
+  if (xp >= 300) {
+    return {
+      level: 4,
+      title: "Senior Specialist",
+    };
+  }
+
+  if (xp >= 200) {
+    return {
+      level: 3,
+      title: "Product Specialist",
+    };
+  }
+
+  if (xp >= 100) {
+    return {
+      level: 2,
+      title: "Engineering Associate",
+    };
+  }
+
+  return {
+    level: 1,
+    title: "Trainee",
   };
 
 }
