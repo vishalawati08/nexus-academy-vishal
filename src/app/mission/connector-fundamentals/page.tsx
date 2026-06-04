@@ -139,7 +139,9 @@ useEffect(() => {
     setXpEvents(
       parsed.xpEvents || []
     );
-
+    setBadges(
+      parsed.badges || []
+     );
   }
 
 }, []);
@@ -171,6 +173,7 @@ useEffect(() => {
       quizPassed,
 
       xpEvents,
+      badges,
 
     })
   );
@@ -210,6 +213,7 @@ useEffect(() => {
   quizPassed,
 
   xpEvents,
+  badges,
 ]);
 
   /* =========================================================
@@ -454,22 +458,19 @@ useEffect(() => {
   setStep((prev) => prev + 1);
 
 };
-const awardXP = (
-  event: string,
-  amount: number
+const awardBadge = (
+  badge: string
 ) => {
 
-  if (xpEvents.includes(event)) {
+  if (badges.includes(badge)) {
     return;
   }
 
-  setXp((prev) => prev + amount);
-
-  setXpEvents((prev) => [
+  setBadges((prev) => [
     ...prev,
-    event,
+    badge,
   ]);
-
+  
 };
   const handleExplorePart = (part: string) => {
 
@@ -531,7 +532,7 @@ const awardXP = (
     if (passed && xp < 250) {
 
       awardXP("engineering_challenge", 40);
-
+      awardBadge("EV Systems Ready");
     }
 
   };
@@ -1792,7 +1793,15 @@ if (loading) {
     </div>
 
     <button
-      onClick={nextStep}
+     onClick={() => {
+
+  awardBadge(
+    "Reliability Explorer"
+  );
+
+  nextStep();
+
+}}
       className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
     >
       Continue →
