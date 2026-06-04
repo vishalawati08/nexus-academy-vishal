@@ -1256,7 +1256,276 @@ export default function ConnectorFundamentalsMission() {
   </section>
 
 )}
+{/* STEP 5 */}
 
+{step === 5 && !quizStarted && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+
+    <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+      Step 5
+    </p>
+
+    <h2 className="text-5xl font-bold mb-8">
+      Final Certification Quiz
+    </h2>
+
+    <p className="text-gray-400 text-xl leading-8 mb-10">
+      Complete the mandatory assessment covering the entire
+      Connector Fundamentals learning mission.
+      Pass Requirement: 4 / 6
+    </p>
+
+    <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10">
+
+      <h3 className="text-3xl font-bold mb-6">
+        Assessment Coverage
+      </h3>
+
+      <div className="space-y-4 text-gray-300 leading-8">
+
+        <p>• Molex connector portfolio</p>
+
+        <p>• Connector mating principles</p>
+
+        <p>• Connector anatomy</p>
+
+        <p>• Environmental protection concepts</p>
+
+        <p>• Connector reliability</p>
+
+        <p>• Engineering applications</p>
+
+      </div>
+
+    </div>
+
+    <button
+      onClick={() => setQuizStarted(true)}
+      className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+    >
+      Start Certification →
+    </button>
+
+  </section>
+
+)}
+
+{/* QUIZ */}
+
+{quizStarted && !quizCompleted && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10">
+
+    <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+      Question {currentQuestion + 1} / 6
+    </p>
+
+    <h2 className="text-4xl font-bold mb-10 leading-tight">
+      {quizQuestions[currentQuestion].question}
+    </h2>
+
+    <div className="space-y-4 mb-10">
+
+      {quizQuestions[currentQuestion].options.map((option) => (
+
+        <button
+          key={option}
+          onClick={() => setSelectedAnswer(option)}
+          className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 ${
+            selectedAnswer === option
+              ? "bg-blue-600 border-blue-400"
+              : "bg-[#181818] border-gray-800 hover:border-blue-500"
+          }`}
+        >
+
+          <span className="text-xl">
+            {option}
+          </span>
+
+        </button>
+
+      ))}
+
+    </div>
+
+    {!showExplanation ? (
+
+      <button
+        onClick={handleQuizAnswer}
+        disabled={!selectedAnswer}
+        className={`px-8 py-4 rounded-2xl font-semibold ${
+          selectedAnswer
+            ? "bg-blue-600 hover:bg-blue-500"
+            : "bg-gray-800 text-gray-500"
+        }`}
+      >
+        Submit Answer
+      </button>
+
+    ) : (
+
+      <div>
+
+        <div className="bg-[#181818] border border-blue-900 rounded-3xl p-8 mb-10">
+
+          <h3 className="text-2xl font-bold text-blue-400 mb-4">
+            Engineering Explanation
+          </h3>
+
+          <p className="text-gray-300 leading-8">
+            {
+              quizQuestions[currentQuestion]
+                .explanation
+            }
+          </p>
+
+        </div>
+
+        <button
+          onClick={nextQuestion}
+          className="bg-green-600 hover:bg-green-500 px-8 py-4 rounded-2xl font-semibold"
+        >
+          Next Question →
+        </button>
+
+      </div>
+
+    )}
+
+  </section>
+
+)}
+
+{/* QUIZ RESULT */}
+
+{quizCompleted && (
+
+  <section className="bg-[#111] border border-gray-800 rounded-3xl p-10 text-center">
+
+    <h2 className="text-6xl font-bold mb-8">
+
+      {quizPassed
+        ? "Certification Achieved"
+        : "Assessment Not Passed"}
+
+    </h2>
+
+    <p className="text-3xl text-blue-400 mb-10">
+      Final Score: {quizScore} / 6
+    </p>
+
+    {quizPassed ? (
+
+      <div>
+
+        <p className="text-gray-300 text-xl leading-8 max-w-4xl mx-auto mb-12">
+          You successfully completed the Connector Fundamentals
+          learning mission and demonstrated foundational
+          connector engineering competency for customer-facing
+          technical product specialist engagement.
+        </p>
+
+        <div className="bg-[#181818] border border-green-700 rounded-3xl p-10 max-w-4xl mx-auto mb-10">
+
+          <h3 className="text-4xl font-bold text-green-400 mb-8">
+            Competencies Achieved
+          </h3>
+
+          <div className="grid md:grid-cols-2 gap-6 text-left">
+
+            <div className="bg-[#222] rounded-2xl p-5">
+              Connector Fundamentals
+            </div>
+
+            <div className="bg-[#222] rounded-2xl p-5">
+              Connector Anatomy
+            </div>
+
+            <div className="bg-[#222] rounded-2xl p-5">
+              Environmental Protection
+            </div>
+
+            <div className="bg-[#222] rounded-2xl p-5">
+              Connector Reliability
+            </div>
+
+            <div className="bg-[#222] rounded-2xl p-5">
+              Product Specialist Readiness
+            </div>
+
+            <div className="bg-[#222] rounded-2xl p-5">
+              Engineering Decision Making
+            </div>
+
+          </div>
+
+        </div>
+
+        <div className="bg-[#151515] border border-blue-900 rounded-3xl p-8 max-w-3xl mx-auto">
+
+          <h3 className="text-3xl font-bold text-blue-400 mb-6">
+            Mission Summary
+          </h3>
+
+          <div className="space-y-4 text-gray-300 leading-8">
+
+            <p>
+              • Total XP Earned: {xp}
+            </p>
+
+            <p>
+              • Certification Status: Passed
+            </p>
+
+            <p>
+              • Competency Level: Strong
+            </p>
+
+            <p>
+              • Next Module: Advanced Connector Systems
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    ) : (
+
+      <div>
+
+        <p className="text-gray-300 text-xl leading-8 mb-10">
+          Review the module content and retry the certification
+          assessment to strengthen your engineering understanding.
+        </p>
+
+        <div className="flex gap-6 justify-center flex-wrap">
+
+          <button
+            onClick={retryQuiz}
+            className="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl font-semibold"
+          >
+            Retry Quiz
+          </button>
+
+          <button
+            onClick={retakeCourse}
+            className="bg-red-600 hover:bg-red-500 px-8 py-4 rounded-2xl font-semibold"
+          >
+            Retake Course
+          </button>
+
+        </div>
+
+      </div>
+
+    )}
+
+  </section>
+
+)}
         
       </div>
 
