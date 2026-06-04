@@ -840,12 +840,7 @@ export default function ConnectorFundamentalsMission() {
 
         )}
 
-      </div>
-
-    </main>
-  );
-}
-{/* STEP 3 */}
+        {/* STEP 3 */}
 
 {step === 3 && (
 
@@ -1042,3 +1037,10 @@ export default function ConnectorFundamentalsMission() {
   </section>
 
 )}
+
+
+      </div>
+
+    </main>
+  );
+}
