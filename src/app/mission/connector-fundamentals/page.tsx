@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ConnectorFundamentalsMission() {
 
@@ -22,29 +22,100 @@ export default function ConnectorFundamentalsMission() {
 
   const [retryCount, setRetryCount] = useState(0);
 
-  const progress = (step / 6) * 100;
+  const progress = (step / 5) * 100;
+
+  /* =========================
+     LOAD SAVED DATA
+  ========================== */
+
+  useEffect(() => {
+
+    const savedData = localStorage.getItem(
+      "connectorFundamentalsProgress"
+    );
+
+    if (savedData) {
+
+      const parsed = JSON.parse(savedData);
+
+      setStep(parsed.step || 1);
+
+      setXp(parsed.xp || 0);
+
+      setConnectorMated(parsed.connectorMated || false);
+
+      setSelectedPart(parsed.selectedPart || "");
+
+      setExploredParts(parsed.exploredParts || []);
+
+      setChallengePassed(parsed.challengePassed || false);
+
+      setRetryCount(parsed.retryCount || 0);
+
+    }
+
+  }, []);
+
+  /* =========================
+     SAVE DATA
+  ========================== */
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "connectorFundamentalsProgress",
+      JSON.stringify({
+
+        step,
+        xp,
+        connectorMated,
+        selectedPart,
+        exploredParts,
+        challengePassed,
+        retryCount,
+
+      })
+    );
+
+  }, [
+    step,
+    xp,
+    connectorMated,
+    selectedPart,
+    exploredParts,
+    challengePassed,
+    retryCount,
+  ]);
+
+  /* =========================
+     ANATOMY DATA
+  ========================== */
 
   const anatomyData = {
 
     Housing:
-      "Provides structural protection, terminal alignment, insulation, and mechanical durability under vibration and thermal stress.",
+      "Provides structural protection, insulation, terminal alignment, and durability under vibration and thermal stress.",
 
     Terminal:
-      "Creates the conductive electrical path for signal and power transmission while minimizing resistance and heat generation.",
+      "Creates the conductive electrical pathway for signal and power transfer while minimizing resistance and heat generation.",
 
     Seal:
-      "Protects against water ingress, dust contamination, chemicals, and harsh environmental exposure in automotive and industrial systems.",
+      "Protects against water ingress, contaminants, and harsh environmental exposure in automotive and industrial systems.",
 
     "Locking Feature":
-      "Ensures connector retention under vibration, shock, and repeated mating cycles.",
+      "Ensures secure connector retention during vibration, shock, and repeated mating cycles.",
 
     Polarization:
-      "Prevents incorrect mating orientation and reduces risk of electrical mismatch or system damage.",
+      "Prevents incorrect mating orientation and reduces risk of electrical mismatch or equipment damage.",
 
     "Guide Post":
-      "Improves alignment accuracy during mating and reduces terminal damage risk.",
+      "Supports alignment accuracy during mating and minimizes terminal damage risk.",
 
   };
+
+  /* =========================
+     STEP CONTROL
+  ========================== */
 
   const nextStep = () => {
 
@@ -53,6 +124,10 @@ export default function ConnectorFundamentalsMission() {
     setXp((prev) => prev + 20);
 
   };
+
+  /* =========================
+     EXPLORE ANATOMY
+  ========================== */
 
   const handleExplorePart = (part: string) => {
 
@@ -67,6 +142,10 @@ export default function ConnectorFundamentalsMission() {
     }
   };
 
+  /* =========================
+     QUIZ SELECTION
+  ========================== */
+
   const toggleFeature = (feature: string) => {
 
     if (selectedFeatures.includes(feature)) {
@@ -77,10 +156,17 @@ export default function ConnectorFundamentalsMission() {
 
     } else {
 
-      setSelectedFeatures([...selectedFeatures, feature]);
+      setSelectedFeatures([
+        ...selectedFeatures,
+        feature,
+      ]);
 
     }
   };
+
+  /* =========================
+     QUIZ SUBMISSION
+  ========================== */
 
   const submitChallenge = () => {
 
@@ -102,12 +188,26 @@ export default function ConnectorFundamentalsMission() {
 
       setXp((prev) => prev + 40);
 
+      localStorage.setItem(
+        "connectorFundamentalsCompleted",
+        "true"
+      );
+
+      localStorage.setItem(
+        "connectorFundamentalsCompetency",
+        "Strong"
+      );
+
     } else {
 
       setRetryCount((prev) => prev + 1);
 
     }
   };
+
+  /* =========================
+     RETRY QUIZ
+  ========================== */
 
   const retryQuiz = () => {
 
@@ -119,7 +219,23 @@ export default function ConnectorFundamentalsMission() {
 
   };
 
+  /* =========================
+     RETAKE COURSE
+  ========================== */
+
   const retakeCourse = () => {
+
+    localStorage.removeItem(
+      "connectorFundamentalsProgress"
+    );
+
+    localStorage.removeItem(
+      "connectorFundamentalsCompleted"
+    );
+
+    localStorage.removeItem(
+      "connectorFundamentalsCompetency"
+    );
 
     setStep(1);
 
@@ -190,7 +306,7 @@ export default function ConnectorFundamentalsMission() {
 
         {/* XP */}
 
-        <div className="mb-10">
+        <div className="mb-10 flex gap-6 flex-wrap">
 
           <div className="bg-[#111] border border-gray-800 rounded-3xl p-6 w-56">
 
@@ -200,6 +316,20 @@ export default function ConnectorFundamentalsMission() {
 
             <h2 className="text-5xl font-bold text-blue-500">
               {xp}
+            </h2>
+
+          </div>
+
+          <div className="bg-[#111] border border-gray-800 rounded-3xl p-6 w-64">
+
+            <p className="text-gray-400 mb-3">
+              Competency
+            </p>
+
+            <h2 className="text-3xl font-bold text-green-400">
+              {challengePassed
+                ? "Strong"
+                : "In Progress"}
             </h2>
 
           </div>
@@ -223,47 +353,57 @@ export default function ConnectorFundamentalsMission() {
             <div className="grid md:grid-cols-2 gap-6 mb-10">
 
               <div className="bg-[#151515] border border-gray-800 rounded-2xl p-8">
+
                 <h3 className="text-3xl font-bold mb-4">
                   Wire-to-Wire
                 </h3>
+
                 <p className="text-gray-400 leading-8">
-                  Used in cable harness systems for direct cable mating.
-                  Supports high-current applications, vibration resistance,
-                  and flexible routing in automotive and industrial systems.
+                  Used in cable harness systems for direct cable mating,
+                  high-current transfer, and vibration-resistant
+                  automotive applications.
                 </p>
+
               </div>
 
               <div className="bg-[#151515] border border-gray-800 rounded-2xl p-8">
+
                 <h3 className="text-3xl font-bold mb-4">
                   Wire-to-Board
                 </h3>
+
                 <p className="text-gray-400 leading-8">
-                  Connects discrete wires to printed circuit boards while
-                  supporting compact packaging, signal integrity,
-                  and automated PCB assembly.
+                  Connects discrete wires to PCBs while supporting
+                  compact packaging, automated assembly,
+                  and signal integrity.
                 </p>
+
               </div>
 
               <div className="bg-[#151515] border border-gray-800 rounded-2xl p-8">
+
                 <h3 className="text-3xl font-bold mb-4">
                   Board-to-Board
                 </h3>
+
                 <p className="text-gray-400 leading-8">
-                  Enables high-speed communication between PCBs in compact
-                  electronic architectures including servers,
-                  consumer electronics, and AI hardware.
+                  Enables high-speed communication between PCBs in
+                  compact electronics, servers, and AI systems.
                 </p>
+
               </div>
 
               <div className="bg-[#151515] border border-gray-800 rounded-2xl p-8">
+
                 <h3 className="text-3xl font-bold mb-4">
                   Automotive Connectors
                 </h3>
+
                 <p className="text-gray-400 leading-8">
-                  Engineered for EVs and harsh environments with
-                  environmental sealing, CPA/TPA locking,
-                  vibration resistance, and high-power capability.
+                  Engineered for harsh EV environments with sealing,
+                  locking systems, CPA/TPA, and vibration resistance.
                 </p>
+
               </div>
 
             </div>
@@ -292,11 +432,6 @@ export default function ConnectorFundamentalsMission() {
             <h2 className="text-5xl font-bold mb-6">
               Connector Mating Simulation
             </h2>
-
-            <p className="text-gray-400 text-lg mb-10">
-              Observe how electrical continuity is established
-              when connector systems are properly mated.
-            </p>
 
             <div className="bg-[#151515] border border-gray-800 rounded-3xl p-10 mb-10">
 
@@ -334,7 +469,7 @@ export default function ConnectorFundamentalsMission() {
 
               <div className="relative h-72 flex items-center justify-center overflow-hidden">
 
-                {/* SIGNAL FLOW */}
+                {/* SIGNAL */}
 
                 <div
                   className={`absolute h-3 rounded-full transition-all duration-700 ${
@@ -396,7 +531,7 @@ export default function ConnectorFundamentalsMission() {
 
               </div>
 
-              <div className="flex justify-end mt-8">
+              <div className="flex justify-end">
 
                 <button
                   onClick={() => {
@@ -407,7 +542,7 @@ export default function ConnectorFundamentalsMission() {
 
                   }}
                   disabled={connectorMated}
-                  className={`px-8 py-4 rounded-2xl transition ${
+                  className={`px-8 py-4 rounded-2xl ${
                     connectorMated
                       ? "bg-green-600"
                       : "bg-blue-600 hover:bg-blue-500"
@@ -446,17 +581,9 @@ export default function ConnectorFundamentalsMission() {
 
           <section className="bg-[#0d0d0d] border border-gray-800 rounded-3xl p-10">
 
-            <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
-              Step 3
-            </p>
-
-            <h2 className="text-5xl font-bold mb-6">
+            <h2 className="text-5xl font-bold mb-8">
               Connector Anatomy
             </h2>
-
-            <p className="text-gray-400 text-lg mb-10">
-              Explore the engineering function of critical connector features.
-            </p>
 
             <div className="grid md:grid-cols-2 gap-6 mb-10">
 
@@ -524,12 +651,8 @@ export default function ConnectorFundamentalsMission() {
 
           <section className="bg-[#0d0d0d] border border-gray-800 rounded-3xl p-10">
 
-            <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
-              Engineering Challenge
-            </p>
-
             <h2 className="text-6xl font-bold mb-8">
-              Customer Scenario
+              Customer Engineering Challenge
             </h2>
 
             <div className="bg-[#151515] border border-blue-900 rounded-3xl p-8 mb-10">
@@ -541,8 +664,11 @@ export default function ConnectorFundamentalsMission() {
               <ul className="space-y-5 text-gray-300 text-xl">
 
                 <li>• High vibration resistance</li>
+
                 <li>• IP67 environmental sealing</li>
+
                 <li>• High current capability</li>
+
                 <li>• Secure locking mechanism</li>
 
               </ul>
@@ -613,9 +739,9 @@ export default function ConnectorFundamentalsMission() {
                     </h3>
 
                     <p className="text-gray-300 text-xl leading-9 mb-8">
-                      You correctly prioritized environmental protection,
-                      connector retention, and structural durability —
-                      critical for EV connector reliability.
+                      You correctly prioritized sealing,
+                      connector retention,
+                      and structural durability for EV applications.
                     </p>
 
                     <button
@@ -636,9 +762,10 @@ export default function ConnectorFundamentalsMission() {
                     </h3>
 
                     <p className="text-gray-300 text-xl leading-9 mb-8">
-                      Some selected features support connector operation,
-                      but the highest engineering priorities for EV battery
-                      applications are sealing, retention, and durability.
+                      Review which features directly support
+                      environmental sealing,
+                      retention stability,
+                      and mechanical durability.
                     </p>
 
                     <div className="bg-[#101010] border border-gray-800 rounded-2xl p-8 mb-8">
@@ -650,15 +777,15 @@ export default function ConnectorFundamentalsMission() {
                       <ul className="space-y-4 text-gray-300 text-lg">
 
                         <li>
-                          • Seals protect against water and contaminant ingress
+                          • Seals prevent contaminant ingress
                         </li>
 
                         <li>
-                          • Locking features prevent disconnect during vibration
+                          • Locking features prevent disconnect
                         </li>
 
                         <li>
-                          • Housing improves structural durability
+                          • Housing improves structural integrity
                         </li>
 
                       </ul>
@@ -701,18 +828,15 @@ export default function ConnectorFundamentalsMission() {
 
           <section className="bg-[#0d0d0d] border border-gray-800 rounded-3xl p-10 text-center">
 
-            <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
-              Mission Complete
-            </p>
-
             <h2 className="text-6xl font-bold mb-8">
-              Connector Fundamentals Completed
+              Mission Complete
             </h2>
 
             <p className="text-gray-400 text-xl leading-9 max-w-4xl mx-auto mb-10">
-              You successfully completed the foundational connector
-              engineering mission and demonstrated competency in
-              connector anatomy, mating systems, and engineering prioritization.
+              You completed the Connector Fundamentals mission
+              and demonstrated competency in connector engineering,
+              anatomy understanding,
+              and application prioritization.
             </p>
 
             <div className="bg-[#151515] rounded-3xl p-10 max-w-xl mx-auto border border-blue-900 mb-10">
@@ -748,7 +872,7 @@ export default function ConnectorFundamentalsMission() {
                 </div>
 
                 <div className="bg-[#151515] p-5 rounded-2xl">
-                  Application Understanding
+                  Product Specialist Readiness
                 </div>
 
               </div>
