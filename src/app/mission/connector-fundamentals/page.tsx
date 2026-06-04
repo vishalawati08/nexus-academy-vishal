@@ -476,10 +476,14 @@ export default function ConnectorFundamentalsMission() {
 
       setQuizCompleted(true);
 
-      const passed =
-        quizScore >= 4;
+      const finalScore =
+  selectedAnswer === current.correct
+    ? quizScore + 1
+    : quizScore;
 
-      setQuizPassed(passed);
+const passed = finalScore >= 4;
+
+setQuizPassed(passed);
 
       if (passed) {
 
