@@ -8,25 +8,23 @@ export default function ConnectorFundamentalsMission() {
 
   const [xp, setXp] = useState(0);
 
-  const [connectorMated, setConnectorMated] = useState(false);
-
   const [selectedPart, setSelectedPart] = useState("");
 
   const [exploredParts, setExploredParts] = useState<string[]>([]);
 
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [quizStarted, setQuizStarted] = useState(false);
 
-  const [challengeSubmitted, setChallengeSubmitted] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const [challengePassed, setChallengePassed] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState("");
 
-  const [retryCount, setRetryCount] = useState(0);
+  const [quizScore, setQuizScore] = useState(0);
 
-  const progress = (step / 5) * 100;
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
-  /* =========================
-     LOAD SAVED DATA
-  ========================== */
+  const [quizPassed, setQuizPassed] = useState(false);
+
+  const progress = (step / 4) * 100;
 
   useEffect(() => {
 
@@ -42,92 +40,273 @@ export default function ConnectorFundamentalsMission() {
 
       setXp(parsed.xp || 0);
 
-      setConnectorMated(parsed.connectorMated || false);
-
-      setSelectedPart(parsed.selectedPart || "");
-
       setExploredParts(parsed.exploredParts || []);
 
-      setChallengePassed(parsed.challengePassed || false);
+      setQuizCompleted(parsed.quizCompleted || false);
 
-      setRetryCount(parsed.retryCount || 0);
+      setQuizPassed(parsed.quizPassed || false);
 
     }
 
   }, []);
-
-  /* =========================
-     SAVE DATA
-  ========================== */
 
   useEffect(() => {
 
     localStorage.setItem(
       "connectorFundamentalsProgress",
       JSON.stringify({
-
         step,
         xp,
-        connectorMated,
-        selectedPart,
         exploredParts,
-        challengePassed,
-        retryCount,
-
+        quizCompleted,
+        quizPassed,
       })
     );
 
   }, [
     step,
     xp,
-    connectorMated,
-    selectedPart,
     exploredParts,
-    challengePassed,
-    retryCount,
+    quizCompleted,
+    quizPassed,
   ]);
-
-  /* =========================
-     ANATOMY DATA
-  ========================== */
 
   const anatomyData = {
 
-    Housing:
-      "Provides structural protection, insulation, terminal alignment, and durability under vibration and thermal stress.",
+    Housing: {
 
-    Terminal:
-      "Creates the conductive electrical pathway for signal and power transfer while minimizing resistance and heat generation.",
+      what:
+        "The housing is the outer insulating structure of the connector that supports and protects internal components.",
 
-    Seal:
-      "Protects against water ingress, contaminants, and harsh environmental exposure in automotive and industrial systems.",
+      functions:
+        "Provides insulation, terminal alignment, structural support, and mechanical protection.",
 
-    "Locking Feature":
-      "Ensures secure connector retention during vibration, shock, and repeated mating cycles.",
+      types:
+        "Plug housing, receptacle housing, sealed housing, and unsealed housing.",
 
-    Polarization:
-      "Prevents incorrect mating orientation and reduces risk of electrical mismatch or equipment damage.",
+      advantages:
+        "Improves durability, connector stability, and electrical safety.",
 
-    "Guide Post":
-      "Supports alignment accuracy during mating and minimizes terminal damage risk.",
+      applications:
+        "Used in EV battery systems, automotive harnesses, and industrial systems.",
+
+      failures:
+        "Cracking due to vibration, thermal deformation, and poor terminal retention.",
+
+    },
+
+    Terminal: {
+
+      what:
+        "The terminal creates the conductive path for signal and power transfer.",
+
+      functions:
+        "Transfers electrical current while minimizing resistance and heat generation.",
+
+      types:
+        "Male terminals, female terminals, stamped terminals, and machined terminals.",
+
+      advantages:
+        "Ensures reliable electrical continuity and efficient current transfer.",
+
+      applications:
+        "Used in EV charging, PCB systems, servers, and industrial automation.",
+
+      failures:
+        "Overheating, oxidation, poor crimping, and fretting corrosion.",
+
+    },
+
+    Seal: {
+
+      what:
+        "Seals protect connectors from moisture, dust, and contaminants.",
+
+      functions:
+        "Provides environmental sealing and improves reliability in harsh conditions.",
+
+      types:
+        "Wire seals, interface seals, and perimeter seals.",
+
+      advantages:
+        "Prevents corrosion and electrical failure.",
+
+      applications:
+        "Used in EV systems, automotive connectors, and industrial machinery.",
+
+      failures:
+        "Seal degradation may lead to water ingress and corrosion.",
+
+    },
+
+    "Locking Feature": {
+
+      what:
+        "Locking mechanisms secure connectors during vibration and movement.",
+
+      functions:
+        "Improves retention force and mating stability.",
+
+      types:
+        "CPA locks, latch locks, and snap-fit locking systems.",
+
+      advantages:
+        "Prevents accidental disconnects.",
+
+      applications:
+        "Used in EV systems, aerospace, and industrial environments.",
+
+      failures:
+        "Weak retention may cause connector disengagement.",
+
+    },
+
+    Polarization: {
+
+      what:
+        "Polarization prevents incorrect mating orientation.",
+
+      functions:
+        "Ensures connectors mate only in the correct orientation.",
+
+      types:
+        "Keyed polarization and asymmetrical connector designs.",
+
+      advantages:
+        "Prevents assembly errors and equipment damage.",
+
+      applications:
+        "Used in PCB systems and automotive electronics.",
+
+      failures:
+        "Incorrect mating may damage electronics.",
+
+    },
 
   };
 
-  /* =========================
-     STEP CONTROL
-  ========================== */
+  const quizQuestions = [
+
+    {
+      question:
+        "Which connector type commonly interfaces directly with PCBs?",
+
+      options: [
+        "Wire-to-Board",
+        "Wire-to-Wire",
+        "Cable Clamp",
+        "Busbar",
+      ],
+
+      correct: "Wire-to-Board",
+
+      explanation:
+        "Wire-to-board connectors interface discrete wires with PCBs.",
+    },
+
+    {
+      question:
+        "What is the primary function of connector housing?",
+
+      options: [
+        "Heat generation",
+        "Signal amplification",
+        "Mechanical protection and insulation",
+        "Current conversion",
+      ],
+
+      correct:
+        "Mechanical protection and insulation",
+
+      explanation:
+        "Housing provides insulation, terminal support, and protection.",
+    },
+
+    {
+      question:
+        "Why are connector seals critical in EV systems?",
+
+      options: [
+        "Increase connector color",
+        "Reduce PCB size",
+        "Prevent moisture ingress",
+        "Increase voltage",
+      ],
+
+      correct:
+        "Prevent moisture ingress",
+
+      explanation:
+        "Seals protect connectors from harsh environmental exposure.",
+    },
+
+    {
+      question:
+        "What happens when connectors are properly mated?",
+
+      options: [
+        "Voltage stops",
+        "Electrical continuity is established",
+        "Connector melts",
+        "Signal disappears",
+      ],
+
+      correct:
+        "Electrical continuity is established",
+
+      explanation:
+        "Proper mating establishes a conductive electrical pathway.",
+    },
+
+    {
+      question:
+        "Why are locking features important in automotive connectors?",
+
+      options: [
+        "Improve vibration resistance",
+        "Increase connector color",
+        "Reduce housing size",
+        "Decrease conductivity",
+      ],
+
+      correct:
+        "Improve vibration resistance",
+
+      explanation:
+        "Locking systems prevent disconnects caused by vibration.",
+    },
+
+    {
+      question:
+        "What does polarization prevent?",
+
+      options: [
+        "Connector heating",
+        "Incorrect connector mating",
+        "Signal loss",
+        "Terminal plating",
+      ],
+
+      correct:
+        "Incorrect connector mating",
+
+      explanation:
+        "Polarization ensures correct connector orientation.",
+    },
+
+  ];
 
   const nextStep = () => {
 
     setStep((prev) => prev + 1);
 
-    setXp((prev) => prev + 20);
+    if (xp < 200) {
+
+      setXp((prev) => prev + 20);
+
+    }
 
   };
-
-  /* =========================
-     EXPLORE ANATOMY
-  ========================== */
 
   const handleExplorePart = (part: string) => {
 
@@ -137,91 +316,75 @@ export default function ConnectorFundamentalsMission() {
 
       setExploredParts([...exploredParts, part]);
 
-      setXp((prev) => prev + 5);
+      if (xp < 200) {
+
+        setXp((prev) => prev + 5);
+
+      }
 
     }
+
   };
 
-  /* =========================
-     QUIZ SELECTION
-  ========================== */
+  const handleQuizAnswer = () => {
 
-  const toggleFeature = (feature: string) => {
+    const current = quizQuestions[currentQuestion];
 
-    if (selectedFeatures.includes(feature)) {
+    let updatedScore = quizScore;
 
-      setSelectedFeatures(
-        selectedFeatures.filter((f) => f !== feature)
-      );
+    if (selectedAnswer === current.correct) {
+
+      updatedScore += 1;
+
+      setQuizScore(updatedScore);
+
+    }
+
+    if (currentQuestion + 1 < quizQuestions.length) {
+
+      setCurrentQuestion((prev) => prev + 1);
+
+      setSelectedAnswer("");
 
     } else {
 
-      setSelectedFeatures([
-        ...selectedFeatures,
-        feature,
-      ]);
+      setQuizCompleted(true);
+
+      const passed = updatedScore >= 4;
+
+      setQuizPassed(passed);
+
+      if (passed) {
+
+        localStorage.setItem(
+          "connectorFundamentalsCompleted",
+          "true"
+        );
+
+        localStorage.setItem(
+          "connectorFundamentalsCompetency",
+          "Strong"
+        );
+
+      }
 
     }
+
   };
-
-  /* =========================
-     QUIZ SUBMISSION
-  ========================== */
-
-  const submitChallenge = () => {
-
-    const requiredFeatures = [
-      "Seal",
-      "Locking Feature",
-      "Housing",
-    ];
-
-    const passed = requiredFeatures.every((item) =>
-      selectedFeatures.includes(item)
-    );
-
-    setChallengeSubmitted(true);
-
-    setChallengePassed(passed);
-
-    if (passed) {
-
-      setXp((prev) => prev + 40);
-
-      localStorage.setItem(
-        "connectorFundamentalsCompleted",
-        "true"
-      );
-
-      localStorage.setItem(
-        "connectorFundamentalsCompetency",
-        "Strong"
-      );
-
-    } else {
-
-      setRetryCount((prev) => prev + 1);
-
-    }
-  };
-
-  /* =========================
-     RETRY QUIZ
-  ========================== */
 
   const retryQuiz = () => {
 
-    setSelectedFeatures([]);
+    setCurrentQuestion(0);
 
-    setChallengeSubmitted(false);
+    setSelectedAnswer("");
 
-    setChallengePassed(false);
+    setQuizScore(0);
+
+    setQuizCompleted(false);
+
+    setQuizPassed(false);
 
   };
-
-  /* =========================
-     RETAKE COURSE
-  ========================== */
 
   const retakeCourse = () => {
 
@@ -241,19 +404,21 @@ export default function ConnectorFundamentalsMission() {
 
     setXp(0);
 
-    setConnectorMated(false);
-
     setSelectedPart("");
 
     setExploredParts([]);
 
-    setSelectedFeatures([]);
+    setQuizStarted(false);
 
-    setChallengeSubmitted(false);
+    setCurrentQuestion(0);
 
-    setChallengePassed(false);
+    setSelectedAnswer("");
 
-    setRetryCount(0);
+    setQuizScore(0);
+
+    setQuizCompleted(false);
+
+    setQuizPassed(false);
 
   };
 
@@ -263,40 +428,30 @@ export default function ConnectorFundamentalsMission() {
 
       <div className="max-w-7xl mx-auto">
 
-        {/* HEADER */}
-
-        <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
-          Nexus Academy
-        </p>
-
         <h1 className="text-6xl font-bold mb-4">
           Connector Fundamentals
         </h1>
 
         <p className="text-gray-400 text-xl mb-10">
-          Guided Product Specialist Engineering Mission
+          Guided Product Specialist Learning Mission
         </p>
 
         {/* PROGRESS */}
 
-        <div className="mb-8">
+        <div className="mb-10">
 
           <div className="flex justify-between mb-2">
 
-            <p className="text-gray-400">
-              Mission Progress
-            </p>
+            <p>Mission Progress</p>
 
-            <p className="text-blue-400 font-semibold">
-              {Math.round(progress)}%
-            </p>
+            <p>{Math.round(progress)}%</p>
 
           </div>
 
-          <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
+          <div className="w-full bg-gray-800 rounded-full h-3">
 
             <div
-              className="bg-blue-600 h-full transition-all duration-500"
+              className="bg-blue-600 h-3 rounded-full transition-all"
               style={{ width: `${progress}%` }}
             />
 
@@ -306,33 +461,15 @@ export default function ConnectorFundamentalsMission() {
 
         {/* XP */}
 
-        <div className="mb-10 flex gap-6 flex-wrap">
+        <div className="bg-[#111] border border-gray-800 rounded-3xl p-6 w-56 mb-10">
 
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-6 w-56">
+          <p className="text-gray-400 mb-3">
+            XP Earned
+          </p>
 
-            <p className="text-gray-400 mb-3">
-              XP Earned
-            </p>
-
-            <h2 className="text-5xl font-bold text-blue-500">
-              {xp}
-            </h2>
-
-          </div>
-
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-6 w-64">
-
-            <p className="text-gray-400 mb-3">
-              Competency
-            </p>
-
-            <h2 className="text-3xl font-bold text-green-400">
-              {challengePassed
-                ? "Strong"
-                : "In Progress"}
-            </h2>
-
-          </div>
+          <h2 className="text-5xl font-bold text-blue-500">
+            {xp}
+          </h2>
 
         </div>
 
@@ -340,19 +477,15 @@ export default function ConnectorFundamentalsMission() {
 
         {step === 1 && (
 
-          <section className="bg-[#0d0d0d] border border-gray-800 rounded-3xl p-10">
+          <section className="bg-[#111] rounded-3xl p-10">
 
-            <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
-              Step 1
-            </p>
-
-            <h2 className="text-5xl font-bold mb-6">
+            <h2 className="text-5xl font-bold mb-8">
               What We Sell at Molex
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-10">
+            <div className="grid md:grid-cols-2 gap-6">
 
-              <div className="bg-[#151515] border border-gray-800 rounded-2xl p-8">
+              <div className="bg-[#181818] rounded-2xl p-8">
 
                 <h3 className="text-3xl font-bold mb-4">
                   Wire-to-Wire
@@ -360,48 +493,21 @@ export default function ConnectorFundamentalsMission() {
 
                 <p className="text-gray-400 leading-8">
                   Used in cable harness systems for direct cable mating,
-                  high-current transfer, and vibration-resistant
-                  automotive applications.
+                  high-current transfer,
+                  and vibration-resistant automotive applications.
                 </p>
 
               </div>
 
-              <div className="bg-[#151515] border border-gray-800 rounded-2xl p-8">
+              <div className="bg-[#181818] rounded-2xl p-8">
 
                 <h3 className="text-3xl font-bold mb-4">
                   Wire-to-Board
                 </h3>
 
                 <p className="text-gray-400 leading-8">
-                  Connects discrete wires to PCBs while supporting
-                  compact packaging, automated assembly,
-                  and signal integrity.
-                </p>
-
-              </div>
-
-              <div className="bg-[#151515] border border-gray-800 rounded-2xl p-8">
-
-                <h3 className="text-3xl font-bold mb-4">
-                  Board-to-Board
-                </h3>
-
-                <p className="text-gray-400 leading-8">
-                  Enables high-speed communication between PCBs in
-                  compact electronics, servers, and AI systems.
-                </p>
-
-              </div>
-
-              <div className="bg-[#151515] border border-gray-800 rounded-2xl p-8">
-
-                <h3 className="text-3xl font-bold mb-4">
-                  Automotive Connectors
-                </h3>
-
-                <p className="text-gray-400 leading-8">
-                  Engineered for harsh EV environments with sealing,
-                  locking systems, CPA/TPA, and vibration resistance.
+                  Interfaces discrete wires with PCBs while supporting
+                  compact packaging and signal integrity.
                 </p>
 
               </div>
@@ -410,7 +516,7 @@ export default function ConnectorFundamentalsMission() {
 
             <button
               onClick={nextStep}
-              className="bg-blue-600 hover:bg-blue-500 transition px-8 py-4 rounded-2xl"
+              className="mt-10 bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-2xl"
             >
               Continue →
             </button>
@@ -423,163 +529,7 @@ export default function ConnectorFundamentalsMission() {
 
         {step === 2 && (
 
-          <section className="bg-[#0d0d0d] border border-gray-800 rounded-3xl p-10">
-
-            <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
-              Step 2
-            </p>
-
-            <h2 className="text-5xl font-bold mb-6">
-              Connector Mating Simulation
-            </h2>
-
-            <div className="bg-[#151515] border border-gray-800 rounded-3xl p-10 mb-10">
-
-              <div className="mb-8">
-
-                <p
-                  className={`font-semibold mb-3 ${
-                    connectorMated
-                      ? "text-green-400"
-                      : "text-red-400"
-                  }`}
-                >
-
-                  {connectorMated
-                    ? "Electrical Path Active"
-                    : "Electrical Path Open"}
-
-                </p>
-
-                <h2
-                  className={`text-5xl font-bold ${
-                    connectorMated
-                      ? "text-green-400"
-                      : "text-white"
-                  }`}
-                >
-
-                  {connectorMated
-                    ? "CONNECTED"
-                    : "DISCONNECTED"}
-
-                </h2>
-
-              </div>
-
-              <div className="relative h-72 flex items-center justify-center overflow-hidden">
-
-                {/* SIGNAL */}
-
-                <div
-                  className={`absolute h-3 rounded-full transition-all duration-700 ${
-                    connectorMated
-                      ? "w-[320px] bg-green-400 shadow-[0_0_30px_#4ade80]"
-                      : "w-24 bg-red-500"
-                  }`}
-                />
-
-                {/* LEFT CONNECTOR */}
-
-                <div
-                  className={`absolute left-24 transition-all duration-700 ${
-                    connectorMated
-                      ? "translate-x-24"
-                      : ""
-                  }`}
-                >
-
-                  <div className="relative w-52 h-32 bg-blue-600 rounded-3xl border-4 border-blue-400">
-
-                    <div className="absolute right-[-18px] top-8 flex gap-2">
-
-                      <div className="w-4 h-5 bg-yellow-300 rounded-sm" />
-                      <div className="w-4 h-5 bg-yellow-300 rounded-sm" />
-                      <div className="w-4 h-5 bg-yellow-300 rounded-sm" />
-                      <div className="w-4 h-5 bg-yellow-300 rounded-sm" />
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-                {/* RIGHT CONNECTOR */}
-
-                <div
-                  className={`absolute right-24 transition-all duration-700 ${
-                    connectorMated
-                      ? "-translate-x-24"
-                      : ""
-                  }`}
-                >
-
-                  <div className="relative w-52 h-32 bg-gray-700 rounded-3xl border-4 border-gray-500">
-
-                    <div className="absolute left-[-12px] top-8 flex gap-2">
-
-                      <div className="w-3 h-6 bg-gray-300 rounded-sm" />
-                      <div className="w-3 h-6 bg-gray-300 rounded-sm" />
-                      <div className="w-3 h-6 bg-gray-300 rounded-sm" />
-                      <div className="w-3 h-6 bg-gray-300 rounded-sm" />
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div className="flex justify-end">
-
-                <button
-                  onClick={() => {
-
-                    setConnectorMated(true);
-
-                    setXp((prev) => prev + 20);
-
-                  }}
-                  disabled={connectorMated}
-                  className={`px-8 py-4 rounded-2xl ${
-                    connectorMated
-                      ? "bg-green-600"
-                      : "bg-blue-600 hover:bg-blue-500"
-                  }`}
-                >
-
-                  {connectorMated
-                    ? "Connector Mated ✓"
-                    : "Mate Connector"}
-
-                </button>
-
-              </div>
-
-            </div>
-
-            <button
-              onClick={nextStep}
-              disabled={!connectorMated}
-              className={`px-8 py-4 rounded-2xl ${
-                connectorMated
-                  ? "bg-blue-600 hover:bg-blue-500"
-                  : "bg-gray-800 text-gray-500"
-              }`}
-            >
-              Continue →
-            </button>
-
-          </section>
-
-        )}
-
-        {/* STEP 3 */}
-
-        {step === 3 && (
-
-          <section className="bg-[#0d0d0d] border border-gray-800 rounded-3xl p-10">
+          <section className="bg-[#111] rounded-3xl p-10">
 
             <h2 className="text-5xl font-bold mb-8">
               Connector Anatomy
@@ -592,20 +542,16 @@ export default function ConnectorFundamentalsMission() {
                 <div
                   key={part}
                   onClick={() => handleExplorePart(part)}
-                  className={`border rounded-2xl p-8 cursor-pointer transition ${
+                  className={`cursor-pointer rounded-2xl p-8 border transition ${
                     selectedPart === part
                       ? "bg-blue-600 border-blue-400"
-                      : "bg-[#151515] border-gray-800"
+                      : "bg-[#181818] border-gray-800"
                   }`}
                 >
 
-                  <h3 className="text-3xl font-bold mb-4">
+                  <h3 className="text-3xl font-bold">
                     {part}
                   </h3>
-
-                  <p className="text-gray-400">
-                    Click to explore engineering functionality.
-                  </p>
 
                 </div>
 
@@ -615,15 +561,87 @@ export default function ConnectorFundamentalsMission() {
 
             {selectedPart && (
 
-              <div className="bg-[#151515] border border-blue-900 rounded-3xl p-8 mb-10">
+              <div className="bg-[#181818] rounded-3xl p-10">
 
-                <h3 className="text-5xl font-bold mb-6">
+                <h2 className="text-5xl font-bold mb-8">
                   {selectedPart}
-                </h3>
+                </h2>
 
-                <p className="text-gray-300 text-lg leading-9">
-                  {anatomyData[selectedPart as keyof typeof anatomyData]}
-                </p>
+                <div className="space-y-6 text-gray-300 leading-8">
+
+                  <div>
+
+                    <h3 className="text-blue-400 font-bold mb-2">
+                      What is it?
+                    </h3>
+
+                    <p>
+                      {anatomyData[selectedPart as keyof typeof anatomyData].what}
+                    </p>
+
+                  </div>
+
+                  <div>
+
+                    <h3 className="text-blue-400 font-bold mb-2">
+                      Functions
+                    </h3>
+
+                    <p>
+                      {anatomyData[selectedPart as keyof typeof anatomyData].functions}
+                    </p>
+
+                  </div>
+
+                  <div>
+
+                    <h3 className="text-blue-400 font-bold mb-2">
+                      Types
+                    </h3>
+
+                    <p>
+                      {anatomyData[selectedPart as keyof typeof anatomyData].types}
+                    </p>
+
+                  </div>
+
+                  <div>
+
+                    <h3 className="text-blue-400 font-bold mb-2">
+                      Advantages
+                    </h3>
+
+                    <p>
+                      {anatomyData[selectedPart as keyof typeof anatomyData].advantages}
+                    </p>
+
+                  </div>
+
+                  <div>
+
+                    <h3 className="text-blue-400 font-bold mb-2">
+                      Applications
+                    </h3>
+
+                    <p>
+                      {anatomyData[selectedPart as keyof typeof anatomyData].applications}
+                    </p>
+
+                  </div>
+
+                  <div>
+
+                    <h3 className="text-red-400 font-bold mb-2">
+                      Failure Risks
+                    </h3>
+
+                    <p>
+                      {anatomyData[selectedPart as keyof typeof anatomyData].failures}
+                    </p>
+
+                  </div>
+
+                </div>
 
               </div>
 
@@ -632,7 +650,7 @@ export default function ConnectorFundamentalsMission() {
             <button
               onClick={nextStep}
               disabled={exploredParts.length < 3}
-              className={`px-8 py-4 rounded-2xl ${
+              className={`mt-10 px-8 py-4 rounded-2xl ${
                 exploredParts.length >= 3
                   ? "bg-blue-600 hover:bg-blue-500"
                   : "bg-gray-800 text-gray-500"
@@ -640,244 +658,6 @@ export default function ConnectorFundamentalsMission() {
             >
               Continue →
             </button>
-
-          </section>
-
-        )}
-
-        {/* STEP 4 */}
-
-        {step === 4 && (
-
-          <section className="bg-[#0d0d0d] border border-gray-800 rounded-3xl p-10">
-
-            <h2 className="text-6xl font-bold mb-8">
-              Customer Engineering Challenge
-            </h2>
-
-            <div className="bg-[#151515] border border-blue-900 rounded-3xl p-8 mb-10">
-
-              <h3 className="text-3xl font-bold mb-6">
-                EV Battery Connector Application
-              </h3>
-
-              <ul className="space-y-5 text-gray-300 text-xl">
-
-                <li>• High vibration resistance</li>
-
-                <li>• IP67 environmental sealing</li>
-
-                <li>• High current capability</li>
-
-                <li>• Secure locking mechanism</li>
-
-              </ul>
-
-            </div>
-
-            <h3 className="text-3xl font-bold mb-8">
-              Select critical connector features:
-            </h3>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-10">
-
-              {[
-                "Seal",
-                "Locking Feature",
-                "Housing",
-                "Polarization",
-                "Guide Post",
-                "Terminal",
-              ].map((feature) => (
-
-                <div
-                  key={feature}
-                  onClick={() => toggleFeature(feature)}
-                  className={`border rounded-2xl p-8 cursor-pointer transition ${
-                    selectedFeatures.includes(feature)
-                      ? "bg-blue-600 border-blue-400"
-                      : "bg-[#151515] border-gray-800"
-                  }`}
-                >
-
-                  <h3 className="text-3xl font-bold">
-                    {feature}
-                  </h3>
-
-                </div>
-
-              ))}
-
-            </div>
-
-            {!challengeSubmitted && (
-
-              <button
-                onClick={submitChallenge}
-                disabled={selectedFeatures.length < 3}
-                className={`px-8 py-4 rounded-2xl ${
-                  selectedFeatures.length >= 3
-                    ? "bg-blue-600 hover:bg-blue-500"
-                    : "bg-gray-800 text-gray-500"
-                }`}
-              >
-                Submit Engineering Decision
-              </button>
-
-            )}
-
-            {challengeSubmitted && (
-
-              <div className="mt-10">
-
-                {challengePassed ? (
-
-                  <div className="bg-[#151515] border border-green-700 rounded-3xl p-10">
-
-                    <h3 className="text-5xl font-bold text-green-400 mb-6">
-                      Excellent Engineering Judgment
-                    </h3>
-
-                    <p className="text-gray-300 text-xl leading-9 mb-8">
-                      You correctly prioritized sealing,
-                      connector retention,
-                      and structural durability for EV applications.
-                    </p>
-
-                    <button
-                      onClick={nextStep}
-                      className="bg-green-600 hover:bg-green-500 transition px-8 py-4 rounded-2xl"
-                    >
-                      Complete Mission →
-                    </button>
-
-                  </div>
-
-                ) : (
-
-                  <div className="bg-[#151515] border border-red-700 rounded-3xl p-10">
-
-                    <h3 className="text-5xl font-bold text-red-400 mb-6">
-                      Re-evaluate Requirements
-                    </h3>
-
-                    <p className="text-gray-300 text-xl leading-9 mb-8">
-                      Review which features directly support
-                      environmental sealing,
-                      retention stability,
-                      and mechanical durability.
-                    </p>
-
-                    <div className="bg-[#101010] border border-gray-800 rounded-2xl p-8 mb-8">
-
-                      <h4 className="text-2xl font-bold text-blue-400 mb-4">
-                        AI Mentor Feedback
-                      </h4>
-
-                      <ul className="space-y-4 text-gray-300 text-lg">
-
-                        <li>
-                          • Seals prevent contaminant ingress
-                        </li>
-
-                        <li>
-                          • Locking features prevent disconnect
-                        </li>
-
-                        <li>
-                          • Housing improves structural integrity
-                        </li>
-
-                      </ul>
-
-                    </div>
-
-                    <div className="flex gap-6 flex-wrap">
-
-                      <button
-                        onClick={retryQuiz}
-                        className="bg-blue-600 hover:bg-blue-500 transition px-8 py-4 rounded-2xl"
-                      >
-                        Retry Quiz
-                      </button>
-
-                      <button
-                        onClick={retakeCourse}
-                        className="bg-gray-800 hover:bg-gray-700 transition px-8 py-4 rounded-2xl"
-                      >
-                        Retake Course
-                      </button>
-
-                    </div>
-
-                  </div>
-
-                )}
-
-              </div>
-
-            )}
-
-          </section>
-
-        )}
-
-        {/* STEP 5 */}
-
-        {step === 5 && (
-
-          <section className="bg-[#0d0d0d] border border-gray-800 rounded-3xl p-10 text-center">
-
-            <h2 className="text-6xl font-bold mb-8">
-              Mission Complete
-            </h2>
-
-            <p className="text-gray-400 text-xl leading-9 max-w-4xl mx-auto mb-10">
-              You completed the Connector Fundamentals mission
-              and demonstrated competency in connector engineering,
-              anatomy understanding,
-              and application prioritization.
-            </p>
-
-            <div className="bg-[#151515] rounded-3xl p-10 max-w-xl mx-auto border border-blue-900 mb-10">
-
-              <p className="text-gray-400 mb-4">
-                Final XP Earned
-              </p>
-
-              <h2 className="text-7xl font-bold text-blue-500">
-                {xp}
-              </h2>
-
-            </div>
-
-            <div className="bg-[#101010] border border-gray-800 rounded-3xl p-8 max-w-3xl mx-auto">
-
-              <h3 className="text-3xl font-bold mb-6 text-green-400">
-                Competencies Achieved
-              </h3>
-
-              <div className="grid md:grid-cols-2 gap-4 text-left">
-
-                <div className="bg-[#151515] p-5 rounded-2xl">
-                  Connector Fundamentals
-                </div>
-
-                <div className="bg-[#151515] p-5 rounded-2xl">
-                  Connector Anatomy
-                </div>
-
-                <div className="bg-[#151515] p-5 rounded-2xl">
-                  Engineering Evaluation
-                </div>
-
-                <div className="bg-[#151515] p-5 rounded-2xl">
-                  Product Specialist Readiness
-                </div>
-
-              </div>
-
-            </div>
 
           </section>
 
