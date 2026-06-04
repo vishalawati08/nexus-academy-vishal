@@ -532,11 +532,35 @@ if (passed) {
 
   const retakeCourse = () => {
 
-    localStorage.removeItem(
-      "connectorFundamentalsMaster"
+  const existingProgress =
+    localStorage.getItem(
+      "connectorFundamentalsProgress"
     );
 
-    setStep(1);
+  let retryAttempts = 0;
+
+  if (existingProgress) {
+
+    const parsed =
+      JSON.parse(existingProgress);
+
+    retryAttempts =
+      parsed.retryCount || 0;
+
+  }
+
+  localStorage.setItem(
+    "connectorFundamentalsProgress",
+    JSON.stringify({
+      retryCount: retryAttempts + 1,
+    })
+  );
+
+  localStorage.removeItem(
+    "connectorFundamentalsMaster"
+  );
+
+  setStep(1);
 
     setConnectorMated(false);
 
