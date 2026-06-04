@@ -1,5 +1,24 @@
-export default function ProductFamiliesPage() {
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
+export default function ProductFamiliesPage() {
+const router = useRouter();
+
+useEffect(() => {
+
+  const completed =
+    localStorage.getItem(
+      "connectorFundamentalsCompleted"
+    );
+
+  if (completed !== "true") {
+
+    router.push("/dashboard");
+
+  }
+
+}, [router]);
   return (
 
     <main className="min-h-screen bg-black text-white px-6 py-10">
