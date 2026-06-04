@@ -459,49 +459,52 @@ export default function ConnectorFundamentalsMission() {
 
   };
 
-  const nextQuestion = () => {
+  cconst nextQuestion = () => {
 
-    setShowExplanation(false);
+  const current =
+    quizQuestions[currentQuestion];
 
-    setSelectedAnswer("");
+  const finalScore =
+    selectedAnswer === current.correct
+      ? quizScore + 1
+      : quizScore;
 
-    if (
-      currentQuestion + 1 <
-      quizQuestions.length
-    ) {
+  setShowExplanation(false);
 
-      setCurrentQuestion((prev) => prev + 1);
+  setSelectedAnswer("");
 
-    } else {
+  if (
+    currentQuestion + 1 <
+    quizQuestions.length
+  ) {
 
-      setQuizCompleted(true);
+    setCurrentQuestion((prev) => prev + 1);
 
-      const finalScore =
-  selectedAnswer === current.correct
-    ? quizScore + 1
-    : quizScore;
+  } else {
 
-const passed = finalScore >= 4;
+    setQuizCompleted(true);
 
-setQuizPassed(passed);
+    const passed = finalScore >= 4;
 
-      if (passed) {
+    setQuizPassed(passed);
 
-        localStorage.setItem(
-          "connectorFundamentalsCompleted",
-          "true"
-        );
+    if (passed) {
 
-        localStorage.setItem(
-          "connectorFundamentalsCompetency",
-          "Strong"
-        );
+      localStorage.setItem(
+        "connectorFundamentalsCompleted",
+        "true"
+      );
 
-      }
+      localStorage.setItem(
+        "connectorFundamentalsCompetency",
+        "Strong"
+      );
 
     }
 
-  };
+  }
+
+};
 
   const retryQuiz = () => {
 
