@@ -609,12 +609,16 @@ if (passed) {
 
   setQuizCompleted(true);
 
-  setStep(6);
+awardBadge(
+  "Connector Certified"
+);
 
-  localStorage.setItem(
-    "connectorFundamentalsCompleted",
-    "true"
-  );
+setStep(6);
+
+localStorage.setItem(
+  "connectorFundamentalsCompleted",
+  "true"
+);
 
   localStorage.setItem(
     "connectorFundamentalsCompetency",
@@ -2029,6 +2033,9 @@ if (loading) {
 
       <button
         onClick={() => {
+          awardBadge(
+           "Product Specialist Ready"
+          );
           window.location.href = "/dashboard";
         }}
         className="bg-gray-800 hover:bg-gray-700 px-8 py-4 rounded-2xl font-semibold"
