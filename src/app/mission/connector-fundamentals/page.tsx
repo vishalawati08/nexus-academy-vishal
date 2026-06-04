@@ -168,9 +168,9 @@ export default function ConnectorFundamentalsMission() {
           <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
 
             <div
-              className="bg-blue-600 h-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
+             className="bg-blue-600 h-full transition-all duration-500"
+             style={{ width: `${progress}%` }}
+          />
 
           </div>
 
