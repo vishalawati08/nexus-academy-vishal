@@ -1,759 +1,500 @@
+
 "use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
-
   const [xp, setXp] = useState(0);
-
   const [completed, setCompleted] = useState(false);
-
-  const [competency, setCompetency] =
-    useState("In Progress");
-
-  const [retryCount, setRetryCount] =
-  useState(0);
-
-const [badges, setBadges] =
-  useState<string[]>([]);
-const [engineeringScore, setEngineeringScore] =
-  useState(0);
-  
-  const [modulesCompleted, setModulesCompleted] =
-    useState(0);
+  const [competency, setCompetency] = useState("In Progress");
+  const [retryCount, setRetryCount] = useState(0);
+  const [badges, setBadges] = useState<string[]>([]);
+  const [engineeringScore, setEngineeringScore] = useState(0);
+  const [modulesCompleted, setModulesCompleted] = useState(0);
 
   const totalModules = 3;
-
-  const overallProgress =
-    (modulesCompleted / totalModules) * 100;
+  const overallProgress = (modulesCompleted / totalModules) * 100;
 
   useEffect(() => {
+    try {
+      const progressData = localStorage.getItem(
+        "connectorFundamentalsProgress"
+      );
+      const completedStatus = localStorage.getItem(
+        "connectorFundamentalsCompleted"
+      );
+      const competencyStatus = localStorage.getItem(
+        "connectorFundamentalsCompetency"
+      );
+      const storedXP = localStorage.getItem("nexusTotalXP");
 
-    const progressData = localStorage.getItem(
-      "connectorFundamentalsProgress"
-    );
+      if (storedXP) {
+        setXp(Number(storedXP) || 0);
+      }
 
-    const completedStatus = localStorage.getItem(
-      "connectorFundamentalsCompleted"
-    );
+      if (progressData) {
+        const parsed = JSON.parse(progressData);
+        setXp(parsed.xp || 0);
+        setRetryCount(parsed.retryCount || 0);
+      }
 
-    const competencyStatus = localStorage.getItem(
-      "connectorFundamentalsCompetency"
-    );
+      const missionData = localStorage.getItem(
+        "connectorFundamentalsMaster"
+      );
 
-    const storedXP =
-      localStorage.getItem("nexusTotalXP");
+      if (missionData) {
+        const parsedMission = JSON.parse(missionData);
+        setBadges(parsedMission.badges || []);
+        setEngineeringScore(parsedMission.xp || 0);
+      }
 
-    if (storedXP) {
+      if (completedStatus === "true") {
+        setCompleted(true);
+        setModulesCompleted(1);
+      }
 
-      setXp(Number(storedXP));
-
+      if (competencyStatus) {
+        setCompetency(competencyStatus);
+      }
+    } catch (error) {
+      console.error("Unable to load dashboard progress:", error);
     }
-
-    if (progressData) {
-
-  const parsed = JSON.parse(progressData);
-
-  setXp(parsed.xp || 0);
-
-  setRetryCount(parsed.retryCount || 0);
-
-}
-
-const missionData =
-  localStorage.getItem(
-    "connectorFundamentalsMaster"
-  );
-
-if (missionData) {
-
-  const parsedMission =
-    JSON.parse(missionData);
-
-  setBadges(
-    parsedMission.badges || []
-  );
-  setEngineeringScore(
-  parsedMission.xp || 0
-);
-}
-
-    if (completedStatus === "true") {
-
-      setCompleted(true);
-
-      setModulesCompleted(1);
-
-    }
-
-    if (competencyStatus) {
-
-      setCompetency(competencyStatus);
-
-    }
-
   }, []);
 
   return (
-
-    <main className="min-h-screen bg-gradient-to-b from-black via-[#050816] to-black text-white px-6 py-10">
-
-      <div className="max-w-7xl mx-auto">
-
+    <main className="min-h-screen bg-gradient-to-b from-black via-[#050816] to-black px-6 py-10 text-white">
+      <div className="mx-auto max-w-7xl">
         {/* HEADER */}
-
-        <div className="mb-12">
-
-          <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+        <header className="mb-12">
+          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-blue-500">
             Nexus Academy
           </p>
 
-          <h1 className="text-6xl font-bold mb-4">
+          <h1 className="mb-4 text-4xl font-bold sm:text-6xl">
             Product Specialist Dashboard
           </h1>
 
-          <p className="text-gray-400 text-xl">
+          <p className="text-xl text-gray-400">
             AI-Guided Engineering Learning Platform
           </p>
-
-        </div>
+        </header>
 
         {/* TOP STATS */}
+        <section className="mb-12 grid gap-6 md:grid-cols-4">
+          <StatCard title="Total XP" value={xp} valueClass="text-blue-500 text-5xl" />
 
-        <div className="grid md:grid-cols-5 gap-6 mb-12">
+          <StatCard
+            title="Modules Completed"
+            value={modulesCompleted}
+            valueClass="text-green-400 text-5xl"
+          />
 
-          {/* XP */}
+          <StatCard
+            title="Competency"
+            value={competency}
+            valueClass="text-green-400 text-3xl"
+          />
 
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
+          <StatCard
+            title="Retry Attempts"
+            value={retryCount}
+            valueClass="text-yellow-400 text-5xl"
+          />
+        </section>
 
-            <p className="text-gray-400 mb-3">
-              Total XP
-            </p>
-
-            <h2 className="text-5xl font-bold text-blue-500">
-              {xp}
-            </h2>
-
-          </div>
-
-          {/* COMPLETED */}
-
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-            <p className="text-gray-400 mb-3">
-              Modules Completed
-            </p>
-
-            <h2 className="text-5xl font-bold text-green-400">
-              {modulesCompleted}
-            </h2>
-
-          </div>
-
-          {/* COMPETENCY */}
-
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-            <p className="text-gray-400 mb-3">
-              Competency
-            </p>
-
-            <h2 className="text-3xl font-bold text-green-400">
-              {competency}
-            </h2>
-
-          </div>
-
-          {/* RETRIES */}
-
-          <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-            <p className="text-gray-400 mb-3">
-              Retry Attempts
-            </p>
-
-            <h2 className="text-5xl font-bold text-yellow-400">
-              {retryCount}
-            </h2>
-
-          </div>
-
-        </div>
         {/* LEVEL */}
+        <section className="mb-8 rounded-3xl border border-yellow-700 bg-[#111] p-8">
+          <p className="mb-3 text-gray-400">Current Level</p>
 
-<div className="bg-[#111] border border-yellow-700 rounded-3xl p-8">
+          <h2 className="mb-3 text-5xl font-bold text-yellow-400">
+            Lv.{calculateLevel(xp).level}
+          </h2>
 
-  <p className="text-gray-400 mb-3">
-    Current Level
-  </p>
+          <p className="text-yellow-300">{calculateLevel(xp).title}</p>
+        </section>
 
-  <h2 className="text-5xl font-bold text-yellow-400 mb-3">
-    Lv.{calculateLevel(xp).level}
-  </h2>
-
-  <p className="text-yellow-300">
-    {calculateLevel(xp).title}
-  </p>
-
-</div>
-        {/* LEARNING PATH */}
-
+        {/* LEARNING JOURNEY */}
         <section className="mb-14">
-
-          <div className="flex items-center justify-between mb-4">
-
-            <h2 className="text-4xl font-bold">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
+            <h2 className="text-3xl font-bold sm:text-4xl">
               Learning Journey
             </h2>
 
-            <p className="text-blue-400 font-semibold">
-              {Math.round(overallProgress)}% Complete
-            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="font-semibold text-blue-400">
+                {Math.round(overallProgress)}% Complete
+              </p>
 
+              {/* NEW: GUIDED ONBOARDING LINK */}
+              <Link
+                href="/onboarding"
+                className="inline-flex items-center gap-2 rounded-xl border border-cyan-500/50 bg-cyan-500/10 px-5 py-3 font-semibold text-cyan-300 transition hover:border-cyan-400 hover:bg-cyan-500/20"
+              >
+                Guided Onboarding →
+              </Link>
+            </div>
           </div>
 
-          <div className="w-full bg-gray-800 rounded-full h-4 overflow-hidden mb-10">
-
+          <div
+            className="mb-10 h-4 w-full overflow-hidden rounded-full bg-gray-800"
+            role="progressbar"
+            aria-label="Module completion progress"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(overallProgress)}
+          >
             <div
-              className="bg-blue-600 h-full transition-all duration-700"
+              className="h-full bg-blue-600 transition-all duration-700"
               style={{ width: `${overallProgress}%` }}
             />
-
           </div>
 
-          {/* MODULES */}
-
-          <div className="grid md:grid-cols-3 gap-8">
-
+          <div className="grid gap-8 md:grid-cols-3">
             {/* MODULE 1 */}
-
-            <div className="bg-[#111] border border-blue-900 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(37,99,235,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(37,99,235,0.35)]">
-
-              <p className="text-blue-500 uppercase tracking-[0.2em] text-sm mb-4">
+            <article className="rounded-3xl border border-blue-900 bg-[#111] p-8 transition hover:border-blue-600 hover:shadow-[0_0_35px_rgba(37,99,235,0.25)]">
+              <p className="mb-4 text-sm uppercase tracking-[0.2em] text-blue-500">
                 Module 1
               </p>
 
-              <h3 className="text-3xl font-bold mb-4">
+              <h3 className="mb-4 text-2xl font-bold sm:text-3xl">
                 Connector Fundamentals
               </h3>
 
-              <p className="text-gray-400 leading-8 mb-8">
-                Learn connector anatomy, mating systems,
-                engineering fundamentals,
-                and application prioritization.
+              <p className="mb-8 leading-8 text-gray-400">
+                Learn connector anatomy, mating systems, engineering
+                fundamentals, and application prioritization.
               </p>
 
-              <div className="flex items-center justify-between mb-8">
-
+              <div className="mb-8 flex items-center justify-between gap-3">
                 <span
-                  className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                    completed
-                      ? "bg-green-600"
-                      : "bg-yellow-600"
+                  className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                    completed ? "bg-green-600" : "bg-yellow-600"
                   }`}
                 >
-
-                  {completed
-                    ? "Completed"
-                    : "In Progress"}
-
+                  {completed ? "Completed" : "In Progress"}
                 </span>
 
-                <span className="text-gray-400">
-                  XP: {xp}
-                </span>
-
+                <span className="text-gray-400">XP: {xp}</span>
               </div>
 
               <Link
                 href="/mission/connector-fundamentals"
-                className="block text-center bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition px-6 py-4 rounded-2xl font-semibold"
+                className="block rounded-2xl bg-blue-600 px-6 py-4 text-center font-semibold transition hover:bg-blue-500 hover:shadow-[0_0_25px_rgba(37,99,235,0.35)]"
               >
-                {completed
-                  ? "Review Module"
-                  : "Continue Learning"}
+                {completed ? "Review Module" : "Continue Learning"}
               </Link>
-
-            </div>
+            </article>
 
             {/* MODULE 2 */}
-
-            <div className={`rounded-3xl p-8 border ${
-              completed
-                ? "bg-[#111] border-gray-800"
-                : "bg-[#0b0b0b] border-gray-900 opacity-50"
-            }`}>
-
-              <p className="text-blue-500 uppercase tracking-[0.2em] text-sm mb-4">
+            <article
+              className={`rounded-3xl border p-8 ${
+                completed
+                  ? "border-gray-800 bg-[#111]"
+                  : "border-gray-900 bg-[#0b0b0b] opacity-60"
+              }`}
+            >
+              <p className="mb-4 text-sm uppercase tracking-[0.2em] text-blue-500">
                 Module 2
               </p>
 
-              <h3 className="text-3xl font-bold mb-4">
+              <h3 className="mb-4 text-2xl font-bold sm:text-3xl">
                 Product Families
               </h3>
 
-              <p className="text-gray-400 leading-8 mb-8">
-                Learn Molex connector portfolios,
-                applications,
-                customer mapping,
-                and product differentiation.
+              <p className="mb-8 leading-8 text-gray-400">
+                Learn Molex connector portfolios, applications, customer
+                mapping, and product differentiation.
               </p>
 
               <div className="mb-8">
-
                 <span
-                  className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                    completed
-                      ? "bg-blue-600"
-                      : "bg-gray-700"
+                  className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                    completed ? "bg-blue-600" : "bg-gray-700"
                   }`}
                 >
-
-                  {completed
-                    ? "Unlocked"
-                    : "Locked"}
-
+                  {completed ? "Unlocked" : "Locked"}
                 </span>
-
               </div>
 
               {completed ? (
-
-  <Link
-    href="/mission/product-families"
-    className="block w-full text-center bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] px-6 py-4 rounded-2xl font-semibold transition"
-  >
-    Start Module
-  </Link>
-
-) : (
-
-  <button
-    disabled
-    className="w-full px-6 py-4 rounded-2xl font-semibold bg-gray-800 text-gray-500 cursor-not-allowed"
-  >
-    Complete Previous Module
-  </button>
-
-)}
-
-            </div>
+                <Link
+                  href="/mission/product-families"
+                  className="block rounded-2xl bg-blue-600 px-6 py-4 text-center font-semibold transition hover:bg-blue-500"
+                >
+                  Start Module
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="w-full cursor-not-allowed rounded-2xl bg-gray-800 px-6 py-4 font-semibold text-gray-500"
+                >
+                  Complete Previous Module
+                </button>
+              )}
+            </article>
 
             {/* MODULE 3 */}
-
-            <div className="bg-[#0b0b0b] border border-gray-900 rounded-3xl p-8 opacity-50 transition-all duration-300 hover:opacity-70">
-
-              <p className="text-blue-500 uppercase tracking-[0.2em] text-sm mb-4">
+            <article className="rounded-3xl border border-gray-900 bg-[#0b0b0b] p-8 opacity-60">
+              <p className="mb-4 text-sm uppercase tracking-[0.2em] text-blue-500">
                 Module 3
               </p>
 
-              <h3 className="text-3xl font-bold mb-4">
+              <h3 className="mb-4 text-2xl font-bold sm:text-3xl">
                 Connector Selection
               </h3>
 
-              <p className="text-gray-400 leading-8 mb-8">
-                Simulate customer interactions,
-                application analysis,
-                and connector recommendation workflows.
+              <p className="mb-8 leading-8 text-gray-400">
+                Simulate customer interactions, application analysis, and
+                connector recommendation workflows.
               </p>
 
               <div className="mb-8">
-
-                <span className="px-4 py-2 rounded-full text-sm font-semibold bg-gray-700">
+                <span className="rounded-full bg-gray-700 px-4 py-2 text-sm font-semibold">
                   Locked
                 </span>
-
               </div>
 
               <button
+                type="button"
                 disabled
-                className="w-full px-6 py-4 rounded-2xl font-semibold bg-gray-800 text-gray-500 cursor-not-allowed"
+                className="w-full cursor-not-allowed rounded-2xl bg-gray-800 px-6 py-4 font-semibold text-gray-500"
               >
                 Locked
               </button>
-
-            </div>
-
+            </article>
           </div>
-
         </section>
 
         {/* COMPETENCY MATRIX */}
-
         <section className="mb-14">
-
-          <h2 className="text-4xl font-bold mb-8">
+          <h2 className="mb-8 text-3xl font-bold sm:text-4xl">
             Competency Matrix
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid gap-6 md:grid-cols-2">
+            <CompetencyCard
+              title="Connector Fundamentals"
+              status={completed ? "Complete" : "In Progress"}
+              statusClass={completed ? "bg-green-600" : "bg-yellow-600"}
+              description="Understanding of connector systems, mating behavior, and electrical continuity."
+            />
 
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
+            <CompetencyCard
+              title="Connector Anatomy"
+              status={completed ? "Strong" : "Intermediate"}
+              statusClass={completed ? "bg-green-600" : "bg-yellow-600"}
+              description="Understanding of seals, locking systems, terminals, housing, and connector reliability."
+            />
 
-              <div className="flex items-center justify-between mb-4">
+            <CompetencyCard
+              title="Engineering Evaluation"
+              status={completed ? "Passed" : "Pending"}
+              statusClass={completed ? "bg-green-600" : "bg-gray-700"}
+              description="Ability to prioritize connector features based on customer requirements and harsh-environment applications."
+            />
 
-                <h3 className="text-2xl font-bold">
-                  Connector Fundamentals
-                </h3>
+            <CompetencyCard
+              title="Product Specialist Readiness"
+              status={completed ? "Ready" : "Developing"}
+              statusClass={completed ? "bg-green-600" : "bg-gray-700"}
+              description="Demonstrates foundational competency for customer-facing engineering discussions."
+            />
+          </div>
+        </section>
 
-                <span className={`px-4 py-2 rounded-full text-sm ${
-                  completed
-                    ? "bg-green-600"
-                    : "bg-yellow-600"
-                }`}>
+        {/* ACHIEVEMENT BADGES */}
+        <section className="mb-14">
+          <h2 className="mb-8 text-3xl font-bold sm:text-4xl">
+            Achievement Badges
+          </h2>
 
-                  {completed
-                    ? "Complete"
-                    : "In Progress"}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {badges.map((badge) => (
+              <article
+                key={badge}
+                className="rounded-3xl border border-yellow-700 bg-[#111] p-8 transition hover:scale-[1.02]"
+              >
+                <div className="mb-6 text-5xl">🏆</div>
 
-                </span>
+                <h3 className="mb-3 text-2xl font-bold">{badge}</h3>
 
-              </div>
+                <p className="text-gray-400">Achievement Unlocked</p>
+              </article>
+            ))}
 
-              <p className="text-gray-400 leading-8">
-                Understanding of connector systems,
-                mating behavior,
-                and electrical continuity.
-              </p>
+            {badges.length === 0 && (
+              <article className="rounded-3xl border border-gray-800 bg-[#111] p-8">
+                <h3 className="mb-3 text-2xl font-bold">No Badges Yet</h3>
 
+                <p className="text-gray-400">
+                  Complete missions to unlock achievements.
+                </p>
+              </article>
+            )}
+          </div>
+        </section>
+
+        {/* ENGINEERING COMPETENCY PROFILE */}
+        <section className="mb-14">
+          <h2 className="mb-8 text-3xl font-bold sm:text-4xl">
+            Engineering Competency Profile
+          </h2>
+
+          <div className="mb-6 grid gap-6 md:grid-cols-3">
+            <div className="rounded-3xl border border-gray-800 bg-[#111] p-8">
+              <p className="mb-4 text-gray-400">Engineering Readiness</p>
+
+              <span
+                className={`inline-block rounded-full px-5 py-3 text-lg font-semibold ${
+                  readinessLevel(engineeringScore).color
+                }`}
+              >
+                {readinessLevel(engineeringScore).label}
+              </span>
             </div>
 
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
+            <div className="rounded-3xl border border-gray-800 bg-[#111] p-8">
+              <p className="mb-4 text-gray-400">Technical Confidence</p>
 
-              <div className="flex items-center justify-between mb-4">
-
-                <h3 className="text-2xl font-bold">
-                  Connector Anatomy
-                </h3>
-
-                <span className={`px-4 py-2 rounded-full text-sm ${
-                  exploredStatus(exploredLevel(completed))
-                }`}>
-
-                  {completed
-                    ? "Strong"
-                    : "Intermediate"}
-
-                </span>
-
-              </div>
-
-              <p className="text-gray-400 leading-8">
-                Understanding of seals,
-                locking systems,
-                terminals,
-                housing,
-                and connector reliability.
-              </p>
-
+              <h3 className="text-5xl font-bold text-blue-400">
+                {Math.min(100, Math.floor(engineeringScore / 2.5))}%
+              </h3>
             </div>
 
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
+            <div className="rounded-3xl border border-gray-800 bg-[#111] p-8">
+              <p className="mb-4 text-gray-400">AI Evaluation</p>
 
-              <div className="flex items-center justify-between mb-4">
-
-                <h3 className="text-2xl font-bold">
-                  Engineering Evaluation
-                </h3>
-
-                <span className={`px-4 py-2 rounded-full text-sm ${
-                  challengeStatus(challengeLevel(completed))
-                }`}>
-
-                  {completed
-                    ? "Passed"
-                    : "Pending"}
-
-                </span>
-
-              </div>
-
-              <p className="text-gray-400 leading-8">
-                Ability to prioritize connector features
-                based on customer requirements
-                and harsh environment applications.
-              </p>
-
+              <h3 className="text-2xl font-bold text-green-400">
+                Customer Ready
+              </h3>
             </div>
-
-            <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-              <div className="flex items-center justify-between mb-4">
-
-                <h3 className="text-2xl font-bold">
-                  Product Specialist Readiness
-                </h3>
-
-                <span className={`px-4 py-2 rounded-full text-sm ${
-                  completed
-                    ? "bg-green-600"
-                    : "bg-gray-700"
-                }`}>
-
-                  {completed
-                    ? "Ready"
-                    : "Developing"}
-
-                </span>
-
-              </div>
-
-              <p className="text-gray-400 leading-8">
-                Demonstrates foundational competency
-                for customer-facing engineering discussions.
-              </p>
-
-            </div>
-
           </div>
 
+          {/* COMPETENCY RING */}
+          <div className="flex flex-col items-center justify-center rounded-3xl border border-gray-800 bg-[#111] p-8">
+            <p className="mb-6 text-gray-400">Competency Score</p>
+
+            <div className="relative h-36 w-36">
+              <svg
+                className="h-36 w-36 rotate-[-90deg]"
+                viewBox="0 0 120 120"
+                role="img"
+                aria-label={`Competency score: ${Math.min(
+                  100,
+                  Math.floor(engineeringScore / 2.5)
+                )}%`}
+              >
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="52"
+                  stroke="#1f2937"
+                  strokeWidth="10"
+                  fill="none"
+                />
+
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="52"
+                  stroke="#3b82f6"
+                  strokeWidth="10"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeDasharray={327}
+                  strokeDashoffset={
+                    327 -
+                    (Math.min(
+                      100,
+                      Math.floor(engineeringScore / 2.5)
+                    ) /
+                      100) *
+                      327
+                  }
+                  className="transition-all duration-1000"
+                />
+              </svg>
+
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-3xl font-bold text-blue-400">
+                  {Math.min(100, Math.floor(engineeringScore / 2.5))}%
+                </span>
+              </div>
+            </div>
+          </div>
         </section>
-         {/* BADGES */}
 
-<section className="mb-14">
-
-  <h2 className="text-4xl font-bold mb-8">
-    Achievement Badges
-  </h2>
-
-  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-    {badges.map((badge) => (
-
-      <div
-        key={badge}
-        className="bg-[#111] border border-yellow-700 rounded-3xl p-8 hover:scale-[1.02] transition-all duration-300"
-      >
-
-        <div className="text-5xl mb-6">
-          🏆
-        </div>
-
-        <h3 className="text-2xl font-bold mb-3">
-          {badge}
-        </h3>
-
-        <p className="text-gray-400">
-          Achievement Unlocked
-        </p>
-
-      </div>
-
-    ))}
-
-    {badges.length === 0 && (
-
-      <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-        <h3 className="text-2xl font-bold mb-3">
-          No Badges Yet
-        </h3>
-
-        <p className="text-gray-400">
-          Complete missions to unlock achievements.
-        </p>
-
-      </div>
-
-    )}
-
-  </div>
-
-</section>
-
-        {/* ENGINEERING PROFILE */}
-
-<section className="mb-14">
-
-  <h2 className="text-4xl font-bold mb-8">
-    Engineering Competency Profile
-  </h2>
-
- <div className="grid md:grid-cols-4 gap-6">
-
-    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-      <p className="text-gray-400 mb-4">
-        Engineering Readiness
-      </p>
-
-      <div
-        className={`inline-block px-5 py-3 rounded-full text-lg font-semibold ${
-          readinessLevel(engineeringScore).color
-        }`}
-      >
-
-        {readinessLevel(engineeringScore).label}
-
-      </div>
-
-    </div>
-
-    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-      <p className="text-gray-400 mb-4">
-        Technical Confidence
-      </p>
-
-      <h3 className="text-5xl font-bold text-blue-400">
-        {Math.min(
-          100,
-          Math.floor(engineeringScore / 2.5)
-        )}%
-      </h3>
-
-    </div>
-
-    <div className="bg-[#111] border border-gray-800 rounded-3xl p-8 transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] transition-all duration-300 hover:scale-[1.02] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-      <p className="text-gray-400 mb-4">
-        AI Evaluation
-      </p>
-
-      <h3 className="text-2xl font-bold text-green-400">
-        Customer Ready
-      </h3>
-
-    </div>
-
-  </div>
-{/* COMPETENCY RING */}
-
-<div className="bg-[#111] border border-gray-800 rounded-3xl p-8 flex flex-col items-center justify-center transition-all duration-300 hover:scale-[1.03] hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)]">
-
-  <p className="text-gray-400 mb-6">
-    Competency Score
-  </p>
-
-  <div className="relative w-36 h-36">
-
-    <svg
-      className="w-36 h-36 rotate-[-90deg]"
-      viewBox="0 0 120 120"
-    >
-
-      {/* Background Ring */}
-
-      <circle
-        cx="60"
-        cy="60"
-        r="52"
-        stroke="#1f2937"
-        strokeWidth="10"
-        fill="none"
-      />
-
-      {/* Progress Ring */}
-
-      <circle
-        cx="60"
-        cy="60"
-        r="52"
-        stroke="#3b82f6"
-        strokeWidth="10"
-        fill="none"
-        strokeLinecap="round"
-        strokeDasharray={327}
-        strokeDashoffset={
-          327 -
-          (Math.min(
-            100,
-            Math.floor(engineeringScore / 2.5)
-          ) /
-            100) *
-            327
-        }
-        className="transition-all duration-1000"
-      />
-
-    </svg>
-
-    <div className="absolute inset-0 flex items-center justify-center">
-
-      <span className="text-3xl font-bold text-blue-400">
-        {Math.min(
-          100,
-          Math.floor(engineeringScore / 2.5)
-        )}%
-      </span>
-
-    </div>
-
-  </div>
-
-</div>
-</section>
-        {/* AI MENTOR */}
-
-        <section className="bg-[#101010] border border-blue-900 rounded-3xl p-10">
-
-          <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
+        {/* AI MENTOR SUMMARY */}
+        <section className="rounded-3xl border border-blue-900 bg-[#101010] p-8 sm:p-10">
+          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-blue-500">
             AI Mentor Summary
           </p>
 
-          <h2 className="text-4xl font-bold mb-6">
+          <h2 className="mb-6 text-3xl font-bold sm:text-4xl">
             Learning Evaluation
           </h2>
 
-          <p className="text-gray-300 text-xl leading-9">
-
+          <p className="text-xl leading-9 text-gray-300">
             {completed
               ? "You successfully completed the Connector Fundamentals mission and demonstrated strong competency in connector engineering fundamentals, anatomy understanding, and customer application prioritization."
-              : "Continue progressing through the onboarding journey to strengthen your understanding of connector systems, engineering fundamentals, and application-driven product selection."
-            }
-
+              : "Continue progressing through the onboarding journey to strengthen your understanding of connector systems, engineering fundamentals, and application-driven product selection."}
           </p>
-
         </section>
-
       </div>
-
     </main>
   );
 }
 
-/* =========================
-   STATUS HELPERS
-========================= */
+/* REUSABLE DASHBOARD COMPONENTS */
 
-function exploredLevel(completed: boolean) {
+type StatCardProps = {
+  title: string;
+  value: string | number;
+  valueClass: string;
+};
 
-  return completed
-    ? "strong"
-    : "intermediate";
-
+function StatCard({ title, value, valueClass }: StatCardProps) {
+  return (
+    <div className="rounded-3xl border border-gray-800 bg-[#111] p-8 transition hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.2)]">
+      <p className="mb-3 text-gray-400">{title}</p>
+      <h2 className={`font-bold ${valueClass}`}>{value}</h2>
+    </div>
+  );
 }
 
-function exploredStatus(level: string) {
+type CompetencyCardProps = {
+  title: string;
+  status: string;
+  statusClass: string;
+  description: string;
+};
 
-  if (level === "strong") {
-    return "bg-green-600";
-  }
+function CompetencyCard({
+  title,
+  status,
+  statusClass,
+  description,
+}: CompetencyCardProps) {
+  return (
+    <article className="rounded-3xl border border-gray-800 bg-[#111] p-8 transition hover:border-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.2)]">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h3 className="text-xl font-bold sm:text-2xl">{title}</h3>
 
-  return "bg-yellow-600";
+        <span className={`rounded-full px-4 py-2 text-sm ${statusClass}`}>
+          {status}
+        </span>
+      </div>
 
+      <p className="leading-8 text-gray-400">{description}</p>
+    </article>
+  );
 }
 
-function challengeLevel(completed: boolean) {
+/* STATUS HELPERS */
 
-  return completed
-    ? "passed"
-    : "pending";
-
-}
-
-function challengeStatus(level: string) {
-
-  if (level === "passed") {
-    return "bg-green-600";
-  }
-
-  return "bg-gray-700";
-
-}
 function readinessLevel(score: number) {
-
   if (score >= 220) {
     return {
       label: "Advanced",
@@ -772,11 +513,9 @@ function readinessLevel(score: number) {
     label: "Beginner",
     color: "bg-yellow-600",
   };
-
 }
 
 function calculateLevel(xp: number) {
-
   if (xp >= 400) {
     return {
       level: 5,
@@ -809,5 +548,4 @@ function calculateLevel(xp: number) {
     level: 1,
     title: "Trainee",
   };
-
 }
