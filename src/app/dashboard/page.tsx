@@ -17,7 +17,7 @@ export default function DashboardPage() {
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
         if (Array.isArray(parsed)) {
-          setCompleted(new Set(parsed.filter((id): id is string => typeof id === "string" && /^NS-\\d{3}$/.test(id))).size);
+          setCompleted(new Set(parsed.filter((id): id is string => typeof id === "string" && /^NS-\d{3}$/.test(id))).size);
         }
       }
       setXp(Number(localStorage.getItem(XP_KEY)) || 0);
