@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "nexus94CompletedTaskIds";
-const XP_KEY = "nexusTotalXP";
+const XP_KEY = "nexus94TotalXP";
 const TASK_COUNT = 94;
 
 export default function DashboardPage() {
