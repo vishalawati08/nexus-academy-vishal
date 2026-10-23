@@ -28,13 +28,26 @@ export default function DashboardPage() {
     }
   }, []);
 
+  function resetProgress() {
+    if (!window.confirm("Reset your Nexus Academy demo progress? This will clear completed sample tasks and XP in this browser.")) return;
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(XP_KEY);
+      setCompleted(0);
+      setXp(0);
+    } catch (error) {
+      console.error("Unable to reset demo progress:", error);
+      window.alert("Progress could not be reset. Please check your browser storage settings and try again.");
+    }
+  }
+
   const progress = Math.round((completed / TASK_COUNT) * 100);
   const finished = completed === TASK_COUNT;
 
   return <main className="min-h-screen bg-[#080d18] text-white">
     <header className="sticky top-0 z-20 border-b border-white/[0.08] bg-[#080d18]/90 backdrop-blur-xl"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
       <Link href="/" className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300 font-black text-slate-950">N</div><div><p className="text-sm font-bold tracking-[0.16em]">NEXUS ACADEMY</p><p className="mt-0.5 text-xs text-slate-400">Learner workspace</p></div></Link>
-      <div className="flex items-center gap-3"><span className="hidden rounded-full border border-amber-200/20 bg-amber-200/[0.06] px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-100 sm:inline-flex">Prototype mode</span><Link href="/onboarding" className="rounded-xl bg-cyan-300 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">Continue learning ↗</Link></div>
+      <div className="flex items-center gap-2 sm:gap-3"><span className="hidden rounded-full border border-amber-200/20 bg-amber-200/[0.06] px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-100 sm:inline-flex">Prototype mode</span><button type="button" onClick={resetProgress} className="rounded-xl border border-white/10 px-3 py-2.5 text-xs font-semibold text-slate-300 transition hover:border-rose-200/30 hover:text-rose-200 sm:px-4">Reset progress</button><Link href="/onboarding" className="rounded-xl bg-cyan-300 px-3 py-2.5 text-xs font-bold text-slate-950 transition hover:bg-cyan-200 sm:px-4 sm:text-sm">Continue learning ↗</Link></div>
     </div></header>
     <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
       <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">YOUR DEVELOPMENT SPACE</p><h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Welcome to your journey.</h1><p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">A guided path to build product knowledge, strengthen engineering judgement, and prepare for customer conversations.</p></div><div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-300/10 text-xl text-violet-200">✦</div><div><p className="text-xs text-slate-400">Experience points</p><p className="text-xl font-bold">{loaded ? xp : "—"} <span className="text-xs font-semibold text-violet-200">XP</span></p></div></div></div>
