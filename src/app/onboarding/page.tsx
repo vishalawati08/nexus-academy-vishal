@@ -17,7 +17,13 @@ export default function OnboardingPage() {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
-        if (Array.isArray(parsed)) setCompletedTasks(Array.from(new Set(parsed.filter((id): id is number => typeof id === "number" && TASKS.some((task) => task.id === id))));
+        if (Array.isArray(parsed)) {
+          const validIds = parsed.filter(
+            (id): id is number =>
+              typeof id === "number" && TASKS.some((task) => task.id === id)
+          );
+          setCompletedTasks(Array.from(new Set(validIds)));
+        }
       }
     } catch (error) { console.error("Unable to load onboarding progress:", error); }
     finally { setIsLoaded(true); }
