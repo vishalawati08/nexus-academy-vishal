@@ -18,14 +18,14 @@ const weeks = [
 ];
 
 const working = [
-  ["Landing page and learner dashboard", "Working in deployed prototype", "Visual experience and navigation are implemented."],
-  ["Sequential onboarding flow", "Working in deployed prototype", "Five sample tasks; next task unlocks after completion."],
+  ["Landing page and learner dashboard", "Available in current experience", "Visual experience and navigation are implemented."],
+  ["Sequential onboarding flow", "Available in current experience", "Five sample tasks; next task unlocks after completion."],
   ["Progress persistence", "Working locally only", "Browser localStorage; not shared across users or devices."],
-  ["Reset demo progress", "Implemented", "Dashboard reset clears local onboarding completion and XP after confirmation."],
-  ["Connector Fundamentals mission", "Existing prototype", "Route and learning experience exist; validate content and scoring before claiming assessment readiness."],
-  ["AI mentor", "Demo / environment-dependent", "API route exists; availability depends on configured API key, quota, and approved grounding."],
+  ["Reset learning progress", "Implemented", "Dashboard reset clears local onboarding completion and XP after confirmation."],
+  ["Connector Fundamentals mission", "Available learning module", "Route and learning experience exist; validate content and scoring before claiming assessment readiness."],
+  ["AI mentor", "Environment-dependent", "API route exists; availability depends on configured API key, quota, and approved grounding."],
   ["12-week curriculum", "Proposed design", "The roadmap on this page is a planning proposal, not a fully populated course."],
-  ["SharePoint content and progress", "Not connected", "No live SharePoint read/write integration is represented in this prototype."],
+  ["SharePoint content and progress", "Not connected", "Live SharePoint read/write integration is not connected."],
   ["Manager analytics and reporting", "Not connected", "No validated shared reporting or learner-level management dashboard."],
   ["Enterprise identity, permissions and governance", "Not verified", "Requires IT/security review and an approved deployment path."],
 ];
@@ -40,24 +40,24 @@ export default function ManagementPage() {
     <header className="sticky top-0 z-20 border-b border-white/[0.08] bg-[#080d18]/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
         <Link href="/" className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300 font-black text-slate-950">N</div><div><p className="text-sm font-bold tracking-[0.16em]">NEXUS ACADEMY</p><p className="mt-0.5 text-xs text-slate-400">Management brief</p></div></Link>
-        <div className="flex items-center gap-3"><Link href="/dashboard" className="text-sm text-slate-400 hover:text-white">Open demo</Link><Link href="/" className="rounded-xl border border-white/10 px-3 py-2 text-sm text-slate-300 hover:text-white">Overview</Link></div>
+        <div className="flex items-center gap-3"><Link href="/dashboard" className="text-sm text-slate-400 hover:text-white">Open Dashboard</Link><Link href="/" className="rounded-xl border border-white/10 px-3 py-2 text-sm text-slate-300 hover:text-white">Overview</Link></div>
       </div>
     </header>
 
     <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
       <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-        <div><p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">Decision brief · Concept prototype</p><h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">A credible path from demo to governed learning platform.</h1><p className="mt-5 max-w-3xl text-base leading-8 text-slate-300">Nexus Academy is a proposed 12-week guided enablement journey for Product Specialists. The current web app demonstrates selected learner interactions; this brief separates those working interactions from capabilities that still need curriculum approval, IT alignment, and integration work.</p></div>
+        <div><p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">Learning platform overview</p><h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">A path toward a governed learning platform.</h1><p className="mt-5 max-w-3xl text-base leading-8 text-slate-300">Molex New Hire Training is a guided learning journey for Product Specialists. This overview separates available learning interactions from capabilities that need curriculum approval, IT alignment, and integration work.</p></div>
         <div className="rounded-2xl border border-cyan-200/15 bg-cyan-200/[0.04] p-6"><p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-200">Management ask</p><h2 className="mt-3 text-xl font-semibold">Approve a controlled discovery and pilot—not a production rollout.</h2><ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300"><li>01 · Nominate curriculum owners and reviewers.</li><li>02 · Confirm the approved Microsoft environment and site.</li><li>03 · Agree pilot audience, success measures, and data access.</li></ul></div>
       </section>
 
       <section className="mt-10 grid gap-4 md:grid-cols-3">
         <Metric title="Journey length" value="12 weeks" detail="Proposed learning architecture" />
-        <Metric title="Demo task flow" value="5 sample tasks" detail="Sequential completion in browser" />
+        <Metric title="Learning task flow" value="5 sample tasks" detail="Sequential completion in browser" />
         <Metric title="SharePoint integration" value="Not connected" detail="Design and approval remain" />
       </section>
 
       <section className="mt-14">
-        <SectionTitle eyebrow="01 · Capability truth" title="What works today vs. what is proposed" text="Use this status view when presenting the demo. It avoids implying that illustrative screens are backed by enterprise systems." />
+        <SectionTitle eyebrow="01 · Capability truth" title="What works today vs. what is proposed" text="Use this status view to distinguish available features from capabilities that still need enterprise integration." />
         <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
           <div className="hidden grid-cols-[0.9fr_0.8fr_1.3fr] gap-4 bg-white/[0.05] px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-400 md:grid"><span>Capability</span><span>Status</span><span>Evidence / boundary</span></div>
           {working.map((item) => <div key={item[0]} className="grid gap-2 border-t border-white/[0.07] px-5 py-4 md:grid-cols-[0.9fr_0.8fr_1.3fr] md:gap-4"><p className="text-sm font-semibold">{item[0]}</p><p className="text-xs font-bold text-cyan-200">{item[1]}</p><p className="text-sm leading-6 text-slate-400">{item[2]}</p></div>)}
@@ -72,7 +72,7 @@ export default function ManagementPage() {
       </section>
 
       <section className="mt-14">
-        <SectionTitle eyebrow="03 · Microsoft integration" title="Recommended SharePoint-backed architecture" text="Target architecture only. The web prototype currently uses browser storage and is not connected to SharePoint. Confirm that the lists below exist in the dedicated PSBU PM Training site before wiring the app." />
+        <SectionTitle eyebrow="03 · Microsoft integration" title="Recommended SharePoint-backed architecture" text="Target architecture only. The current experience uses browser storage and is not connected to SharePoint. Confirm that the lists below exist in the dedicated PSBU PM Training site before wiring the app." />
         <div className="mt-6 grid gap-4 lg:grid-cols-4">
           <Architecture n="01" title="Approved SharePoint site" text="PSBU PM Training site, site owners, access groups, and content governance confirmed by IT/site owner." />
           <Architecture n="02" title="Curriculum list" text="NexusLearningTasks stores the approved task catalogue, sequence, instructions, resources, prerequisites, and active status." />
@@ -99,7 +99,7 @@ export default function ManagementPage() {
         <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-200">Proposed pilot measures</p><h2 className="mt-3 text-2xl font-semibold sm:text-3xl">Measure learning—not just clicks.</h2><div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{[{t:"Task completion",d:"Share of assigned tasks completed within the agreed window."},{t:"Knowledge checks",d:"Baseline and end-of-module results using approved questions."},{t:"Learner confidence",d:"Short self-rating before and after the learning path."},{t:"Manager review",d:"Structured assessment of applied product understanding."}].map((m) => <div key={m.t} className="rounded-2xl border border-white/10 bg-black/20 p-4"><h3 className="font-semibold">{m.t}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{m.d}</p></div>)}</div><p className="mt-6 text-xs leading-6 text-slate-500">Baseline, targets, sample size, and reporting ownership must be agreed before the pilot. No performance outcomes are claimed at this stage.</p>
       </section>
 
-      <footer className="mt-12 flex flex-col gap-3 border-t border-white/[0.08] pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between"><span>Nexus Academy · Management discussion draft · Curriculum and integrations require validation</span><div className="flex gap-4"><Link href="/dashboard" className="hover:text-cyan-200">Explore demo ↗</Link><Link href="/" className="hover:text-cyan-200">Home ↗</Link></div></footer>
+      <footer className="mt-12 flex flex-col gap-3 border-t border-white/[0.08] pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between"><span>Nexus Academy · Management discussion draft · Curriculum and integrations require validation</span><div className="flex gap-4"><Link href="/dashboard" className="hover:text-cyan-200">Explore Dashboard ↗</Link><Link href="/" className="hover:text-cyan-200">Home ↗</Link></div></footer>
     </div>
   </main>;
 }
