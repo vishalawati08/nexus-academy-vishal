@@ -149,7 +149,7 @@ export default function JourneyPage() {
           </div></>}
         </div>
       </section>
-      <p className="mt-6 text-center text-xs text-slate-600">Nexus Academy prototype · Task content is based on the current onboarding source list; unresolved fields remain visibly flagged for review.</p>
+      <p className="mt-6 text-center text-xs text-slate-600">Molex New Hire Training prototype · Task content is based on the current onboarding source list; unresolved fields remain visibly flagged for review.</p>
     </div>
   </main>;
 }
