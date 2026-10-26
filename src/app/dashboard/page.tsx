@@ -61,7 +61,7 @@ export default function DashboardPage() {
               <p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p>
             </div>
           </Link>
-          <nav className="flex items-center gap-2">
+          <nav className="flex items-center gap-2"><Link href="/manager" className="hidden rounded-xl border border-white/10 px-3 py-2.5 text-sm text-slate-300 hover:text-white sm:inline-flex">Manager Portal</Link>
             <Link href="/journey" className="rounded-xl bg-cyan-300 px-4 py-2.5 text-sm font-bold text-slate-950 hover:bg-cyan-200">Learning Journey →</Link>
             <Link href="/" className="hidden rounded-xl border border-white/10 px-4 py-2.5 text-sm text-slate-300 hover:text-white sm:inline-flex">Home</Link>
           </nav>
