@@ -39,6 +39,9 @@ export default function ConnectorFundamentalsMission() {
   const [selectedAnswer, setSelectedAnswer] =
     useState("");
 
+  const [foundationAnswer, setFoundationAnswer] = useState("");
+  const [foundationChecked, setFoundationChecked] = useState(false);
+
   const [quizScore, setQuizScore] =
     useState(0);
 
@@ -93,6 +96,8 @@ useEffect(() => {
     const parsed = JSON.parse(savedData);
 
     setStep(parsed.step || 1);
+    setFoundationAnswer(parsed.foundationAnswer || "");
+    setFoundationChecked(parsed.foundationChecked || false);
 
     setXp(parsed.xp || 0);
 
@@ -157,6 +162,8 @@ useEffect(() => {
     JSON.stringify({
 
       step,
+      foundationAnswer,
+      foundationChecked,
       xp,
       connectorMated,
       exploredParts,
@@ -206,6 +213,8 @@ if (xp > existingXP) {
 
 }, [
   step,
+  foundationAnswer,
+  foundationChecked,
   xp,
   connectorMated,
   exploredParts,
@@ -900,9 +909,30 @@ if (loading) {
 
             </div>
 
+            <div className="mb-8 rounded-2xl border border-blue-500/30 bg-blue-500/5 p-6">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-300">Quick knowledge check</p>
+              <h3 className="mb-4 text-xl font-semibold">Which connector type interfaces discrete wires with printed circuit boards (PCBs)?</h3>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {["Wire-to-Wire", "Wire-to-Board", "Board-to-Board", "Fiber-to-Fiber"].map((option) => (
+                  <button key={option} type="button" onClick={() => { setFoundationAnswer(option); setFoundationChecked(false); }}
+                    className={"rounded-xl border px-4 py-3 text-left text-sm transition " + (foundationAnswer === option ? "border-blue-400 bg-blue-500/15 text-white" : "border-gray-700 bg-[#181818] text-gray-300 hover:border-gray-500")}>
+                    {option}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <button type="button" disabled={!foundationAnswer} onClick={() => { setFoundationChecked(true); if (foundationAnswer === "Wire-to-Board") awardXP("foundation_inline_check", 10); }}
+                  className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40">Check answer</button>
+                {foundationChecked && <p role="status" className={"text-sm " + (foundationAnswer === "Wire-to-Board" ? "text-green-400" : "text-amber-300")}>
+                  {foundationAnswer === "Wire-to-Board" ? "Correct — wire-to-board connectors connect discrete wires to a PCB." : "Not quite. Review the connector categories above and try again."}
+                </p>}
+              </div>
+            </div>
+
             <button
               onClick={nextStep}
-              className="bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] px-8 py-4 rounded-2xl"
+              disabled={!foundationChecked || foundationAnswer !== "Wire-to-Board"}
+              className="rounded-2xl bg-blue-600 px-8 py-4 transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
             >
               Continue →
             </button>
