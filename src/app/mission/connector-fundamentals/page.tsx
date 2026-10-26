@@ -766,6 +766,20 @@ localStorage.setItem(
 
   };
 
+  const resetProgress = () => {
+    const confirmed = window.confirm("Reset all Connector Fundamentals progress, quiz answers, XP, and badges? This cannot be undone.");
+    if (!confirmed) return;
+    localStorage.removeItem("connectorFundamentalsMaster");
+    localStorage.removeItem("connectorFundamentalsProgress");
+    localStorage.removeItem("nexusTotalXP");
+    setStep(1); setFoundationAnswer(""); setFoundationChecked(false);
+    setMatingAnswer(""); setMatingChecked(false); setAnatomyAnswer(""); setAnatomyChecked(false);
+    setChallengeKnowledgeAnswer(""); setChallengeKnowledgeChecked(false); setXp(0); setXpEvents([]); setBadges([]);
+    setConnectorMated(false); setSelectedPart(""); setExploredParts([]); setSelectedFeatures([]);
+    setChallengeSubmitted(false); setChallengePassed(false); setQuizStarted(false); setCurrentQuestion(0);
+    setSelectedAnswer(""); setQuizScore(0); setQuizCompleted(false); setQuizPassed(false); setShowExplanation(false);
+  };
+
   /* =========================================================
      UI
   ========================================================= */
@@ -822,12 +836,10 @@ if (loading) {
           Guided Product Specialist Learning Mission
         </p>
 
-        <button
-          onClick={retakeCourse}
-          className="mb-10 bg-red-600 hover:bg-red-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(239,68,68,0.45)] transition-all duration-300 hover:scale-[1.03] transition-all duration-300 hover:scale-[1.03] px-6 py-3 rounded-2xl font-semibold"
-        >
-          Retake Course
-        </button>
+        <div className="mb-10 flex flex-wrap gap-3">
+          <button onClick={retakeCourse} className="rounded-2xl bg-blue-600 px-6 py-3 font-semibold transition hover:bg-blue-500">Retake Course</button>
+          <button onClick={resetProgress} className="rounded-2xl border border-red-500/60 bg-red-500/10 px-6 py-3 font-semibold text-red-300 transition hover:bg-red-500/20">Reset Progress</button>
+        </div>
 
         {/* PROGRESS */}
 
