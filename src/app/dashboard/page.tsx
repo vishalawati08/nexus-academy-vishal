@@ -46,7 +46,7 @@ export default function DashboardPage() {
 
   return <main className="min-h-screen bg-[#080d18] text-white">
     <header className="sticky top-0 z-20 border-b border-white/[0.08] bg-[#080d18]/90 backdrop-blur-xl"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-      <Link href="/" className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300 font-black text-slate-950">N</div><div><p className="text-sm font-bold tracking-[0.16em]">MOLEX NEW HIRE TRAINING</p><p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p></div></Link>
+      <Link href="/" className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300 font-black text-slate-950">M</div><div><p className="text-sm font-bold tracking-[0.16em]">MOLEX NEW HIRE TRAINING</p><p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p></div></Link>
       <div className="flex items-center gap-2 sm:gap-3"><span className="hidden rounded-full border border-amber-200/20 bg-amber-200/[0.06] px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-100 sm:inline-flex">Prototype mode</span><button type="button" onClick={resetProgress} className="rounded-xl border border-white/10 px-3 py-2.5 text-xs font-semibold text-slate-300 transition hover:border-rose-200/30 hover:text-rose-200 sm:px-4">Reset progress</button><Link href="/journey" className="rounded-xl bg-cyan-300 px-3 py-2.5 text-xs font-bold text-slate-950 transition hover:bg-cyan-200 sm:px-4 sm:text-sm">Explore 94-task journey ↗</Link></div>
     </div></header>
     <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
