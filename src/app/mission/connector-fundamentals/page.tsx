@@ -9,6 +9,7 @@ export default function ConnectorFundamentalsMission() {
   ========================================================= */
 
   const [step, setStep] = useState(1);
+  const [journeyTask, setJourneyTask] = useState<"NS-005" | "NS-006">("NS-005");
 
   const [xp, setXp] = useState(0);
 
@@ -77,6 +78,13 @@ const [badges, setBadges] =
       : (Math.min((step - 1) / 8, 1)) * 100;
 
   useEffect(() => {
+  const requestedTask = new URLSearchParams(window.location.search).get("task");
+  const activeTask = requestedTask === "NS-006" ? "NS-006" : "NS-005";
+  setJourneyTask(activeTask);
+  setStep(activeTask === "NS-006" ? 6 : 1);
+}, []);
+
+useEffect(() => {
 
   const timer = setTimeout(() => {
 
@@ -101,7 +109,7 @@ useEffect(() => {
 
     const parsed = JSON.parse(savedData);
 
-    setStep(parsed.step || 1);
+    setStep(new URLSearchParams(window.location.search).get("task") === "NS-006" ? Math.max(6, parsed.step || 6) : 1);
     setFoundationAnswer(parsed.foundationAnswer || "");
     setFoundationChecked(parsed.foundationChecked || false);
     setMatingAnswer(parsed.matingAnswer || "");
@@ -837,7 +845,7 @@ if (loading) {
 
         <a href="/journey" className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-cyan-100">← Back to Guided Learning Journey</a>
         <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
-          WEEK 1–2 · CONNECTOR ENGINEERING
+          {journeyTask === "NS-005" ? "NS-005 · BASIC CONNECTOR ENGINEERING 1" : "NS-006 · BASIC CONNECTOR ENGINEERING 2"}
         </p>
 
         <h1 className="text-4xl md:text-4xl md:text-6xl font-bold mb-4">
@@ -892,7 +900,7 @@ if (loading) {
 
         {/* STEP 1 */}
 
-        {step === 1 && (
+        {journeyTask === "NS-005" && step === 1 && (
 
           <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
@@ -991,7 +999,7 @@ if (loading) {
 
         {/* STEP 2 */}
 
-        {step === 2 && (
+        {journeyTask === "NS-005" && step === 2 && (
 
           <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
@@ -1150,7 +1158,7 @@ if (loading) {
 
         {/* STEP 3 */}
 
-{step === 3 && (
+{journeyTask === "NS-005" && step === 3 && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
@@ -1364,7 +1372,7 @@ if (loading) {
 
 {/* STEP 4 */}
 
-{step === 4 && (
+{journeyTask === "NS-005" && step === 4 && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
@@ -1739,7 +1747,7 @@ if (loading) {
 
 {/* QUIZ RESULT */}
 
-{quizCompleted && step === 5 && (
+{journeyTask === "NS-005" && quizCompleted && step === 5 && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 text-center">
 
@@ -1892,7 +1900,7 @@ if (loading) {
 
        {/* STEP 6 */}
 
-{step === 6 && (
+{journeyTask === "NS-006" && step === 6 && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
@@ -1987,7 +1995,7 @@ if (loading) {
 
 {/* STEP 7 */}
 
-{step === 7 && (
+{journeyTask === "NS-006" && step === 7 && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
@@ -2051,7 +2059,7 @@ if (loading) {
 
 {/* STEP 8 */}
 
-{step === 8 && (
+{journeyTask === "NS-006" && step === 8 && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 transition-all duration-500">
 
@@ -2125,7 +2133,7 @@ if (loading) {
 
 {/* STEP 9 */}
 
-{step === 9 && (
+{journeyTask === "NS-006" && step === 9 && (
 
   <section className="bg-[#111] border border-gray-800 rounded-3xl p-6 md:p-6 md:p-10 text-center">
 
