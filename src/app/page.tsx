@@ -23,7 +23,7 @@ export default function HomePage() {
       <Link href="/dashboard" className="rounded-xl bg-cyan-300 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">Open demo ↗</Link>
     </div></nav>
     <section className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10">
-      <div><div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/[0.07] px-3.5 py-2 text-xs font-semibold tracking-wide text-cyan-200"><span className="h-2 w-2 rounded-full bg-cyan-300" />CONCEPT PROTOTYPE · IT CONCEPT PROTOTYPE</div>
+      <div>
         <p className="mt-8 text-xs font-bold uppercase tracking-[0.28em] text-cyan-300">A new way to grow product expertise</p>
         <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[1.06] tracking-[-0.045em] sm:text-6xl lg:text-7xl">From new hire to<span className="block bg-gradient-to-r from-cyan-200 via-sky-300 to-indigo-300 bg-clip-text pb-2 text-transparent">confident specialist.</span></h1>
         <p className="mt-7 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">A concept prototype showing how new Molex Product Specialists could experience structured onboarding, technical missions, and guided learning in one place.</p>
