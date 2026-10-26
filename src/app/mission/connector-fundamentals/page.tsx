@@ -666,6 +666,17 @@ if (passed) {
 
   setQuizCompleted(true);
 
+  // Record the Week 1 connector-foundations task in the Guided Learning Journey.
+  try {
+    const journeyKey = "nexus94CompletedTaskIds";
+    const savedTasks = JSON.parse(localStorage.getItem(journeyKey) || "[]");
+    const updatedTasks = Array.isArray(savedTasks) ? [...new Set([...savedTasks, "NS-005"])] : ["NS-005"];
+    localStorage.setItem(journeyKey, JSON.stringify(updatedTasks));
+    localStorage.setItem("nexus94TotalXP", String(updatedTasks.length * 10));
+  } catch (error) {
+    console.error("Unable to sync connector assessment with the learning journey", error);
+  }
+
 awardBadge(
   "Connector Certified"
 );
@@ -824,8 +835,9 @@ if (loading) {
 
         {/* HEADER */}
 
+        <a href="/journey" className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-cyan-100">← Back to Guided Learning Journey</a>
         <p className="text-blue-500 uppercase tracking-[0.3em] text-sm mb-4">
-          Nexus Academy
+          WEEK 1–2 · CONNECTOR ENGINEERING
         </p>
 
         <h1 className="text-4xl md:text-4xl md:text-6xl font-bold mb-4">
@@ -1824,7 +1836,7 @@ if (loading) {
           }}
           className="bg-gray-800 hover:bg-gray-700 px-8 py-4 rounded-2xl font-semibold"
         >
-          Return to Dashboard
+          Return to Learning Journey
         </button>
 
         <button
@@ -2219,7 +2231,17 @@ if (loading) {
           awardBadge(
            "Product Specialist Ready"
           );
-          window.location.href = "/dashboard";
+          // Record the Week 2 connector-engineering continuation in the journey.
+          try {
+            const journeyKey = "nexus94CompletedTaskIds";
+            const savedTasks = JSON.parse(localStorage.getItem(journeyKey) || "[]");
+            const updatedTasks = Array.isArray(savedTasks) ? [...new Set([...savedTasks, "NS-005", "NS-006"])] : ["NS-005", "NS-006"];
+            localStorage.setItem(journeyKey, JSON.stringify(updatedTasks));
+            localStorage.setItem("nexus94TotalXP", String(updatedTasks.length * 10));
+          } catch (error) {
+            console.error("Unable to sync connector learning completion with the journey", error);
+          }
+          window.location.href = "/journey";
         }}
         className="bg-gray-800 hover:bg-gray-700 px-8 py-4 rounded-2xl font-semibold"
       >
