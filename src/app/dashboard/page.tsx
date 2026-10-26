@@ -1,13 +1,16 @@
 "use client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import tasksData from "@/data/nexus-tasks.json";
+
+type Task = (typeof tasksData)[number];
+const TASKS = [...tasksData].sort((a, b) => a.sequenceNumber - b.sequenceNumber);
 const STORAGE_KEY = "nexus94CompletedTaskIds";
 const XP_KEY = "nexus94TotalXP";
-const TASK_COUNT = 94;
 
 export default function DashboardPage() {
-  const [completed, setCompleted] = useState(0);
+  const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [xp, setXp] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
@@ -17,7 +20,9 @@ export default function DashboardPage() {
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
         if (Array.isArray(parsed)) {
-          setCompleted(new Set(parsed.filter((id): id is string => typeof id === "string" && /^NS-\d{3}$/.test(id))).size);
+          setCompletedIds([...new Set(parsed.filter((id): id is string =>
+            typeof id === "string" && TASKS.some((task) => task.taskId === id)
+          ))]);
         }
       }
       setXp(Number(localStorage.getItem(XP_KEY)) || 0);
@@ -28,48 +33,107 @@ export default function DashboardPage() {
     }
   }, []);
 
+  const completed = useMemo(() => new Set(completedIds), [completedIds]);
+  const nextTask = TASKS.find((task) => !completed.has(task.taskId));
+  const progress = Math.round((completedIds.length / TASKS.length) * 100);
+  const finished = completedIds.length === TASKS.length;
+
   function resetProgress() {
-    if (!window.confirm("Reset your learning progress? This will clear 94-task journey progress and XP in this browser.")) return;
+    if (!window.confirm("Reset your learning progress and XP in this browser?")) return;
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(XP_KEY);
-      setCompleted(0);
+      setCompletedIds([]);
       setXp(0);
-    } catch (error) {
-      console.error("Unable to reset learning progress:", error);
-      window.alert("Progress could not be reset. Please check your browser storage settings and try again.");
+    } catch {
+      window.alert("Progress could not be reset. Please check your browser storage settings.");
     }
   }
 
-  const progress = Math.round((completed / TASK_COUNT) * 100);
-  const finished = completed === TASK_COUNT;
+  return (
+    <main className="min-h-screen bg-[#080d18] text-white">
+      <header className="sticky top-0 z-20 border-b border-white/[0.08] bg-[#080d18]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300 font-black text-slate-950">M</div>
+            <div>
+              <p className="text-sm font-bold tracking-[0.12em]">MOLEX NEW HIRE TRAINING</p>
+              <p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p>
+            </div>
+          </Link>
+          <nav className="flex items-center gap-2">
+            <Link href="/journey" className="rounded-xl bg-cyan-300 px-4 py-2.5 text-sm font-bold text-slate-950 hover:bg-cyan-200">Learning Journey →</Link>
+            <Link href="/" className="hidden rounded-xl border border-white/10 px-4 py-2.5 text-sm text-slate-300 hover:text-white sm:inline-flex">Home</Link>
+          </nav>
+        </div>
+      </header>
 
-  return <main className="min-h-screen bg-[#080d18] text-white">
-    <header className="sticky top-0 z-20 border-b border-white/[0.08] bg-[#080d18]/90 backdrop-blur-xl"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-      <Link href="/" className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300 font-black text-slate-950">M</div><div><p className="text-sm font-bold tracking-[0.16em]">MOLEX NEW HIRE TRAINING</p><p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p></div></Link>
-      <div className="flex items-center gap-2 sm:gap-3"><span className="hidden rounded-full border border-amber-200/20 bg-amber-200/[0.06] px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-100 sm:inline-flex">Learning workspace</span><button type="button" onClick={resetProgress} className="rounded-xl border border-white/10 px-3 py-2.5 text-xs font-semibold text-slate-300 transition hover:border-rose-200/30 hover:text-rose-200 sm:px-4">Reset progress</button><Link href="/journey" className="rounded-xl bg-cyan-300 px-3 py-2.5 text-xs font-bold text-slate-950 transition hover:bg-cyan-200 sm:px-4 sm:text-sm">Explore 94-task journey ↗</Link></div>
-    </div></header>
-    <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
-      <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">YOUR DEVELOPMENT SPACE</p><h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Welcome to your journey.</h1><p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">A guided path to build product knowledge, strengthen engineering judgement, and prepare for customer conversations.</p></div><div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-300/10 text-xl text-violet-200">✦</div><div><p className="text-xs text-slate-400">Experience points</p><p className="text-xl font-bold">{loaded ? xp : "—"} <span className="text-xs font-semibold text-violet-200">XP</span></p></div></div></div>
-      <section className="relative overflow-hidden rounded-[1.75rem] border border-cyan-200/15 bg-gradient-to-br from-cyan-300/[0.12] via-[#0e192a] to-indigo-300/[0.08] p-6 sm:p-10"><div className="pointer-events-none absolute -right-20 -top-24 h-80 w-80 rounded-full bg-cyan-300/[0.09] blur-3xl" /><div className="relative grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
-        <div><div className="inline-flex items-center gap-2 rounded-full border border-cyan-200/20 bg-cyan-200/[0.07] px-3 py-1.5 text-xs font-semibold text-cyan-100"><span className="h-1.5 w-1.5 rounded-full bg-cyan-200" />YOUR NEXT CHAPTER</div><h2 className="mt-5 max-w-2xl text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">{finished ? "You’ve completed the sample journey." : completed === 0 ? "Build your expertise, one mission at a time." : "Momentum looks good. Keep going."}</h2><p className="mt-4 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">{finished ? "Review your learning journey or reset your progress to start again." : "Each task has a clear purpose, instructions, and a next step. Complete the current task to unlock what follows."}</p><Link href="/journey" className="mt-7 inline-flex items-center gap-3 rounded-xl bg-cyan-300 px-5 py-3.5 font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200">{finished ? "Review journey" : completed > 0 ? "Resume your journey" : "Start your journey"} →</Link></div>
-        <div className="rounded-2xl border border-white/10 bg-[#08101d]/70 p-5 sm:p-6"><div className="flex items-end justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Journey progress</p><p className="mt-2 text-4xl font-semibold">{loaded ? progress : "—"}<span className="text-xl text-slate-500">%</span></p></div><p className="text-right text-sm text-slate-400">{loaded ? completed + " of " + TASK_COUNT + " sample tasks" : "Loading progress"}</p></div><div className="mt-5 h-2.5 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-sky-400 transition-all duration-700" style={{ width: (loaded ? progress : 0) + "%" }} /></div><div className="mt-5 flex items-center justify-between border-t border-white/[0.08] pt-4 text-xs"><span className="text-slate-400">{finished ? "Journey complete" : "Next task unlocks after completion"}</span><span className="font-semibold text-cyan-200">{loaded ? TASK_COUNT - completed + " remaining" : "—"}</span></div></div>
-      </div></section>
-      <section className="mt-6 grid gap-4 sm:grid-cols-3"><Metric icon="◎" label="Learning sequence" value="Step by step" note="A clear next action" /><Metric icon="✦" label="Learning support" value="AI mentor" note="Conversational help" /><Metric icon="↗" label="Progress model" value="Learner-led" note="Progress tracking" /></section>
-      <section className="mt-10"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">THE EXPERIENCE</p><h2 className="mt-2 text-2xl font-semibold">Your learning toolkit</h2></div><p className="text-xs text-slate-500">Your learning resources</p></div><div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        <Feature href="/journey" n="01" title="Learning journey" text="Follow a structured sequence of tasks, open learning resources, and unlock the next step." status="Available" />
-        <Feature href="/mission/connector-fundamentals" n="02" title="Connector fundamentals" text="Explore connector anatomy, interactive learning steps, and a foundational knowledge check." status="Interactive mission" />
-        <Feature href="/training" n="03" title="AI mentor simulation" text="Try a guided technical conversation and see how a mentor-led learning interaction could work." status="Interactive experience" />
-      </div></section>
-      <section className="mt-8 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 sm:p-7"><div className="flex gap-4"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-200/10 text-amber-100">i</div><div><h3 className="font-semibold">About your learning space</h3><p className="mt-2 max-w-4xl text-sm leading-7 text-slate-400">Learning progress is currently stored in this browser. Shared learner records, approved SharePoint content, enterprise authentication, grounded AI assistance, and reporting can be connected as the platform develops.</p></div></div></section>
-      <footer className="mt-10 flex flex-col gap-2 border-t border-white/[0.08] pt-6 text-xs text-slate-500 sm:flex-row sm:justify-between"><span>Molex New Hire Training · Product Specialist Training</span><Link href="/" className="hover:text-cyan-200">Back to home ↗</Link></footer>
-    </div>
-  </main>;
+      <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
+        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">YOUR LEARNING SPACE</p>
+            <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Welcome back.</h1>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">Pick up where you left off, check your progress, or jump into a technical learning module.</p>
+          </div>
+          <div className="rounded-2xl border border-violet-200/15 bg-violet-200/[0.05] px-5 py-4">
+            <p className="text-xs text-slate-400">Experience points</p>
+            <p className="mt-1 text-2xl font-bold">{loaded ? xp : "—"} <span className="text-sm font-semibold text-violet-200">XP</span></p>
+          </div>
+        </div>
+
+        <section className="mt-8 grid gap-4 sm:grid-cols-3">
+          <Metric label="Journey progress" value={loaded ? progress + "%" : "—"} note={loaded ? completedIds.length + " of " + TASKS.length + " tasks complete" : "Loading progress"} />
+          <Metric label="Tasks remaining" value={loaded ? String(TASKS.length - completedIds.length) : "—"} note="Across the 12-week learning journey" />
+          <Metric label="Current focus" value={finished ? "Completed" : nextTask ? "Week " + nextTask.weekNumber : "Ready to start"} note={finished ? "You have completed every task" : nextTask?.weekTitle ?? "Open the learning journey to begin"} />
+        </section>
+
+        <section className="mt-6 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-cyan-200/15 bg-gradient-to-br from-cyan-300/[0.12] via-[#0e192a] to-indigo-300/[0.08] p-6 sm:p-9">
+            <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-cyan-300/[0.08] blur-3xl" />
+            <div className="relative">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-200">{finished ? "JOURNEY COMPLETE" : "YOUR NEXT STEP"}</p>
+              <h2 className="mt-4 max-w-2xl text-2xl font-semibold leading-tight sm:text-3xl">{finished ? "You’ve completed the learning journey." : nextTask ? nextTask.taskTitle : "Start your learning journey."}</h2>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-slate-300">{finished ? "Review your learning journey or revisit a technical mission." : nextTask ? (nextTask.taskDescription || "Continue through the structured learning path, one task at a time.") : "Explore the structured learning path and begin with the first task."}</p>
+              <Link href="/journey" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-cyan-300 px-5 py-3.5 font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200">{finished ? "Review learning journey" : completedIds.length ? "Continue learning" : "Start learning"} →</Link>
+              <div className="mt-8">
+                <div className="flex items-center justify-between text-xs text-slate-400"><span>Overall progress</span><span>{loaded ? progress : 0}%</span></div>
+                <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-sky-400 transition-all" style={{ width: (loaded ? progress : 0) + "%" }} /></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[1.75rem] border border-white/[0.08] bg-white/[0.025] p-6 sm:p-7">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">QUICK ACCESS</p>
+            <h2 className="mt-3 text-xl font-semibold">Learning resources</h2>
+            <div className="mt-5 space-y-3">
+              <QuickLink href="/journey" number="01" title="Full learning journey" text="Browse all 94 tasks, weekly sections, and task details." />
+              <QuickLink href="/mission/connector-fundamentals" number="02" title="Connector Fundamentals" text="Explore connector anatomy and core engineering concepts." />
+              <QuickLink href="/training" number="03" title="AI Mentor" text="Explore guided technical learning support." />
+            </div>
+          </div>
+        </section>
+
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] pt-5">
+          <p className="text-xs text-slate-500">Progress is saved in this browser.</p>
+          <button type="button" onClick={resetProgress} className="rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-slate-400 transition hover:border-rose-200/30 hover:text-rose-200">Reset progress</button>
+        </div>
+      </div>
+    </main>
+  );
 }
 
-function Metric({ icon, label, value, note }: { icon: string; label: string; value: string; note: string }) {
-  return <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5"><div className="flex items-center justify-between"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{label}</p><span className="text-lg text-cyan-200">{icon}</span></div><p className="mt-4 text-lg font-semibold">{value}</p><p className="mt-1 text-xs text-slate-500">{note}</p></div>;
+function Metric({ label, value, note }: { label: string; value: string; note: string }) {
+  return <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5">
+    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">{label}</p>
+    <p className="mt-3 text-3xl font-semibold">{value}</p>
+    <p className="mt-2 text-xs leading-5 text-slate-500">{note}</p>
+  </div>;
 }
-function Feature({ href, n, title, text, status }: { href: string; n: string; title: string; text: string; status: string }) {
-  return <Link href={href} className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 transition hover:-translate-y-1 hover:border-cyan-200/25 hover:bg-white/[0.04]"><div className="flex items-center justify-between"><span className="text-xs font-bold tracking-[0.18em] text-cyan-200">{n}</span><span className="text-slate-500 transition group-hover:translate-x-1 group-hover:text-cyan-200">↗</span></div><h3 className="mt-5 text-lg font-semibold">{title}</h3><p className="mt-2 min-h-[4.5rem] text-sm leading-6 text-slate-400">{text}</p><div className="mt-5 border-t border-white/[0.08] pt-4 text-xs font-semibold text-cyan-200">{status}</div></Link>;
+
+function QuickLink({ href, number, title, text }: { href: string; number: string; title: string; text: string }) {
+  return <Link href={href} className="group block rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 transition hover:border-cyan-200/25 hover:bg-white/[0.04]">
+    <div className="flex items-center justify-between"><span className="text-xs font-bold tracking-wider text-cyan-200">{number}</span><span className="text-slate-500 transition group-hover:translate-x-1 group-hover:text-cyan-200">↗</span></div>
+    <h3 className="mt-3 font-semibold">{title}</h3>
+    <p className="mt-1 text-sm leading-6 text-slate-400">{text}</p>
+  </Link>;
 }
