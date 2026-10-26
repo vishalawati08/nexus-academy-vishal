@@ -45,6 +45,8 @@ export default function ConnectorFundamentalsMission() {
   const [matingChecked, setMatingChecked] = useState(false);
   const [anatomyAnswer, setAnatomyAnswer] = useState("");
   const [anatomyChecked, setAnatomyChecked] = useState(false);
+  const [challengeKnowledgeAnswer, setChallengeKnowledgeAnswer] = useState("");
+  const [challengeKnowledgeChecked, setChallengeKnowledgeChecked] = useState(false);
 
   const [quizScore, setQuizScore] =
     useState(0);
@@ -106,6 +108,8 @@ useEffect(() => {
     setMatingChecked(parsed.matingChecked || false);
     setAnatomyAnswer(parsed.anatomyAnswer || "");
     setAnatomyChecked(parsed.anatomyChecked || false);
+    setChallengeKnowledgeAnswer(parsed.challengeKnowledgeAnswer || "");
+    setChallengeKnowledgeChecked(parsed.challengeKnowledgeChecked || false);
 
     setXp(parsed.xp || 0);
 
@@ -176,6 +180,8 @@ useEffect(() => {
       matingChecked,
       anatomyAnswer,
       anatomyChecked,
+      challengeKnowledgeAnswer,
+      challengeKnowledgeChecked,
       xp,
       connectorMated,
       exploredParts,
@@ -231,6 +237,8 @@ if (xp > existingXP) {
   matingChecked,
   anatomyAnswer,
   anatomyChecked,
+  challengeKnowledgeAnswer,
+  challengeKnowledgeChecked,
   xp,
   connectorMated,
   exploredParts,
@@ -1374,6 +1382,22 @@ if (loading) {
 
     </div>
 
+    <div className="mb-10 rounded-2xl border border-blue-500/30 bg-blue-500/5 p-6">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-300">Before the challenge</p>
+      <h3 className="mb-4 text-xl font-semibold">For a connector requiring IP67 protection, which feature provides the environmental barrier?</h3>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {["Seal", "Polarization feature", "Guide post", "Terminal contact"].map((option) => (
+          <button key={option} type="button" onClick={() => { setChallengeKnowledgeAnswer(option); setChallengeKnowledgeChecked(false); }}
+            className={"rounded-xl border px-4 py-3 text-left text-sm transition " + (challengeKnowledgeAnswer === option ? "border-blue-400 bg-blue-500/15 text-white" : "border-gray-700 bg-[#181818] text-gray-300 hover:border-gray-500")}>{option}</button>
+        ))}
+      </div>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <button type="button" disabled={!challengeKnowledgeAnswer} onClick={() => { setChallengeKnowledgeChecked(true); if (challengeKnowledgeAnswer === "Seal") awardXP("challenge_inline_check", 10); }}
+          className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40">Check answer</button>
+        {challengeKnowledgeChecked && <p role="status" className={"text-sm " + (challengeKnowledgeAnswer === "Seal" ? "text-green-400" : "text-amber-300")}>{challengeKnowledgeAnswer === "Seal" ? "Correct — the seal provides the environmental barrier; verify the specific connector's rated sealing performance in its approved documentation." : "Try again. Consider which component forms the environmental barrier around the connection."}</p>}
+      </div>
+    </div>
+
     {/* FEATURE SELECTION */}
 
     <h3 className="text-3xl font-bold mb-8">
@@ -1417,9 +1441,9 @@ if (loading) {
 
       <button
         onClick={submitChallenge}
-        disabled={selectedFeatures.length === 0}
+        disabled={selectedFeatures.length === 0 || !challengeKnowledgeChecked || challengeKnowledgeAnswer !== "Seal"}
         className={`px-8 py-4 rounded-2xl font-semibold ${
-          selectedFeatures.length > 0
+          selectedFeatures.length > 0 && challengeKnowledgeChecked && challengeKnowledgeAnswer === "Seal"
             ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03]"
             : "bg-gray-800 text-gray-500"
         }`}
