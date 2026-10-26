@@ -38,9 +38,9 @@ export default function HomePage() {
               <p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p>
             </div>
           </Link>
-          <Link href="/journey" className="rounded-xl bg-cyan-300 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+          <div className="flex items-center gap-2"><Link href="/manager" className="hidden rounded-xl border border-white/10 px-3 py-2.5 text-sm font-semibold text-slate-300 hover:border-cyan-200/30 hover:text-cyan-100 sm:inline-flex">Manager Portal</Link><Link href="/journey" className="rounded-xl bg-cyan-300 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
             Start learning <span aria-hidden="true">→</span>
-          </Link>
+          </Link></div>
         </div>
       </nav>
 
