@@ -1,50 +1,103 @@
 "use client";
+
 import Link from "next/link";
 
-const features = [
-  { n: "01", tag: "LEARN", title: "Guided learning paths", text: "A sequenced learning journey with clear tasks, objectives, resources, and next steps." },
-  { n: "02", tag: "PRACTICE", title: "Interactive technical missions", text: "Move beyond passive reading with guided exploration, connector concepts, and knowledge checks." },
-  { n: "03", tag: "ASK", title: "AI mentor experience", text: "A conversational learning companion to help learners explore questions and technical ideas." },
-  { n: "04", tag: "MEASURE", title: "Progress visibility", text: "Make task completion, learning milestones, and future readiness reviews easier to discuss." },
-];
-const phases = [
-  { n: "01", weeks: "WEEKS 01–03", title: "Build the foundations", text: "Connector fundamentals, core components, terminology, and how connectivity works." },
-  { n: "02", weeks: "WEEKS 04–06", title: "Know the portfolio", text: "Product-family discovery, application fit, differentiators, and technical specifications." },
-  { n: "03", weeks: "WEEKS 07–09", title: "Apply the knowledge", text: "Customer scenarios, product-selection thinking, and practical engineering exercises." },
-  { n: "04", weeks: "WEEKS 10–12", title: "Demonstrate readiness", text: "Knowledge checks, scenario-based assessments, reflection, and readiness review." },
+const destinations = [
+  {
+    number: "01",
+    title: "Learning Journey",
+    description: "Follow the structured onboarding path, explore weekly learning tasks, and track completion.",
+    href: "/journey",
+    action: "Explore learning journey",
+  },
+  {
+    number: "02",
+    title: "Dashboard",
+    description: "See your overall progress, experience points, remaining tasks, and recommended next step.",
+    href: "/dashboard",
+    action: "View dashboard",
+  },
+  {
+    number: "03",
+    title: "Connector Fundamentals",
+    description: "Build core connector engineering knowledge through an interactive technical learning module.",
+    href: "/mission/connector-fundamentals",
+    action: "Open technical mission",
+  },
 ];
 
 export default function HomePage() {
-  return <main className="min-h-screen overflow-hidden bg-[#080d18] text-white">
-    <div className="pointer-events-none fixed inset-0 -z-0 overflow-hidden" aria-hidden="true"><div className="absolute -right-40 -top-48 h-[34rem] w-[34rem] rounded-full bg-cyan-500/10 blur-[120px]" /><div className="absolute -left-48 top-[42rem] h-[34rem] w-[34rem] rounded-full bg-indigo-500/10 blur-[120px]" /></div>
-    <nav className="relative z-10 border-b border-white/[0.08] bg-[#080d18]/85 backdrop-blur-xl"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-      <Link href="/" className="flex items-center gap-3"><div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-300 text-lg font-black text-slate-950">M</div><div><p className="text-sm font-bold tracking-[0.18em]">MOLEX NEW HIRE TRAINING</p><p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p></div></Link>
-      <div className="hidden items-center gap-6 text-sm text-slate-300 md:flex"><Link href="/journey" className="hover:text-cyan-200">Learning Journey</Link><Link href="/dashboard" className="hover:text-cyan-200">Dashboard</Link><Link href="/mission/connector-fundamentals" className="hover:text-cyan-200">Technical Mission</Link><a href="#platform" className="hover:text-cyan-200">About the Programme</a></div>
-      <Link href="/dashboard" className="rounded-xl bg-cyan-300 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">Open Dashboard ↗</Link>
-    </div></nav>
-    <section className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10">
-      <div>
-        <p className="mt-8 text-xs font-bold uppercase tracking-[0.28em] text-cyan-300">A new way to grow product expertise</p>
-        <h1 className="mt-5 max-w-3xl text-5xl font-semibold leading-[1.06] tracking-[-0.045em] sm:text-6xl lg:text-7xl">From new hire to<span className="block bg-gradient-to-r from-cyan-200 via-sky-300 to-indigo-300 bg-clip-text pb-2 text-transparent">confident specialist.</span></h1>
-        <p className="mt-7 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">A guided learning experience for new Molex Product Specialists, bringing structured onboarding, technical missions, and learning progress into one place.</p>
-        <div className="mt-9 flex flex-col gap-3 sm:flex-row"><Link href="/dashboard" className="inline-flex items-center justify-center gap-3 rounded-xl bg-cyan-300 px-6 py-4 font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200">Explore the experience →</Link><a href="#journey" className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.03] px-6 py-4 font-semibold transition hover:border-white/30 hover:bg-white/[0.06]">View proposed journey</a></div>
-        <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-400"><span><b className="mr-2 text-cyan-300">✓</b>Task-by-task guidance</span><span><b className="mr-2 text-cyan-300">✓</b>Practical learning</span><span><b className="mr-2 text-cyan-300">✓</b>Designed to scale</span></div>
-      </div>
-      <div className="relative mx-auto w-full max-w-xl"><div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-cyan-400/15 via-transparent to-indigo-400/15 blur-2xl" /><div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0e1727]/95 shadow-2xl shadow-black/40">
-        <div className="flex items-center justify-between border-b border-white/[0.08] px-5 py-4"><div className="flex items-center gap-3"><div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-300/10 text-cyan-200">✳</div><div><p className="text-sm font-semibold">Learning cockpit</p><p className="text-xs text-slate-500">Learning workspace</p></div></div><span className="rounded-full border border-emerald-300/20 bg-emerald-300/[0.08] px-2.5 py-1 text-[10px] font-bold uppercase text-emerald-200">In progress</span></div>
-        <div className="p-5 sm:p-7"><div className="rounded-2xl border border-cyan-200/15 bg-gradient-to-br from-cyan-300/[0.10] to-indigo-300/[0.06] p-5"><p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">Your next mission</p><h2 className="mt-3 text-2xl font-semibold">Connector fundamentals</h2><p className="mt-2 text-sm leading-6 text-slate-300">Explore connector anatomy, understand component functions, then test your knowledge.</p><div className="mt-5 flex justify-between text-xs text-slate-400"><span>Learning path · Sample task</span><span>~20 min</span></div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10"><div className="h-full w-[62%] rounded-full bg-gradient-to-r from-cyan-300 to-sky-400" /></div></div>
-          <div className="mt-4 grid grid-cols-3 gap-3">{[{label:"LEARN",title:"Discover",detail:"Core concepts"},{label:"PRACTICE",title:"Explore",detail:"Interactive task"},{label:"VALIDATE",title:"Check",detail:"Knowledge quiz"}].map((item) => <div key={item.label} className="rounded-xl border border-white/[0.08] bg-white/[0.025] p-3"><p className="text-[10px] uppercase tracking-wider text-slate-500">{item.label}</p><p className="mt-2 text-sm font-semibold">{item.title}</p><p className="mt-1 text-xs text-slate-400">{item.detail}</p></div>)}</div>
-          <div className="mt-5 flex items-center gap-3 rounded-xl border border-white/[0.07] bg-black/20 p-4"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-violet-300/10 text-lg text-violet-200">✦</div><div><p className="text-sm font-semibold">AI Mentor</p><p className="mt-1 text-xs leading-5 text-slate-400">Ask questions. Explore concepts. Learn at your pace.</p></div></div>
-        </div><div className="flex justify-between border-t border-white/[0.08] px-5 py-3 text-[11px] text-slate-500"><span>Sample interface · Not production analytics</span><span>MOLEX / 01</span></div>
-      </div></div>
-    </section>
-    <section id="platform" className="relative z-10 border-y border-white/[0.07] bg-white/[0.02]"><div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20"><div className="max-w-2xl"><p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">One connected experience</p><h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Learning that moves beyond a checklist.</h2><p className="mt-4 leading-7 text-slate-400">A focused experience that helps learners know what to do, why it matters, and what comes next.</p></div>
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{features.map((f) => <article key={f.n} className="group rounded-2xl border border-white/[0.09] bg-[#0b1220] p-6 transition hover:-translate-y-1 hover:border-cyan-200/25"><div className="flex items-center justify-between"><span className="text-sm font-semibold text-cyan-200">{f.n}</span><span className="rounded-full border border-white/10 px-2.5 py-1 text-[10px] font-bold tracking-[0.16em] text-slate-400">{f.tag}</span></div><h3 className="mt-7 text-xl font-semibold">{f.title}</h3><p className="mt-3 text-sm leading-7 text-slate-400">{f.text}</p></article>)}</div>
-    </div></section>
-    <section id="journey" className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24"><div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]"><div><p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">Proposed learning architecture</p><h2 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">A 12-week journey. One clear next step.</h2><p className="mt-5 leading-8 text-slate-400">The target model is progressive: build fundamentals, understand the portfolio, apply the learning, then demonstrate readiness. The full curriculum and timelines should be validated with Product Management and training owners.</p><Link href="/journey" className="mt-7 inline-flex items-center gap-2 font-semibold text-cyan-200 hover:text-cyan-100">Open learning journey →</Link></div>
-      <div className="space-y-3">{phases.map((p) => <div key={p.n} className="flex gap-5 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 sm:p-6"><div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-200/15 bg-cyan-200/[0.07] text-sm font-bold text-cyan-200">{p.n}</div><div><p className="text-[10px] font-bold tracking-[0.2em] text-cyan-200">{p.weeks}</p><h3 className="mt-1.5 text-lg font-semibold">{p.title}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{p.text}</p></div></div>)}</div>
-    </div></section>
-    <section id="outcomes" className="relative z-10 mx-auto max-w-7xl px-5 pb-20 sm:px-8 sm:pb-24"><div className="rounded-[1.75rem] border border-cyan-200/15 bg-gradient-to-br from-cyan-300/[0.10] via-[#0d1727] to-indigo-300/[0.07] p-7 sm:p-12"><div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]"><div><p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-200">Designed for measurable development</p><h2 className="mt-4 max-w-3xl text-3xl font-semibold sm:text-4xl">Make the learning path visible. Make progress easier to discuss.</h2><p className="mt-4 max-w-2xl leading-7 text-slate-300">The experience brings guided learning and technical practice together. Shared progress, approved content integration, validated assessment standards, and reporting can be added as the platform evolves.</p></div><Link href="/dashboard" className="inline-flex items-center justify-center gap-3 rounded-xl bg-cyan-300 px-6 py-4 font-bold text-slate-950 hover:bg-cyan-200">Open Dashboard →</Link></div></div></section>
-    <footer className="relative z-10 border-t border-white/[0.08]"><div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-7 text-xs text-slate-500 sm:flex-row sm:justify-between sm:px-8"><span>Molex New Hire Training · Product Specialist Training</span><span>Product Specialist learning experience</span></div></footer>
-  </main>;
+  return (
+    <main className="min-h-screen bg-[#080d18] text-white">
+      <nav className="border-b border-white/[0.08] bg-[#080d18]/90">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-300 text-lg font-black text-slate-950">M</div>
+            <div>
+              <p className="text-sm font-bold tracking-[0.12em]">MOLEX NEW HIRE TRAINING</p>
+              <p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p>
+            </div>
+          </Link>
+          <Link href="/journey" className="rounded-xl bg-cyan-300 px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+            Start learning <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </nav>
+
+      <section className="mx-auto max-w-7xl px-5 pb-12 pt-16 sm:px-8 sm:pb-16 sm:pt-24">
+        <div className="max-w-3xl">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-300">PRODUCT SPECIALIST TRAINING</p>
+          <h1 className="mt-5 text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
+            Build product knowledge.
+            <span className="mt-1 block bg-gradient-to-r from-cyan-200 to-sky-300 bg-clip-text text-transparent">Grow technical confidence.</span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+            A guided learning space for new Molex Product Specialists, bringing onboarding tasks, technical learning, and progress tracking together.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
+          {destinations.map((item) => (
+            <Link
+              key={item.number}
+              href={item.href}
+              className="group flex min-h-[245px] flex-col rounded-2xl border border-white/[0.09] bg-white/[0.025] p-6 transition hover:-translate-y-1 hover:border-cyan-200/30 hover:bg-white/[0.045]"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold tracking-[0.18em] text-cyan-200">{item.number}</span>
+                <span className="text-slate-500 transition group-hover:translate-x-1 group-hover:text-cyan-200" aria-hidden="true">↗</span>
+              </div>
+              <h2 className="mt-8 text-xl font-semibold">{item.title}</h2>
+              <p className="mt-3 flex-1 text-sm leading-7 text-slate-400">{item.description}</p>
+              <span className="mt-6 border-t border-white/[0.08] pt-4 text-sm font-semibold text-cyan-200">{item.action} <span aria-hidden="true">→</span></span>
+            </Link>
+          ))}
+        </div>
+
+        <section className="mt-12 rounded-2xl border border-white/[0.08] bg-[#0c1422] p-6 sm:p-8">
+          <div className="grid gap-6 sm:grid-cols-3">
+            <div>
+              <p className="text-sm font-semibold">Learn step by step</p>
+              <p className="mt-2 text-sm leading-6 text-slate-400">Work through tasks in a clear sequence, with objectives and guidance.</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold">Apply technical knowledge</p>
+              <p className="mt-2 text-sm leading-6 text-slate-400">Use interactive learning activities to explore connector engineering fundamentals.</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold">Keep track of progress</p>
+              <p className="mt-2 text-sm leading-6 text-slate-400">See completed tasks, what remains, and where to continue next.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <footer className="border-t border-white/[0.08]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <span>Molex New Hire Training</span>
+          <span>Product Specialist Training</span>
+        </div>
+      </footer>
+    </main>
+  );
 }
