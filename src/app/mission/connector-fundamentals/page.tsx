@@ -41,6 +41,10 @@ export default function ConnectorFundamentalsMission() {
 
   const [foundationAnswer, setFoundationAnswer] = useState("");
   const [foundationChecked, setFoundationChecked] = useState(false);
+  const [matingAnswer, setMatingAnswer] = useState("");
+  const [matingChecked, setMatingChecked] = useState(false);
+  const [anatomyAnswer, setAnatomyAnswer] = useState("");
+  const [anatomyChecked, setAnatomyChecked] = useState(false);
 
   const [quizScore, setQuizScore] =
     useState(0);
@@ -98,6 +102,10 @@ useEffect(() => {
     setStep(parsed.step || 1);
     setFoundationAnswer(parsed.foundationAnswer || "");
     setFoundationChecked(parsed.foundationChecked || false);
+    setMatingAnswer(parsed.matingAnswer || "");
+    setMatingChecked(parsed.matingChecked || false);
+    setAnatomyAnswer(parsed.anatomyAnswer || "");
+    setAnatomyChecked(parsed.anatomyChecked || false);
 
     setXp(parsed.xp || 0);
 
@@ -164,6 +172,10 @@ useEffect(() => {
       step,
       foundationAnswer,
       foundationChecked,
+      matingAnswer,
+      matingChecked,
+      anatomyAnswer,
+      anatomyChecked,
       xp,
       connectorMated,
       exploredParts,
@@ -215,6 +227,10 @@ if (xp > existingXP) {
   step,
   foundationAnswer,
   foundationChecked,
+  matingAnswer,
+  matingChecked,
+  anatomyAnswer,
+  anatomyChecked,
   xp,
   connectorMated,
   exploredParts,
@@ -1038,6 +1054,22 @@ if (loading) {
 
             </div>
 
+            <div className="mb-8 rounded-2xl border border-blue-500/30 bg-blue-500/5 p-6">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-300">Quick knowledge check</p>
+              <h3 className="mb-4 text-xl font-semibold">When two compatible connectors are fully mated, what should be established through their contacts?</h3>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {["Electrical continuity", "An intentional open circuit", "Higher contact resistance", "Mechanical separation"].map((option) => (
+                  <button key={option} type="button" onClick={() => { setMatingAnswer(option); setMatingChecked(false); }}
+                    className={"rounded-xl border px-4 py-3 text-left text-sm transition " + (matingAnswer === option ? "border-blue-400 bg-blue-500/15 text-white" : "border-gray-700 bg-[#181818] text-gray-300 hover:border-gray-500")}>{option}</button>
+                ))}
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <button type="button" disabled={!matingAnswer} onClick={() => { setMatingChecked(true); if (matingAnswer === "Electrical continuity") awardXP("mating_inline_check", 10); }}
+                  className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40">Check answer</button>
+                {matingChecked && <p role="status" className={"text-sm " + (matingAnswer === "Electrical continuity" ? "text-green-400" : "text-amber-300")}>{matingAnswer === "Electrical continuity" ? "Correct — the contacts should establish an electrical path when properly mated." : "Try again. Review what the contacts are intended to do when the connector is mated."}</p>}
+              </div>
+            </div>
+
             <div className="flex flex-col md:flex-row gap-6">
 
               <button
@@ -1068,7 +1100,7 @@ if (loading) {
 
               <button
                 onClick={nextStep}
-                disabled={!connectorMated}
+                disabled={!connectorMated || !matingChecked || matingAnswer !== "Electrical continuity"}
                 className={`px-8 py-4 rounded-2xl ${
                   connectorMated
                     ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03]"
@@ -1260,11 +1292,27 @@ if (loading) {
 
     </div>
 
+    <div className="mb-8 rounded-2xl border border-blue-500/30 bg-blue-500/5 p-6">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-300">Apply what you learned</p>
+      <h3 className="mb-4 text-xl font-semibold">Which connector component helps prevent incorrect or reversed mating?</h3>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {["Polarization feature", "Seal", "Terminal plating", "Cable insulation"].map((option) => (
+          <button key={option} type="button" onClick={() => { setAnatomyAnswer(option); setAnatomyChecked(false); }}
+            className={"rounded-xl border px-4 py-3 text-left text-sm transition " + (anatomyAnswer === option ? "border-blue-400 bg-blue-500/15 text-white" : "border-gray-700 bg-[#181818] text-gray-300 hover:border-gray-500")}>{option}</button>
+        ))}
+      </div>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <button type="button" disabled={!anatomyAnswer} onClick={() => { setAnatomyChecked(true); if (anatomyAnswer === "Polarization feature") awardXP("anatomy_inline_check", 10); }}
+          className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40">Check answer</button>
+        {anatomyChecked && <p role="status" className={"text-sm " + (anatomyAnswer === "Polarization feature" ? "text-green-400" : "text-amber-300")}>{anatomyAnswer === "Polarization feature" ? "Correct — polarization features guide orientation and help prevent incorrect mating." : "Try again. Think about the feature designed to control connector orientation."}</p>}
+      </div>
+    </div>
+
     <button
       onClick={nextStep}
-      disabled={exploredParts.length < 3}
+      disabled={exploredParts.length < 3 || !anatomyChecked || anatomyAnswer !== "Polarization feature"}
       className={`px-8 py-4 rounded-2xl font-semibold transition ${
-        exploredParts.length >= 3
+        exploredParts.length >= 3 && anatomyChecked && anatomyAnswer === "Polarization feature"
           ? "bg-blue-600 hover:bg-blue-500 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)] transition-all duration-300 hover:scale-[1.03]"
           : "bg-gray-800 text-gray-500"
       }`}
