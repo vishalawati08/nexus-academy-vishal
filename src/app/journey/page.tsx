@@ -37,7 +37,7 @@ export default function JourneyPage() {
         if (Array.isArray(parsed)) setCompleted([...new Set(parsed.filter((id): id is string => typeof id === "string" && TASKS.some(t => t.taskId === id)))]);
       }
     } catch (error) {
-      console.error("Unable to load Nexus journey progress", error);
+      console.error("Unable to load Molex journey progress", error);
     } finally {
       setLoaded(true);
     }
@@ -65,21 +65,21 @@ export default function JourneyPage() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       localStorage.setItem(XP_KEY, String(updated.length * 10));
     } catch (error) {
-      console.error("Unable to save Nexus journey progress", error);
+      console.error("Unable to save Molex journey progress", error);
     }
     const next = TASKS.find(t => !updated.includes(t.taskId));
     if (next) setSelectedId(next.taskId);
   }
 
   function resetProgress() {
-    if (!window.confirm("Reset all 94-task Nexus Academy demo progress in this browser?")) return;
+    if (!window.confirm("Reset all 94-task Molex training demo progress in this browser?")) return;
     setCompleted([]);
     setSelectedId("NS-001");
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(XP_KEY);
     } catch (error) {
-      console.error("Unable to reset Nexus journey progress", error);
+      console.error("Unable to reset Molex journey progress", error);
     }
   }
 
@@ -88,8 +88,8 @@ export default function JourneyPage() {
   return <main className="min-h-screen bg-[#080d18] text-white">
     <header className="sticky top-0 z-30 border-b border-white/[0.08] bg-[#080d18]/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-4 sm:px-8">
-        <Link href="/" className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300 font-black text-slate-950">N</div><div><p className="text-sm font-bold tracking-[0.16em]">NEXUS ACADEMY</p><p className="mt-0.5 text-xs text-slate-400">Product Specialist learning journey</p></div></Link>
-        <div className="flex items-center gap-2"><StatusPill tone="amber">Prototype mode</StatusPill><Link href="/dashboard" className="rounded-xl border border-white/10 px-3 py-2 text-xs font-semibold text-slate-300 hover:border-cyan-200/30 hover:text-cyan-100">Dashboard</Link></div>
+        <Link href="/" className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300 font-black text-slate-950">M</div><div><p className="text-sm font-bold tracking-[0.16em]">MOLEX NEW HIRE TRAINING</p><p className="mt-0.5 text-xs text-slate-400">Product Specialist Training</p></div></Link>
+        <div className="flex items-center gap-2"><StatusPill tone="amber">Prototype mode</StatusPill><nav className="flex items-center gap-2"><Link href="/dashboard" className="rounded-xl border border-white/10 px-3 py-2 text-xs font-semibold text-slate-300 hover:border-cyan-200/30 hover:text-cyan-100">Dashboard</Link><Link href="/mission/connector-fundamentals" className="rounded-xl border border-white/10 px-3 py-2 text-xs font-semibold text-slate-300 hover:border-cyan-200/30 hover:text-cyan-100">Technical Mission</Link></nav></div>
       </div>
     </header>
 
