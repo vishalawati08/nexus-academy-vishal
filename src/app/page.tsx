@@ -17,13 +17,6 @@ const destinations = [
     href: "/dashboard",
     action: "View dashboard",
   },
-  {
-    number: "03",
-    title: "Connector Fundamentals",
-    description: "Build core connector engineering knowledge through an interactive technical learning module.",
-    href: "/mission/connector-fundamentals",
-    action: "Open technical mission",
-  },
 ];
 
 export default function HomePage() {
